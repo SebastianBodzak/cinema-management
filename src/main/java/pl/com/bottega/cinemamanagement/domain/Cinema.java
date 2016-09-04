@@ -15,9 +15,9 @@ public class Cinema {
 
     @Override
     public String toString() {
-        return "Cinema{" +
-                "city='" + city + '\'' +
-                ", name='" + name + '\'' +
+        return "CinemaCinema{" +
+                "city ='" + city + '\'' +
+                ", name ='" + name + '\'' +
                 '}';
     }
 }
