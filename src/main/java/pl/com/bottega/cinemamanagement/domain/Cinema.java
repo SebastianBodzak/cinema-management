@@ -18,7 +18,7 @@ public class Cinema {
     }
 
     public String getName() {
-        return city;
+        return name;
     }
 
     @Override
