@@ -15,11 +15,11 @@ public class AdminPanel {
     }
 
 
-    public              void abrakadasa(){
+    public void abrakadasa() {
         int awdawdawdawd;
-                        String aawdawdaw;
+        String aawdawdaw;
 
 
-                                                                                        char awdawdawdawdawdawdawd;
+        char awdawdawdawdawdawdawd;
     }
 }
