@@ -13,11 +13,19 @@ public class Cinema {
         this.city = city;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
-        return "Cinema{" +
-                "city='" + city + '\'' +
-                ", name='" + name + '\'' +
+        return "CinemaCinema{" +
+                "city ='" + city + '\'' +
+                ", name ='" + name + '\'' +
                 '}';
     }
 }
