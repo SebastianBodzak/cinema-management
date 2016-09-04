@@ -12,4 +12,12 @@ public class Cinema {
         this.name = name;
         this.city = city;
     }
+
+    @Override
+    public String toString() {
+        return "Cinema{" +
+                "city='" + city + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
