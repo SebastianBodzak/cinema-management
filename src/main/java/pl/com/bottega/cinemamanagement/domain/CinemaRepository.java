@@ -5,5 +5,5 @@ package pl.com.bottega.cinemamanagement.domain;
  */
 public interface CinemaRepository {
     void save(Cinema cinema);
-    void load(String name, String city);
+    Cinema load(String name, String city);
 }
