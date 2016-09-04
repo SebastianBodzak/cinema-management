@@ -10,5 +10,7 @@ public class InvalidRequestException extends RuntimeException {
         super("invalid request"); //TODO
     }
 
-
+    public InvalidRequestException(String message) {
+        super(message);
+    }
 }
