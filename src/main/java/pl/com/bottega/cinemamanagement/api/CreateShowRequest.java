@@ -13,6 +13,14 @@ public class CreateShowRequest {
     private CalendarDto calendar;
 
     public void validate() {
-        //todo
+        if (movieId == null) {
+            throw new InvalidRequestException("value movieID can not be empty");
+        }
+
+        if (dates == null && calendar == null) {
+            throw new InvalidRequestException("value date can not be empty");
+        }
+
+
     }
 }

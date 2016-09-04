@@ -7,7 +7,7 @@ import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
  */
 public class CreateCinemaRequest {
 
-    private CinemaDto cinemaDto;
+    private CinemaDto cinema;
 
     public class CinemaDto {
 
@@ -29,27 +29,40 @@ public class CreateCinemaRequest {
         public void setCity(String city) {
             this.city = city;
         }
+
+        public void validate() {
+            if (name == null) {
+                throw new InvalidRequestException("value NAME can not be empty");
+            }
+
+            if (city == null) {
+                throw new InvalidRequestException("value CITY can not be empty");
+            }
+
+        }
     }
 
-    public CinemaDto getCinemaDto() {
-        return cinemaDto;
+    public CinemaDto getCinema() {
+        return cinema;
     }
 
-    public void setCinemaDto(CinemaDto cinemaDto) {
-        this.cinemaDto = cinemaDto;
+    public void setCinema(CinemaDto cinema) {
+        this.cinema = cinema;
     }
 
     public void validate(CinemaRepository repository) {
-        if (name == null) {
-            throw new InvalidRequestException("value NAME can not be empty");
-        }
-
-        if (city == null) {
-            throw new InvalidRequestException("value CITY can not be empty");
-        }
-
+        if (cinema == null)
+            throw new InvalidRequestException("Cinema is required");
+        cinema.validate();
     }
 
+    public String getName() {
+        return cinema.getName();
+    }
+
+    public String getCity() {
+        return cinema.getCity();
+    }
 }
 
 
