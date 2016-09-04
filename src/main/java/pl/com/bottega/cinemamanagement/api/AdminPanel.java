@@ -4,6 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
+import pl.com.bottega.cinemamanagement.domain.Movie;
+import pl.com.bottega.cinemamanagement.domain.MovieRepository;
+
+import java.util.List;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -12,6 +16,7 @@ import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
 public class AdminPanel {
 
     private CinemaRepository cinemaRepository;
+    private MovieRepository movieRepository;
 
     public AdminPanel(CinemaRepository cinemaRepository) {
         this.cinemaRepository = cinemaRepository;
@@ -29,7 +34,11 @@ public class AdminPanel {
     }
 
     public void createMovie(CreateMovieRequest request) {
-        //todo
+        Movie movie = new Movie(request.getMovie().getTitle(), request.getMovie().getDescription(),
+                                request.getMovie().getActors(), request.getMovie().getGeners(),
+                                request.getMovie().getMinAge(), request.getMovie().getLenght());
+        movieRepository.save(movie);
+
     }
 
     public void createShow(CreateShowRequest request) {
