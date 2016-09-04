@@ -5,5 +5,17 @@ package pl.com.bottega.cinemamanagement.api;
  */
 public class AdminPanel {
 
+    public void createCinema(CreateCinemaRequest request) {
+        //todo
+    }
+
+    public void createMovie(CreateMovieRequest request) {
+        //todo
+    }
+
+    public void createShow(CreateShowRequest request) {
+        //todo
+    }
+
 
 }
