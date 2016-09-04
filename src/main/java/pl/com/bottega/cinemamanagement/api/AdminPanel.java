@@ -10,7 +10,16 @@ public class AdminPanel {
     public void createFilm() {
     }
 
-    public int addAdmin(){
-        return admin*3;
+    public int addAdmin() {
+        return admin * 3;
+    }
+
+
+    public              void abrakadasa(){
+        int awdawdawdawd;
+                        String aawdawdaw;
+
+
+                                                                                        char awdawdawdawdawdawdawd;
     }
 }
