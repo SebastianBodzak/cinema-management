@@ -3,11 +3,13 @@ package pl.com.bottega.cinemamanagement.ui;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * Created by ulvar on 04.09.2016.
  */
+@ControllerAdvice
 public class ErrorHandler {
 
     @ExceptionHandler//(AuthRequiredException.class)
