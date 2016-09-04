@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
 /**
@@ -14,11 +15,11 @@ import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 public class ErrorHandler {
 
     @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<String> handleInvalidRequestException() {
+    public ResponseEntity<String> handleInvalidRequestException(MultipartHttpServletRequest servletRequest, InvalidRequestException exception) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
         return new ResponseEntity<String>(
-                "{'error': 'Value can not be empty?'}", //TODO
+                "{'error': '" + exception.getMessage() + "' }",
                 headers,
                 HttpStatus.UNPROCESSABLE_ENTITY
         );
