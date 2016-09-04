@@ -14,7 +14,7 @@ import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 public class ErrorHandler {
 
     @ExceptionHandler(InvalidRequestException.class)
-    public ResponseEntity<String> handleInvalidRequestException() {
+    public ResponseEntity<String> handleInvalidRequestException(InvalidRequestException exception) {
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
         return new ResponseEntity<String>(

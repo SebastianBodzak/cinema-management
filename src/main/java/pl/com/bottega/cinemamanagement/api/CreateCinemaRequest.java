@@ -40,11 +40,11 @@ public class CreateCinemaRequest {
     }
 
     public void validate(CinemaRepository repository) {
-        if (name == null) {
+        if (getCinemaDto().getName() == null) {
             throw new InvalidRequestException("value NAME can not be empty");
         }
 
-        if (city == null) {
+        if (getCinemaDto().getCity() == null) {
             throw new InvalidRequestException("value CITY can not be empty");
         }
 
