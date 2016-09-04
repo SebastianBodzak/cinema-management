@@ -12,7 +12,7 @@ public class CreateCinemaRequest {
 
     public void validate(CinemaRepository repository) {
         if (name == null) {
-            throw new InvalidRequestException("value name can not be empty");
+            throw new InvalidRequestException("value NAME can not be empty");
         }
 
         if (city == null) {
@@ -21,7 +21,7 @@ public class CreateCinemaRequest {
 
     }
 
-    }
+}
 
 
 
