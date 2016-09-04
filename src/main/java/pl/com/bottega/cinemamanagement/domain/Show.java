@@ -11,4 +11,9 @@ public class Show {
     private Movie movie;
     private Date date;
 
+    public Show(Cinema cinema, Date date, Movie movie) {
+        this.cinema = cinema;
+        this.date = date;
+        this.movie = movie;
+    }
 }
