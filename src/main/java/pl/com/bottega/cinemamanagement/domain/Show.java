@@ -10,4 +10,5 @@ public class Show {
     private Cinema cinema;
     private Movie movie;
     private Date date;
+
 }
