@@ -1,9 +1,18 @@
 package pl.com.bottega.cinemamanagement.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Created by bartosz.paszkowski on 04.09.2016.
  */
+@Entity
 public class Cinema {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String name;
     private String city;
