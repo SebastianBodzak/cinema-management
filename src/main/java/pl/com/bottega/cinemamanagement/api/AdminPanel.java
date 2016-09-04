@@ -5,23 +5,16 @@ package pl.com.bottega.cinemamanagement.api;
  */
 public class AdminPanel {
 
-
-
-    public void abrakadasa() {
-        int awdawdawdawd;
-        String aawdawdaw;
-
-
-        char awdawdawdawdawdawdawd;
+    public void createCinema(CreateCinemaRequest request) {
+        //todo
     }
 
-    int admin = 1;
-
-    public void createFilm() {
+    public void createMovie(CreateMovieRequest request) {
+        //todo
     }
 
-    public int addAdmin() {
-        return admin * 3;
+    public void createShow(CreateShowRequest request) {
+        //todo
     }
 
 
