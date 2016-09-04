@@ -12,6 +12,17 @@ public class CreateMovieRequest {
     private Collection<String> actors;
 
     public void validate() {
-        //todo
+        if (title == null) {
+            throw new InvalidRequestException("value TITLE can not be empty");
+        }
+
+        if (description == null) {
+            throw new InvalidRequestException("value DESCRIPTION can not be empty");
+        }
+
+        if (actors == null) {
+            throw new InvalidRequestException("value ACTORS can not be empty");
+        }
+
     }
 }
