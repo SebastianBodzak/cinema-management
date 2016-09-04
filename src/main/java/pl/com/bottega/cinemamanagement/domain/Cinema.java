@@ -13,6 +13,14 @@ public class Cinema {
         this.city = city;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "CinemaCinema{" +
