@@ -31,7 +31,7 @@ public class JPACinemaRepository implements CinemaRepository {
 
         List<Cinema> cinemas = entityManager.createQuery("FROM Cinema c WHERE c.name =:name AND c.city =:city ", Cinema.class).setParameter("city", city)
                 .setParameter("name", name).getResultList();
-        if (cinemas == null)
+        if (cinemas.isEmpty())
             return null;
         return cinemas.get(0);
     }
