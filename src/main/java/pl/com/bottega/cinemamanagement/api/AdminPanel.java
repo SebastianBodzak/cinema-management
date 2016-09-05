@@ -18,8 +18,9 @@ public class AdminPanel {
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
 
-    public AdminPanel(CinemaRepository cinemaRepository) {
+    public AdminPanel(CinemaRepository cinemaRepository, MovieRepository movieRepository) {
         this.cinemaRepository = cinemaRepository;
+        this.movieRepository = movieRepository;
     }
 
     @Transactional
@@ -33,10 +34,11 @@ public class AdminPanel {
             throw new InvalidRequestException("Cinema already exists");
     }
 
+    @Transactional
     public void createMovie(CreateMovieRequest request) {
-        Movie movie = new Movie(request.getMovie().getTitle(), request.getMovie().getDescription(),
-                                request.getMovie().getActors(), request.getMovie().getGeners(),
-                                request.getMovie().getMinAge(), request.getMovie().getLenght());
+        Movie movie = MovieFactory.createMovie(request);
+        if (movie == null)
+
         movieRepository.save(movie);
 
     }

@@ -76,18 +76,25 @@ public class CreateMovieRequest {
         }
 
         public void validate() {
-            if (title == null) {
+            if (title == null || title.trim().isEmpty())
                 throw new InvalidRequestException("value TITLE can not be empty");
-            }
 
-            if (description == null) {
+            if (description == null || description.trim().isEmpty())
                 throw new InvalidRequestException("value DESCRIPTION can not be empty");
-            }
 
-            if (actors == null) {
+            if (actors == null)
+                //TODO check if actors on the list are not null
                 throw new InvalidRequestException("value ACTORS can not be empty");
-            }
 
+            if (genres == null)
+                //TODO check if genres on the list are not null
+                throw new InvalidRequestException("value GENRES can not be empty");
+
+            if (minAge == 0)
+                throw new InvalidRequestException("value MIN AGE can not be empty");
+
+            if (length == 0)
+                throw new InvalidRequestException("value LENGTH can not be empty");
         }
     }
         public void validate() {
