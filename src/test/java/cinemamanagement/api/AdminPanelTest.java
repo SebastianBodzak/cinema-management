@@ -27,6 +27,7 @@ public class AdminPanelTest {
     private String cinemaName = "anyName";
     private String cinemaCity = "anyCity";
     private CreateCinemaRequest createCinemaRequest = new CreateCinemaRequest();
+    private CreateCinemaRequest.CinemaDto cinemaDto;
 
     @Mock
     private CinemaRepository cinemaRepository;
@@ -50,7 +51,7 @@ public class AdminPanelTest {
 
     @Test
     public void shouldCreateCinema() {
-        createCinemaRequestInstance(cinemaName, cinemaCity);
+        createCinemaRequestInstance();
         when(cinemaRepository.load(cinemaName, cinemaCity)).thenReturn(null);
         when(cinemaFactory.create(cinemaName, cinemaCity)).thenReturn(cinema);
 
@@ -62,7 +63,7 @@ public class AdminPanelTest {
     @Test
     public void shouldNotCreateCinemaBecauseItAlreadyExists() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
-        createCinemaRequestInstance(cinemaName, cinemaCity);
+        createCinemaRequestInstance();
         when(cinemaRepository.load(cinemaName, cinemaCity)).thenReturn(cinema);
 
         adminPanel.createCinema(createCinemaRequest);
@@ -70,38 +71,8 @@ public class AdminPanelTest {
         exception.expectMessage("Cinema already exists");
     }
 
-    @Test
-    public void shouldNotCreateCinemaBecauseNameIsNullValue() throws InvalidRequestException {
-        exception.expect(InvalidRequestException.class);
-        createCinemaRequestInstance(null, cinemaCity);
-
-        adminPanel.createCinema(createCinemaRequest);
-
-        exception.expectMessage("value NAME can not be empty");
-    }
-
-    @Test
-    public void shouldNotCreateCinemaBecauseCityIsNullValue() throws InvalidRequestException {
-        exception.expect(InvalidRequestException.class);
-        createCinemaRequestInstance(cinemaName, null);
-
-        adminPanel.createCinema(createCinemaRequest);
-
-        exception.expectMessage("value CITY can not be empty");
-    }
-
-    @Test
-    public void shouldNotCreateCinemaBecauseCinemaValueIsNull() throws InvalidRequestException {
-        exception.expect(InvalidRequestException.class);
-        createCinemaRequest.setCinema(null);
-
-        adminPanel.createCinema(createCinemaRequest);
-
-        exception.expectMessage("Cinema is required");
-    }
-
-    private void createCinemaRequestInstance(String cinemaName, String cinemaCity) {
-        CreateCinemaRequest.CinemaDto cinemaDto = createCinemaRequest.new CinemaDto();
+    private void createCinemaRequestInstance() {
+        cinemaDto = createCinemaRequest.new CinemaDto();
         createCinemaRequest.setCinema(cinemaDto);
         cinemaDto.setName(cinemaName);
         cinemaDto.setCity(cinemaCity);
