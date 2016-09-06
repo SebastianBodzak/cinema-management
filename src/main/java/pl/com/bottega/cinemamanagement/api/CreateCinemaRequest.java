@@ -9,28 +9,6 @@ public class CreateCinemaRequest {
 
     private CinemaDto cinema;
 
-    public CinemaDto getCinema() {
-        return cinema;
-    }
-
-    public void setCinema(CinemaDto cinema) {
-        this.cinema = cinema;
-    }
-
-    public void validate(CinemaRepository repository) {
-        if (cinema == null)
-            throw new InvalidRequestException("Cinema is required");
-        cinema.validate();
-    }
-
-    public String getName() {
-        return cinema.getName();
-    }
-
-    public String getCity() {
-        return cinema.getCity();
-    }
-
     public class CinemaDto {
 
         private String name;
@@ -52,17 +30,35 @@ public class CreateCinemaRequest {
             this.city = city;
         }
 
-        public void validate() {
-            if (name == null) {
+        public void validate() throws InvalidRequestException {
+            if (name == null || name.trim().isEmpty())
                 throw new InvalidRequestException("value NAME can not be empty");
-            }
 
-            if (city == null) {
+            if (city == null || city.trim().isEmpty())
                 throw new InvalidRequestException("value CITY can not be empty");
-            }
-
-
         }
+    }
+
+    public CinemaDto getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(CinemaDto cinema) {
+        this.cinema = cinema;
+    }
+
+    public void validate(CinemaRepository repository) throws InvalidRequestException {
+        if (cinema == null)
+            throw new InvalidRequestException("Cinema is required");
+        cinema.validate();
+    }
+
+    public String getName() {
+        return cinema.getName();
+    }
+
+    public String getCity() {
+        return cinema.getCity();
     }
 }
 

@@ -17,6 +17,8 @@ public class Cinema {
     private String name;
     private String city;
 
+    private Cinema() {}
+
     public Cinema(String name, String city) {
         this.name = name;
         this.city = city;
