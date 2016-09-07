@@ -17,7 +17,7 @@ public class Cinema {
     private String name;
     private String city;
 
-    private Cinema() {}
+    public Cinema() {}
 
     public Cinema(String name, String city) {
         this.name = name;
@@ -38,5 +38,15 @@ public class Cinema {
                 "city ='" + city + '\'' +
                 ", name ='" + name + '\'' +
                 '}';
+    }
+
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
