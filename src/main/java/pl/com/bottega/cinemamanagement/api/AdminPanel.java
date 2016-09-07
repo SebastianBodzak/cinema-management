@@ -16,11 +16,13 @@ public class AdminPanel {
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
     private CinemaFactory cinemaFactory;
+    private MovieFactory movieFactory;
 
-    public AdminPanel(CinemaRepository cinemaRepository, MovieRepository movieRepository, CinemaFactory cinemaFactory) {
+    public AdminPanel(CinemaRepository cinemaRepository, MovieRepository movieRepository, CinemaFactory cinemaFactory, MovieFactory movieFactory) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
         this.cinemaFactory = cinemaFactory;
+        this.movieFactory = movieFactory;
     }
 
     @Transactional
@@ -37,9 +39,12 @@ public class AdminPanel {
 
     @Transactional
     public void createMovie(CreateMovieRequest request) {
-        Movie movie = MovieFactory.createMovie(request);
-        if (movie == null)
-
+        Movie movie = MovieFactory.create(request.getMovie().getTitle(),
+                request.getMovie().getDescription(),
+                request.getMovie().getActors(),
+                request.getMovie().getGenres(),
+                request.getMovie().getMinAge(),
+                request.getMovie().getLength());
         movieRepository.save(movie);
 
     }

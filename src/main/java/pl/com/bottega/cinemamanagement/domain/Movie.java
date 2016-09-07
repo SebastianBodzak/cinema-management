@@ -38,4 +38,60 @@ public class Movie {
         this.minAge = minAge;
         this.title = title;
     }
+
+    public Collection<String> getActors() {
+        return actors;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Collection<String> getGenres() {
+        return genres;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getMinAge() {
+        return minAge;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setActors(Collection<String> actors) {
+        this.actors = actors;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setGenres(Collection<String> genres) {
+        this.genres = genres;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public void setMinAge(Integer minAge) {
+        this.minAge = minAge;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

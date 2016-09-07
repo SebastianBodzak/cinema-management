@@ -7,13 +7,14 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemamanagement.api.AdminPanel;
-import pl.com.bottega.cinemamanagement.api.CinemaFactory;
-import pl.com.bottega.cinemamanagement.api.CreateCinemaRequest;
-import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
+import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
+import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.MovieRepository;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static org.mockito.Mockito.*;
 
@@ -29,6 +30,22 @@ public class AdminPanelTest {
     private CreateCinemaRequest createCinemaRequest = new CreateCinemaRequest();
     private CreateCinemaRequest.CinemaDto cinemaDto;
 
+    private String movieTitle = "any title";
+    private String movieDescription = "any description";
+    private Collection<String> movieActors = new ArrayList<String>(){{
+        add("any actor1");
+        add("any Actor 2");
+        add("any Actor 3");
+    }};
+    private Collection<String> movieGenres = new ArrayList<String>(){{
+        add("any genres1");
+        add("any genres2");
+    }};
+    private int movieMinAge = 16;
+    private int movieLength = 120;
+    private CreateMovieRequest createMovieRequest = new CreateMovieRequest();
+    private CreateMovieRequest.MovieDto movieDto;
+
     @Mock
     private CinemaRepository cinemaRepository;
 
@@ -39,14 +56,20 @@ public class AdminPanelTest {
     private MovieRepository movieRepository;
 
     @Mock
+    private MovieFactory movieFactory;
+
+    @Mock
     private Cinema cinema;
+
+    @Mock
+    private Movie movie;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory);
+        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory, movieFactory);
     }
 
     @Test
@@ -71,10 +94,26 @@ public class AdminPanelTest {
         exception.expectMessage("Cinema already exists");
     }
 
+    @Test
+    public void shouldCreateMovie(){
+        when(movieFactory.create(movieTitle, movieDescription, movieActors, movieGenres, movieMinAge, movieLength)).thenReturn(movie);
+    }
+
     private void createCinemaRequestInstance() {
         cinemaDto = createCinemaRequest.new CinemaDto();
         createCinemaRequest.setCinema(cinemaDto);
         cinemaDto.setName(cinemaName);
         cinemaDto.setCity(cinemaCity);
+    }
+
+    private void createMovieRequestInstance(){
+        movieDto = createMovieRequest.new MovieDto();
+        createMovieRequest.setMovie(movieDto);
+        movieDto.setTitle(movieTitle);
+        movieDto.setDescription(movieDescription);
+        movieDto.setActors(movieActors);
+        movieDto.setGeners(movieGenres);
+        movieDto.setMinAge(movieMinAge);
+        movieDto.setLenght(movieLength);
     }
 }
