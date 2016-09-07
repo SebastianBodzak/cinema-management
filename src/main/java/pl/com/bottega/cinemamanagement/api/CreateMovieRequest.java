@@ -82,11 +82,13 @@ public class CreateMovieRequest {
             if (description == null || description.trim().isEmpty())
                 throw new InvalidRequestException("value DESCRIPTION can not be empty");
 
-            if (actors == null)
+            if (actors == null || actors.isEmpty() || checkEmptyElementIsEmpty(actors)) {
+
                 //TODO check if actors on the list are not null
                 throw new InvalidRequestException("value ACTORS can not be empty");
+            }
 
-            if (genres == null)
+            if (genres == null || checkEmptyElementIsEmpty(genres))
                 //TODO check if genres on the list are not null
                 throw new InvalidRequestException("value GENRES can not be empty");
 
@@ -96,12 +98,24 @@ public class CreateMovieRequest {
             if (length == 0)
                 throw new InvalidRequestException("value LENGTH can not be empty");
         }
-    }
-        public void validate() {
-            if (movie == null) {
-                throw new InvalidRequestException("Movie not specified");
+
+        private boolean checkEmptyElementIsEmpty(Collection<String> collection) {
+            for (String str : collection) {
+                if (str.trim().isEmpty())
+                    return true;
             }
-            movie.validate();
+            return false;
         }
+
     }
+
+    public void validate() {
+        if (movie == null) {
+            throw new InvalidRequestException("Movie not specified");
+        }
+        movie.validate();
+    }
+
+
+}
 

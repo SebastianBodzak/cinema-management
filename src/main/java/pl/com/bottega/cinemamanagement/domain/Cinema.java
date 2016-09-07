@@ -17,7 +17,7 @@ public class Cinema {
     private String name;
     private String city;
 
-    private Cinema() {}
+    public Cinema() {}
 
     public Cinema(String name, String city) {
         this.name = name;
@@ -41,16 +41,9 @@ public class Cinema {
     }
 
 
-    public String getName() {
-        return name;
-    }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCity() {
-        return city;
     }
 
     public void setCity(String city) {
