@@ -7,6 +7,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.com.bottega.cinemamanagement.api.CinemaDto;
 import pl.com.bottega.cinemamanagement.api.CreateCinemaRequest;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
@@ -23,7 +24,7 @@ public class CreateCinemaRequestTest {
     private String cinemaName = "anyName";
     private String cinemaCity = "anyCity";
     private String emptyString = "";
-    private CreateCinemaRequest.CinemaDto cinemaDto;
+    private CinemaDto cinemaDto;
 
     @Mock
     private CinemaRepository cinemaRepository;
@@ -97,7 +98,7 @@ public class CreateCinemaRequestTest {
     }
 
     private void createCinemaRequestInstance(String cinemaName, String cinemaCity) {
-        cinemaDto = createCinemaRequest.new CinemaDto();
+        cinemaDto = new CinemaDto();
         createCinemaRequest.setCinema(cinemaDto);
         cinemaDto.setName(cinemaName);
         cinemaDto.setCity(cinemaCity);

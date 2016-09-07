@@ -9,14 +9,9 @@ public class CinemaDto {
     private String name;
     private String city;
 
-    public CinemaDto(Long id, String name, String city) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-    }
-
 
     public Long getId() {
+
         return id;
     }
 
@@ -40,25 +35,13 @@ public class CinemaDto {
         this.city = city;
     }
 
+    public void validate() throws InvalidRequestException {
+        if (name == null || name.trim().isEmpty())
+            throw new InvalidRequestException("value NAME can not be empty");
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CinemaDto cinemaDto = (CinemaDto) o;
-
-        if (!id.equals(cinemaDto.id)) return false;
-        if (!name.equals(cinemaDto.name)) return false;
-        return city.equals(cinemaDto.city);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + city.hashCode();
-        return result;
+        if (city == null || city.trim().isEmpty())
+            throw new InvalidRequestException("value CITY can not be empty");
     }
 }
+
+

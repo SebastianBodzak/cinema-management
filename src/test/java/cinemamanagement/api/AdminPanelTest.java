@@ -28,7 +28,7 @@ public class AdminPanelTest {
     private String cinemaName = "anyName";
     private String cinemaCity = "anyCity";
     private CreateCinemaRequest createCinemaRequest = new CreateCinemaRequest();
-    private CreateCinemaRequest.CinemaDto cinemaDto;
+    private CinemaDto cinemaDto;
 
     private String movieTitle = "any title";
     private String movieDescription = "any description";
@@ -105,7 +105,7 @@ public class AdminPanelTest {
     }
 
     private void createCinemaRequestInstance() {
-        cinemaDto = createCinemaRequest.new CinemaDto();
+        cinemaDto = new CinemaDto();
         createCinemaRequest.setCinema(cinemaDto);
         cinemaDto.setName(cinemaName);
         cinemaDto.setCity(cinemaCity);
