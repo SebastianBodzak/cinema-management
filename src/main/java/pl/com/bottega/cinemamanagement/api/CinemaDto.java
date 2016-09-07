@@ -41,4 +41,24 @@ public class CinemaDto {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CinemaDto cinemaDto = (CinemaDto) o;
+
+        if (!id.equals(cinemaDto.id)) return false;
+        if (!name.equals(cinemaDto.name)) return false;
+        return city.equals(cinemaDto.city);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + city.hashCode();
+        return result;
+    }
 }
