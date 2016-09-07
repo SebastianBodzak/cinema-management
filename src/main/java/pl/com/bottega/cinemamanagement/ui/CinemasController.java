@@ -28,4 +28,8 @@ public class CinemasController {
     public void addAll(ListAllCinemaResponse response) {
 
     }
+
+    public void listAll(ListAllCinemaResponse listAllCinemaResponse){
+
+    }
 }
