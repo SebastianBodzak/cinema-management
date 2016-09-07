@@ -33,9 +33,9 @@ public class AdminPanelTest {
     private String movieTitle = "any title";
     private String movieDescription = "any description";
     private Collection<String> movieActors = new ArrayList<String>(){{
-        add("any actor1");
-        add("any Actor 2");
-        add("any Actor 3");
+        add("any actor 1");
+        add("any actor 2");
+        add("any actor 3");
     }};
     private Collection<String> movieGenres = new ArrayList<String>(){{
         add("any genres1");
@@ -96,7 +96,12 @@ public class AdminPanelTest {
 
     @Test
     public void shouldCreateMovie(){
+        createMovieRequestInstance();
         when(movieFactory.create(movieTitle, movieDescription, movieActors, movieGenres, movieMinAge, movieLength)).thenReturn(movie);
+
+        adminPanel.createMovie(createMovieRequest);
+
+        verify(movieRepository).save(movie);
     }
 
     private void createCinemaRequestInstance() {
