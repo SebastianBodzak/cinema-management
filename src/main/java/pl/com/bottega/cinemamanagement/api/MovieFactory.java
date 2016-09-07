@@ -1,17 +1,17 @@
 package pl.com.bottega.cinemamanagement.api;
 
+import org.springframework.stereotype.Component;
+import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.Movie;
+
+import java.util.Collection;
 
 /**
  * Created by arkadiuszarak on 05/09/2016.
  */
+@Component
 public class MovieFactory {
-    public static Movie createMovie(CreateMovieRequest request) {
-        return new Movie(request.getMovie().getTitle(),
-                         request.getMovie().getDescription(),
-                         request.getMovie().getActors(),
-                         request.getMovie().getGeners(),
-                         request.getMovie().getMinAge(),
-                         request.getMovie().getLenght());
+    public static Movie create(String title, String description, Collection<String> actors, Collection<String> genres, Integer minAge, Integer length) {
+        return new Movie(title, description, actors, genres, minAge,length);
     }
 }

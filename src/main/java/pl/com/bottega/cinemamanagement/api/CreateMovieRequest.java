@@ -24,8 +24,8 @@ public class CreateMovieRequest {
         private String description;
         private Collection<String> actors;
         private Collection<String> genres;
-        private int minAge;
-        private int length;
+        private Integer minAge;
+        private Integer length;
 
         public Collection<String> getActors() {
             return actors;
@@ -51,11 +51,11 @@ public class CreateMovieRequest {
             this.title = title;
         }
 
-        public Collection<String> getGeners() {
+        public Collection<String> getGenres() {
             return genres;
         }
 
-        public int getLenght() {
+        public Integer getLength() {
             return length;
         }
 
@@ -67,11 +67,11 @@ public class CreateMovieRequest {
             this.genres = geners;
         }
 
-        public void setLenght(int lenght) {
+        public void setLenght(Integer lenght) {
             this.length = lenght;
         }
 
-        public void setMinAge(int minAge) {
+        public void setMinAge(Integer minAge) {
             this.minAge = minAge;
         }
 
