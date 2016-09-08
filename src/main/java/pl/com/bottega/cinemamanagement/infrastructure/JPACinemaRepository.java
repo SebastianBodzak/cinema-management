@@ -17,7 +17,6 @@ public class JPACinemaRepository implements CinemaRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-
     @Override
     public void save(Cinema cinema) {
         entityManager.persist(cinema);
@@ -30,5 +29,10 @@ public class JPACinemaRepository implements CinemaRepository {
         if (cinemas.isEmpty())
             return null;
         return cinemas.get(0);
+    }
+
+    @Override
+    public Cinema findById(Long cinemaId) {
+        return entityManager.find(Cinema.class, cinemaId);
     }
 }

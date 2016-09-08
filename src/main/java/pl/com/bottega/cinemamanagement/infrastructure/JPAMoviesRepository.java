@@ -24,4 +24,9 @@ public class JPAMoviesRepository implements MovieRepository {
     public void save(Movie movie) {
         entityManager.persist(movie);
     }
+
+    @Override
+    public Movie findById(Long id) {
+        return entityManager.find(Movie.class, id);
+    }
 }

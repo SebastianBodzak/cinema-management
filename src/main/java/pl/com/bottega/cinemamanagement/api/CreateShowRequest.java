@@ -9,18 +9,31 @@ import java.util.Date;
 public class CreateShowRequest {
 
     private Long movieId;
-    private Collection<Date> dates;
+    private Collection<String> dates;
     private CalendarDto calendar;
 
     public void validate() {
-        if (movieId == null) {
-            throw new InvalidRequestException("value movieID can not be empty");
-        }
+        if ((movieId == null && calendar == null) || (movieId == null))
+            throw new InvalidRequestException("Dates or Calendar are required");
+        if (dates != null)
+            validateDates();
+        else
+            calendar.validate();
+    }
 
-        if (dates == null && calendar == null) {
-            throw new InvalidRequestException("value date can not be empty");
-        }
+    private void validateDates() {
+        //todo
+    }
 
+    public Long getMovieId() {
+        return movieId;
+    }
 
+    public Collection<Date> getParseDates() {
+        return null;
+    }
+
+    public CalendarDto getCalendar() {
+        return calendar;
     }
 }

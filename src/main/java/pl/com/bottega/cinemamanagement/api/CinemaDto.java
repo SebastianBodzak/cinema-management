@@ -11,7 +11,6 @@ public class CinemaDto {
 
 
     public Long getId() {
-
         return id;
     }
 

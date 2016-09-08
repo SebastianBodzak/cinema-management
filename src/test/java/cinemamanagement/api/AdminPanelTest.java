@@ -8,10 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.api.*;
-import pl.com.bottega.cinemamanagement.domain.Cinema;
-import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
-import pl.com.bottega.cinemamanagement.domain.Movie;
-import pl.com.bottega.cinemamanagement.domain.MovieRepository;
+import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,6 +56,9 @@ public class AdminPanelTest {
     private MovieFactory movieFactory;
 
     @Mock
+    private ShowsRepository showsRepository;
+
+    @Mock
     private Cinema cinema;
 
     @Mock
@@ -69,7 +69,7 @@ public class AdminPanelTest {
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory, movieFactory);
+        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory, movieFactory, showsRepository);
     }
 
     @Test

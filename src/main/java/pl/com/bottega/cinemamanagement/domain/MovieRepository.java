@@ -7,4 +7,6 @@ import java.util.Collection;
  */
 public interface MovieRepository {
     void save(Movie movie);
+
+    Movie findById(Long id);
 }
