@@ -10,14 +10,6 @@ public class CreateMovieRequest {
 
     private MovieDto movie;
 
-    public MovieDto getMovie() {
-        return movie;
-    }
-
-    public void setMovie(MovieDto movie) {
-        this.movie = movie;
-    }
-
     public class MovieDto {
 
         private String title;
@@ -82,24 +74,21 @@ public class CreateMovieRequest {
             if (description == null || description.trim().isEmpty())
                 throw new InvalidRequestException("value DESCRIPTION can not be empty");
 
-            if (actors == null || actors.isEmpty() || checkEmptyElementIsEmpty(actors)) {
-
-                //TODO check if actors on the list are not null
+            if (actors == null || actors.isEmpty() || checkEmptyElement(actors)) {
                 throw new InvalidRequestException("value ACTORS can not be empty");
             }
 
-            if (genres == null || checkEmptyElementIsEmpty(genres))
-                //TODO check if genres on the list are not null
+            if (genres == null || genres.isEmpty()|| checkEmptyElement(genres))
                 throw new InvalidRequestException("value GENRES can not be empty");
 
-            if (minAge == 0)
+            if (minAge == null || minAge == 0)
                 throw new InvalidRequestException("value MIN AGE can not be empty");
 
-            if (length == 0)
+            if (length == null || length == 0)
                 throw new InvalidRequestException("value LENGTH can not be empty");
         }
 
-        private boolean checkEmptyElementIsEmpty(Collection<String> collection) {
+        private boolean checkEmptyElement(Collection<String> collection) {
             for (String str : collection) {
                 if (str.trim().isEmpty())
                     return true;
@@ -114,6 +103,14 @@ public class CreateMovieRequest {
             throw new InvalidRequestException("Movie not specified");
         }
         movie.validate();
+    }
+
+    public MovieDto getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieDto movie) {
+        this.movie = movie;
     }
 
 

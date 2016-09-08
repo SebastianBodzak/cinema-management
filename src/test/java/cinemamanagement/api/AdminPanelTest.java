@@ -94,7 +94,7 @@ public class AdminPanelTest {
         exception.expectMessage("Cinema already exists");
     }
 
-    @Test
+   // @Test
     public void shouldCreateMovie(){
         createMovieRequestInstance();
         when(movieFactory.create(movieTitle, movieDescription, movieActors, movieGenres, movieMinAge, movieLength)).thenReturn(movie);
