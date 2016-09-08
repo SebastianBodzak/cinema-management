@@ -71,6 +71,75 @@ public class CreateMovieRequestTest {
         exception.expectMessage("value TITLE can not be empty");
     }
 
+    @Test
+    public void shouldNotCreateMovieBecauseTitleEmpty() throws InvalidRequestException{
+        exception.expect(InvalidRequestException.class);
+        createMovieRequestInstance(emptyString, anyDescription, anyActors, anyGenres, anyMinAge, anyLength);
+
+        movieDto.validate();
+
+        exception.expectMessage("value TITLE can not be empty");
+    }
+
+    @Test
+    public void shouldNotCreateMovieBecauseDescriptionNull() throws InvalidRequestException{
+        exception.expect(InvalidRequestException.class);
+        createMovieRequestInstance(anyTitle, null, anyActors, anyGenres, anyMinAge, anyLength);
+
+        movieDto.validate();
+
+        exception.expectMessage("value DESCRIPTION can not be empty");
+    }
+
+    @Test
+    public void shouldNotCreateMovieBecauseDescriptionEmpty() throws InvalidRequestException{
+        exception.expect(InvalidRequestException.class);
+        createMovieRequestInstance(anyTitle, emptyString, anyActors, anyGenres, anyMinAge, anyLength);
+
+        movieDto.validate();
+
+        exception.expectMessage("value DESCRIPTION can not be empty");
+    }
+
+    @Test
+    public void shouldNotCreateMovieBecauseActorsNull() throws InvalidRequestException{
+        exception.expect(InvalidRequestException.class);
+        createMovieRequestInstance(anyTitle, anyDescription, null, anyGenres, anyMinAge, anyLength);
+
+        movieDto.validate();
+
+        exception.expectMessage("value ACTORS can not be empty");
+    }
+
+    @Test
+    public void shouldNotCreateMovieBecauseGenresNull() throws InvalidRequestException{
+        exception.expect(InvalidRequestException.class);
+        createMovieRequestInstance(anyTitle, anyDescription, anyActors, null, anyMinAge, anyLength);
+
+        movieDto.validate();
+
+        exception.expectMessage("value GENRES can not be empty");
+    }
+
+    @Test
+    public void shouldNotCreateMovieBecauseMinAgeZero() throws InvalidRequestException{
+        exception.expect(InvalidRequestException.class);
+        createMovieRequestInstance(anyTitle, anyDescription, anyActors, anyGenres, 0, anyLength);
+
+        movieDto.validate();
+
+        exception.expectMessage("value MIN AGE can not be empty");
+    }
+
+    @Test
+    public void shouldNotCreateMovieBecauseLengthZero() throws InvalidRequestException{
+        exception.expect(InvalidRequestException.class);
+        createMovieRequestInstance(anyTitle, anyDescription, anyActors, anyGenres, anyMinAge, 0);
+
+        movieDto.validate();
+
+        exception.expectMessage("value LENGTH can not be empty");
+    }
 
     private void createMovieRequestInstance(String title, String description, Collection<String> actors, Collection<String> genres,Integer minAge, Integer length){
         movieDto = createMovieRequest.new MovieDto();
