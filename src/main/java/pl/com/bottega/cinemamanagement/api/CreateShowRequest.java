@@ -21,16 +21,20 @@ public class CreateShowRequest {
         if (checkIfThereAreToManyParameters())
             throw new InvalidRequestException("can not put dates and calendar at the same time");
         else {
-            ShowBuilder showBuilder;
-            if (dates != null)
-                showBuilder = new ShowWithDatesBuilder();
-            else
-                showBuilder = new ShowWithCalendarBuilder();
-            showBuilder.start();
-            showBuilder.verify();
-            showBuilder.prepareShow(cinema, movie);
-            return showBuilder.end();
+            return prepareShow(cinema, movie);
         }
+    }
+
+    private Show prepareShow(Cinema cinema, Movie movie) {
+        ShowBuilder showBuilder;
+        if (dates != null)
+            showBuilder = new ShowWithDatesBuilder();
+        else
+            showBuilder = new ShowWithCalendarBuilder();
+        showBuilder.start();
+        showBuilder.verify();
+        showBuilder.prepareShow(cinema, movie);
+        return showBuilder.end();
     }
 
     private boolean checkIfThereAreToManyParameters() {
