@@ -81,10 +81,10 @@ public class CreateMovieRequest {
             if (genres == null || genres.isEmpty()|| checkEmptyElement(genres))
                 throw new InvalidRequestException("value GENRES can not be empty");
 
-            if (minAge == null || minAge == 0)
+            if (minAge == null)
                 throw new InvalidRequestException("value MIN AGE can not be empty");
 
-            if (length == null || length == 0)
+            if (length == null)
                 throw new InvalidRequestException("value LENGTH can not be empty");
         }
 
