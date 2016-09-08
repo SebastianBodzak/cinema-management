@@ -52,19 +52,9 @@ public class AdminPanel {
     @Transactional
     public void createShow(Long cinemaId, CreateShowRequest request) {
         Cinema cinema = cinemaRepository.findById(cinemaId);
-        request.validate();
         Movie movie = movieRepository.findById(request.getMovieId());
-        Show show = chooseShowVersion(cinema, movie, request);
+        Show show = request.validate(cinema, movie);
         showsRepository.save(show);
     }
-
-    private Show chooseShowVersion(Cinema cinema, Movie movie, CreateShowRequest request) {
-        ShowsFactory showsFactory = new ShowsFactory();
-//        if (request.getParseDates() != null)
-            return showsFactory.createShows(cinema, movie, request.getParseDates());
-//        else (request.getCalendar() != null)
-//            return showsFactory.createShows(cinema, movie, request.getCalendar());
-    }
-
 
 }
