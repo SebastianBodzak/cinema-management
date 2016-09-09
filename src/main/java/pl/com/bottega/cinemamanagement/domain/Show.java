@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemamanagement.domain;
 
+import com.sun.istack.internal.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,12 +16,15 @@ public class Show {
     private Long id;
 
     @ManyToOne
+    @NotNull
     private Cinema cinema;
 
     @ManyToOne
+    @NotNull
     private Movie movie;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @NotNull
     private Date date;
 
     private Show() {}
@@ -29,4 +34,18 @@ public class Show {
         this.date = date;
         this.movie = movie;
     }
+
+    public Cinema getCinema() {
+        return cinema;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+
 }

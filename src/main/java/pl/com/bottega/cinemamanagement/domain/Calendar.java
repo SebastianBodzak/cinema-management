@@ -2,6 +2,8 @@ package pl.com.bottega.cinemamanagement.domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Bartosz on 2016-09-08.
@@ -10,10 +12,10 @@ public class Calendar {
 
     private Date fromDate;
     private Date untilDate;
-    private Collection<WeekDays> weekDays;
-    private Collection<Hours> hours;
+    private List<WeekDays> weekDays = new LinkedList<>();
+    private List<Hours> hours = new LinkedList<>();
 
-    public Calendar(Date fromDate, Date untilDate, Collection<WeekDays> weekDays, Collection<Hours> hours) {
+    public Calendar(Date fromDate, Date untilDate, List<WeekDays> weekDays, List<Hours> hours) {
         this.fromDate = fromDate;
         this.untilDate = untilDate;
         this.weekDays = weekDays;

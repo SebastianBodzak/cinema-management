@@ -10,9 +10,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 /**
@@ -42,6 +48,14 @@ public class AdminPanelTest {
     private int movieLength = 120;
     private CreateMovieRequest createMovieRequest = new CreateMovieRequest();
     private CreateMovieRequest.MovieDto movieDto;
+    private CreateShowRequest createShowRequest;
+    private ShowDto showDto;
+    private Collection<String> stringDates;
+    private String stringDate = "2016/10/22 10:00";
+    private String stringDate2 = "2016/11/22 10:00";
+    private Long anyMovieId = 1L;
+    private Long anyCinemaId = 10L;
+    private List<Show> shows = new LinkedList<>();
 
     @Mock
     private CinemaRepository cinemaRepository;
@@ -63,6 +77,12 @@ public class AdminPanelTest {
 
     @Mock
     private Movie movie;
+
+    @Mock
+    private Show show;
+
+    @Mock
+    private Show show2;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -94,7 +114,7 @@ public class AdminPanelTest {
         exception.expectMessage("Cinema already exists");
     }
 
-   // @Test
+    @Test
     public void shouldCreateMovie(){
         createMovieRequestInstance();
         when(movieFactory.create(movieTitle, movieDescription, movieActors, movieGenres, movieMinAge, movieLength)).thenReturn(movie);
@@ -102,6 +122,26 @@ public class AdminPanelTest {
         adminPanel.createMovie(createMovieRequest);
 
         verify(movieRepository).save(movie);
+    }
+
+    @Test
+    public void shouldCreateShowsWithDates() throws ParseException {
+        createShowsRequestInstance();
+        stringDates.add(stringDate);
+        stringDates.add(stringDate2);
+        when(cinemaRepository.findById(anyCinemaId)).thenReturn(cinema);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+
+        adminPanel.createShows(anyCinemaId, createShowRequest);
+    }
+
+    private void createShowsRequestInstance() {
+        createShowRequest = new CreateShowRequest();
+        showDto = new ShowDto();
+        createShowRequest.setShows(showDto);
+        showDto.setMovieId(anyMovieId);
+        stringDates = new LinkedList<>();
+        showDto.setDates(stringDates);
     }
 
     private void createCinemaRequestInstance() {

@@ -4,16 +4,14 @@ import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.Show;
 
+import java.util.List;
+
 /**
- * Created by Dell on 2016-09-08.
+ * Created by Dell on 2016-09-09.
  */
-public interface ShowBuilder {
+public interface ShowPreparationStrategy {
 
-    void start();
+    void validate(ShowDto request);
 
-    void verify();
-
-    void prepareShow(Cinema cinema, Movie movie);
-
-    Show end();
+    List<Show> prepare(Cinema cinema, Movie movie, ShowDto request);
 }

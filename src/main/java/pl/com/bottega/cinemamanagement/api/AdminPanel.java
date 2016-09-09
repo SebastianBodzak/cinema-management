@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.*;
 
+import java.util.List;
+
 /**
  * Created by Dell on 2016-09-04.
  */
@@ -50,11 +52,13 @@ public class AdminPanel {
     }
 
     @Transactional
-    public void createShow(Long cinemaId, CreateShowRequest request) {
+    public void createShows(Long cinemaId, CreateShowRequest request) throws InvalidRequestException {
+        request.validate();
         Cinema cinema = cinemaRepository.findById(cinemaId);
         Movie movie = movieRepository.findById(request.getMovieId());
-        Show show = request.validate(cinema, movie);
-        showsRepository.save(show);
+        List<Show> shows = request.prepareShows(cinema, movie);
+        for (Show show : shows)
+            showsRepository.save(show);
     }
 
 }

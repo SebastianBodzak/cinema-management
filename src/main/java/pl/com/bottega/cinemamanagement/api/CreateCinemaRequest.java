@@ -9,8 +9,6 @@ public class CreateCinemaRequest {
 
     private CinemaDto cinema;
 
-
-
     public CinemaDto getCinema() {
         return cinema;
     }
