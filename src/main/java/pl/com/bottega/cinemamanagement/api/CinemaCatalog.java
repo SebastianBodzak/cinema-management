@@ -5,7 +5,5 @@ package pl.com.bottega.cinemamanagement.api;
  */
 public interface CinemaCatalog {
 
-    CinemaCatalog listAll(ListAllCinemasResponse listAllCinemasResponse);
-
-
+    ListAllCinemasResponse listAll();
 }

@@ -1,11 +1,10 @@
 package pl.com.bottega.cinemamanagement.ui;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.AdminPanel;
+import pl.com.bottega.cinemamanagement.api.CinemaCatalog;
 import pl.com.bottega.cinemamanagement.api.CreateCinemaRequest;
+import pl.com.bottega.cinemamanagement.api.ListAllCinemasResponse;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -15,9 +14,12 @@ import pl.com.bottega.cinemamanagement.api.CreateCinemaRequest;
 public class CinemasController {
 
     private AdminPanel adminPanel;
+    private CinemaCatalog cinemaCatalog;
 
-    public CinemasController(AdminPanel adminPanel) {
+    public CinemasController(AdminPanel adminPanel, CinemaCatalog cinemaCatalog) {
+
         this.adminPanel = adminPanel;
+        this.cinemaCatalog = cinemaCatalog;
     }
 
     @PutMapping
@@ -25,11 +27,12 @@ public class CinemasController {
         adminPanel.createCinema(request);
     }
 
-    public void addAll(ListAllCinemaResponse response) {
+    public void addAll(ListAllCinemasResponse response) {
 
     }
 
-    public void listAll(ListAllCinemaResponse listAllCinemaResponse){
-
+    @GetMapping
+    public ListAllCinemasResponse listAll(){
+       return cinemaCatalog.listAll();
     }
 }
