@@ -37,11 +37,10 @@ public class ShowPreparationWithDates implements ShowPreparationStrategy {
     }
 
     private void checkIfDatesAreValid(Collection<String> dates) throws InvalidRequestException {
-        DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm");
-        formatter.setLenient(false);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         for (String date : dates) {
             try {
-                formatter.parse(date);
+                LocalDate localDate = LocalDate.parse(date, formatter);
             }
             catch (Exception ex) {
                 throw new InvalidRequestException("Invalid date format");
@@ -55,10 +54,9 @@ public class ShowPreparationWithDates implements ShowPreparationStrategy {
     }
 
     private List<Date> parseStringsToDates(Collection<String> stringDates) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         List<Date> dates = new LinkedList<>();
         for (String s : stringDates) {
-            s = s.replace("/", "-");
             LocalDate localDate = LocalDate.parse(s, formatter);
             dates.add(parseLocalDateToDate(localDate));
         }
