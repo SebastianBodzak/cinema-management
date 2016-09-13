@@ -40,8 +40,6 @@ public class Cinema {
                 '}';
     }
 
-
-
     public void setName(String name) {
         this.name = name;
     }

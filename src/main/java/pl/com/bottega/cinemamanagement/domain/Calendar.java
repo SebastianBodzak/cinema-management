@@ -1,7 +1,9 @@
 package pl.com.bottega.cinemamanagement.domain;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,31 +12,31 @@ import java.util.List;
  */
 public class Calendar {
 
-    private Date fromDate;
-    private Date untilDate;
-    private List<WeekDays> weekDays = new LinkedList<>();
-    private List<Hours> hours = new LinkedList<>();
+    private LocalDate fromDate;
+    private LocalDate untilDate;
+    private List<DayOfWeek> weekDays = new LinkedList<>();
+    private List<LocalTime> hours = new LinkedList<>();
 
-    public Calendar(Date fromDate, Date untilDate, List<WeekDays> weekDays, List<Hours> hours) {
+    public Calendar(LocalDate fromDate, LocalDate untilDate, List<DayOfWeek> weekDays, List<LocalTime> hours) {
         this.fromDate = fromDate;
         this.untilDate = untilDate;
         this.weekDays = weekDays;
         this.hours = hours;
     }
 
-    public Date getFromDate() {
+    public LocalDate getFromDate() {
         return fromDate;
     }
 
-    public Date getUntilDate() {
+    public LocalDate getUntilDate() {
         return untilDate;
     }
 
-    public Collection<WeekDays> getWeekDays() {
+    public Collection<DayOfWeek> getWeekDays() {
         return weekDays;
     }
 
-    public Collection<Hours> getHours() {
+    public Collection<LocalTime> getHours() {
         return hours;
     }
 }

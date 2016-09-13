@@ -8,9 +8,8 @@ import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.Show;
 import pl.com.bottega.cinemamanagement.domain.ShowsFactory;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -31,16 +30,15 @@ public class ShowPreparationWithDates implements ShowPreparationStrategy {
 
     @Override
     public List<Show> prepare(Cinema cinema, Movie movie, ShowDto request) {
-        List<Date> dates = parseStringsToDates(request.getDates());
-        ShowsFactory showsFactory = new ShowsFactory();
-        return showsFactory.createShows(cinema, movie, dates);
+        List<LocalDateTime> dates = parseStringsToDates(request.getDates());
+        return new ShowsFactory().createShows(cinema, movie, dates);
     }
 
     private void checkIfDatesAreValid(Collection<String> dates) throws InvalidRequestException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         for (String date : dates) {
             try {
-                LocalDate localDate = LocalDate.parse(date, formatter);
+                LocalDate.parse(date, formatter);
             }
             catch (Exception ex) {
                 throw new InvalidRequestException("Invalid date format");
@@ -53,17 +51,11 @@ public class ShowPreparationWithDates implements ShowPreparationStrategy {
             throw new InvalidRequestException("Dates are required");
     }
 
-    private List<Date> parseStringsToDates(Collection<String> stringDates) {
+    private List<LocalDateTime> parseStringsToDates(Collection<String> stringDates) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        List<Date> dates = new LinkedList<>();
-        for (String s : stringDates) {
-            LocalDate localDate = LocalDate.parse(s, formatter);
-            dates.add(parseLocalDateToDate(localDate));
-        }
+        List<LocalDateTime> dates = new LinkedList<>();
+        for (String s : stringDates)
+            dates.add(LocalDateTime.parse(s, formatter));
         return dates;
-    }
-
-    private Date parseLocalDateToDate(LocalDate localDate) {
-        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 }

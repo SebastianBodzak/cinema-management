@@ -1,9 +1,11 @@
 package pl.com.bottega.cinemamanagement.domain;
 
 import com.sun.istack.internal.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * Created by arkadiuszarak on 04/09/2016.
@@ -23,16 +25,21 @@ public class Show {
     @NotNull
     private Movie movie;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull
-    private Date date;
+    private LocalDate date;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @NotNull
+    private  LocalTime time;
 
     private Show() {}
 
-    public Show(Cinema cinema, Date date, Movie movie) {
+    public Show(Cinema cinema, LocalDate date, Movie movie, LocalTime time) {
         this.cinema = cinema;
         this.date = date;
         this.movie = movie;
+        this.time = time;
     }
 
     public Cinema getCinema() {
@@ -43,9 +50,11 @@ public class Show {
         return movie;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-
+    public LocalTime getTime() {
+        return time;
+    }
 }
