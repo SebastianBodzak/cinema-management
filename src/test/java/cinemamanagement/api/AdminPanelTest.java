@@ -10,9 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.*;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -133,6 +131,8 @@ public class AdminPanelTest {
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
 
         adminPanel.createShows(anyCinemaId, createShowRequest);
+
+//        verify(showsRepository, times(2)).save(show);
     }
 
     private void createShowsRequestInstance() {

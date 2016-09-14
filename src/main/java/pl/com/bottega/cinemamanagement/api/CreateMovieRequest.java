@@ -95,7 +95,6 @@ public class CreateMovieRequest {
             }
             return false;
         }
-
     }
 
     public void validate() {
