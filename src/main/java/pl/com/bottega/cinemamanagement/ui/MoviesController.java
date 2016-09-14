@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.com.bottega.cinemamanagement.api.AdminPanel;
 import pl.com.bottega.cinemamanagement.api.CreateMovieRequest;
-import pl.com.bottega.cinemamanagement.domain.Movie;
-import pl.com.bottega.cinemamanagement.domain.MovieRepository;
 
 /**
  * Created by arkadiuszarak on 04/09/2016.

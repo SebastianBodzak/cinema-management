@@ -57,4 +57,27 @@ public class Show {
     public LocalTime getTime() {
         return time;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Show show = (Show) o;
+
+        if (cinema != null ? !cinema.equals(show.cinema) : show.cinema != null) return false;
+        if (movie != null ? !movie.equals(show.movie) : show.movie != null) return false;
+        if (date != null ? !date.equals(show.date) : show.date != null) return false;
+        return time != null ? time.equals(show.time) : show.time == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cinema != null ? cinema.hashCode() : 0;
+        result = 31 * result + (movie != null ? movie.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        return result;
+    }
 }

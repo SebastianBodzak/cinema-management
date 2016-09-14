@@ -1,8 +1,5 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import pl.com.bottega.cinemamanagement.domain.Cinema;
-
-import java.util.Collection;
 import java.util.List;
 
 /**

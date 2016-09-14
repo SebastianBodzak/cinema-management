@@ -1,0 +1,1 @@
+INSERT INTO Cinema (ID, CITY, NAME) VALUES (10, 'Lublin', 'Felicity');

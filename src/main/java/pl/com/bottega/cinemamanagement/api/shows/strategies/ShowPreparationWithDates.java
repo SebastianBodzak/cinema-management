@@ -10,10 +10,8 @@ import pl.com.bottega.cinemamanagement.domain.ShowsFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class ShowPreparationWithDates implements ShowPreparationStrategy {
 
     @Override
     public void validate(ShowDto request) throws InvalidRequestException {
-        checkIDatesAreEmptyCollection(request.getDates());
+        checkIfDatesAreEmptyCollection(request.getDates());
         checkIfDatesAreValid(request.getDates());
     }
 
@@ -46,7 +44,7 @@ public class ShowPreparationWithDates implements ShowPreparationStrategy {
         }
     }
 
-    private void checkIDatesAreEmptyCollection(Collection<String> dates) throws InvalidRequestException {
+    private void checkIfDatesAreEmptyCollection(Collection<String> dates) throws InvalidRequestException {
         if (dates.isEmpty())
             throw new InvalidRequestException("Dates are required");
     }

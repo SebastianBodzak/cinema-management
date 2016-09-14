@@ -9,6 +9,8 @@ import pl.com.bottega.cinemamanagement.domain.Show;
 import java.util.Collection;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
  * Created by Dell on 2016-09-09.
  */
@@ -20,7 +22,7 @@ public class ShowDto {
 
     public void validate() {
         if (checkIfThereAreAllRequiredParameters())
-            throw new InvalidRequestException("movieId with dates or with calendar are required");
+            throw new InvalidRequestException("movieId with dates or movieId with calendar are required");
         if (checkIfThereAreToManyParameters())
             throw new InvalidRequestException("can not put dates and calendar at the same time");
         else
@@ -28,6 +30,8 @@ public class ShowDto {
     }
 
     public List<Show> prepareShow(Cinema cinema, Movie movie) {
+        checkArgument(!(cinema == null || movie == null));
+
         return chooseStrategy().prepare(cinema, movie, this);
     }
 

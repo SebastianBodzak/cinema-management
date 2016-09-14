@@ -10,8 +10,8 @@ import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.Show;
 import pl.com.bottega.cinemamanagement.domain.ShowsFactory;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -20,16 +20,13 @@ import static junit.framework.Assert.assertTrue;
 /**
  * Created by Dell on 2016-09-09.
  */
-//@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ShowsFactoryTest {
 
     private ShowsFactory showsFactory;
-
-    @Mock
-    private Date anyDate;
-
-    @Mock
-    private Date anotherDate;
+    private List<LocalDateTime> datesList = new LinkedList<>();
+    private LocalDateTime anyDate = LocalDateTime.now();
+    private LocalDateTime anotherDate = LocalDateTime.now().plusDays(1L);
 
     @Mock
     private Cinema cinema;
@@ -37,24 +34,29 @@ public class ShowsFactoryTest {
     @Mock
     private Movie movie;
 
-//    @Before
+    @Before
     public void setUp() {
         showsFactory = new ShowsFactory();
     }
 
-//    @Test
+    @Test
     public void shouldCreateShowWithDate() {
-//        List<Show> shows = showsFactory.createShows(cinema, movie, Arrays.asList(anyDate, anotherDate));
+        datesList.add(anyDate);
+        datesList.add(anotherDate);
 
-//        Show show1 = shows.get(0);
-//        Show show2 = shows.get(1);
-//        assertTrue(shows.size() == 2);
-//        assertEquals(cinema, show1.getCinema());
-//        assertEquals(movie, show1.getMovie());
-//        assertEquals(anyDate, show1.getDate());
-//        assertEquals(cinema, show2.getCinema());
-//        assertEquals(movie, show2.getMovie());
-//        assertEquals(anotherDate, show2.getDate());
+        List<Show> shows = showsFactory.createShows(cinema, movie, datesList);
+//
+        Show show1 = shows.get(0);
+        Show show2 = shows.get(1);
+        assertTrue(shows.size() == 2);
+        assertEquals(cinema, show1.getCinema());
+        assertEquals(movie, show1.getMovie());
+        assertEquals(anyDate.toLocalDate(), show1.getDate());
+        assertEquals(anyDate.toLocalTime(), show1.getTime());
+        assertEquals(cinema, show2.getCinema());
+        assertEquals(movie, show2.getMovie());
+        assertEquals(anotherDate.toLocalDate(), show2.getDate());
+        assertEquals(anotherDate.toLocalTime(), show2.getTime());
     }
 
 
