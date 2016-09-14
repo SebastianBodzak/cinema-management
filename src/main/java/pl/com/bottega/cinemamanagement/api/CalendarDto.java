@@ -3,6 +3,9 @@ package pl.com.bottega.cinemamanagement.api;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.Date;
 
@@ -63,10 +66,10 @@ public class CalendarDto {
 
 
     private void isValidFormat(String dateString) {
-        DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         try {
-            Date date = formatter.parse(dateString);
-        } catch (ParseException e) {
+            LocalDateTime date = LocalDateTime.parse(dateString,formatter);
+        } catch (DateTimeParseException e) {
             throw new InvalidRequestException("Invalid date format");
         }
     }
