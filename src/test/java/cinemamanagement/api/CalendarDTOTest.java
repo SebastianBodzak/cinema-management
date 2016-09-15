@@ -10,7 +10,6 @@ import java.util.Collection;
  */
 public class CalendarDTOTest {
 
-
     @Test
     public void shouldValidate(){
         Collection<String> days;

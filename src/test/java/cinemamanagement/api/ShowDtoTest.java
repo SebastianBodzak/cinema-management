@@ -29,7 +29,6 @@ public class ShowDtoTest {
     private Collection<String> dates = new LinkedList<>();
     private String date = "2016/10/22 10:00";
     private String date2 = "2016/11/05 12:30";
-    private List<Show> showList;
 
     @Mock
     private CalendarDto calendarDto;
@@ -98,40 +97,46 @@ public class ShowDtoTest {
         showDto.validate();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotPrepareBecauseCinemaIsNull() {
-        showDto = new ShowDto();
+    @Test
+    public void shouldValidate() {
+        addDatesToList();
+        showDto = createShowDto(movieId, dates);
 
-        showDto.prepareShow(null, movie);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotPrepareBecauseMovieIsNull() {
-        showDto = new ShowDto();
-
-        showDto.prepareShow(cinema, null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotPrepareBecauseBothArgumentsAreNull() {
-        showDto = new ShowDto();
-
-        showDto.prepareShow(null, null);
+        showDto.validate();
     }
 
     @Test
-    public void shouldPrepareShowsWithDates() {
+    public void shouldNotValidateBecauseOfWrongStringFormat() {
+        exception.expect(InvalidRequestException.class);
+        String date = "2016/13/22 22:00";
+        dates.add(date);
+        showDto = createShowDto(movieId, dates);
+
+        showDto.validate();
+
+        exception.expectMessage("Invalid date format");
+    }
+
+    @Test
+    public void shouldNotValidateBecauseOfEmptyDates() {
+        exception.expect(InvalidRequestException.class);
+        showDto = createShowDto(movieId, dates);
+
+        showDto.validate();
+
+        exception.expectMessage("Dates are required");
+    }
+
+    private ShowDto createShowDto(Long movieId, Collection<String> dates) {
+        ShowDto showDto = new ShowDto();
+        showDto.setDates(dates);
+        showDto.setMovieId(movieId);
+        return showDto;
+    }
+
+    private void addDatesToList() {
         dates.add(date);
         dates.add(date2);
-        showDto = createShowDtoInstance(movieId, dates, null);
-
-        showList = showDto.prepareShow(cinema, movie);
-
-        assertTrue(showList.size() == 2);
-        assertEquals(cinema, showList.get(0).getCinema());
-        assertEquals(cinema, showList.get(1).getCinema());
-        assertEquals(movie, showList.get(0).getMovie());
-        assertEquals(movie, showList.get(1).getMovie());
     }
 
     private ShowDto createShowDtoInstance(Long movieId, Collection<String> dates, CalendarDto calendarDto) {

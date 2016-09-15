@@ -1,17 +1,9 @@
-package pl.com.bottega.cinemamanagement.api.shows.strategies;
+package pl.com.bottega.cinemamanagement.api;
 
-import javafx.util.converter.LocalDateTimeStringConverter;
-import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
-import pl.com.bottega.cinemamanagement.api.ShowDto;
-import pl.com.bottega.cinemamanagement.api.ShowPreparationStrategy;
 import pl.com.bottega.cinemamanagement.domain.*;
 import pl.com.bottega.cinemamanagement.domain.Calendar;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -21,21 +13,14 @@ import java.util.*;
 /**
  * Created by Dell on 2016-09-09.
  */
-public class ShowPreparationWithCalendar implements ShowPreparationStrategy {
+public class ShowPreparationWithCalendar {
 
-    @Override
-    public void validate(ShowDto request) {
-        //request.validate();
-        request.getCalendar().validate();
-    }
-
-    @Override
-    public List<Show> prepare(Cinema cinema, Movie movie, ShowDto request) {
+    public List<Show> prepare(Cinema cinema, Movie movie, CalendarDto calendarDto) {
         ShowsFactory showsFactory = new ShowsFactory();
-        LocalDateTime fromDate = changeStringToDate(request.getCalendar().getFromDate());
-        LocalDateTime untilDate = changeStringToDate(request.getCalendar().getUntilDate());
-        List<DayOfWeek> weekDays = changeStringDaysToEnumDays(request.getCalendar().getWeekDays());
-        List<LocalTime> hoursList = changeStringsToHours(request.getCalendar().getHours());
+        LocalDateTime fromDate = changeStringToDate(calendarDto.getFromDate());
+        LocalDateTime untilDate = changeStringToDate(calendarDto.getUntilDate());
+        List<DayOfWeek> weekDays = changeStringDaysToEnumDays(calendarDto.getWeekDays());
+        List<LocalTime> hoursList = changeStringsToHours(calendarDto.getHours());
         Calendar calendar = new Calendar(fromDate,untilDate, weekDays, hoursList);
         return showsFactory.createShows(cinema,movie, calendar);
     }

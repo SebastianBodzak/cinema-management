@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**
@@ -134,6 +135,39 @@ public class AdminPanelTest {
 
 //        verify(showsRepository, times(2)).save(show);
     }
+
+//    @Test
+//    public void shouldPrepareShowsWithDates() {
+//        dates.add(date);
+//        dates.add(date2);
+//        showDto = createShowDtoInstance(movieId, dates, null);
+//
+//        showList = showDto.prepareShow(cinema, movie);
+//
+//        assertTrue(showList.size() == 2);
+//        assertEquals(cinema, showList.get(0).getCinema());
+//        assertEquals(cinema, showList.get(1).getCinema());
+//        assertEquals(movie, showList.get(0).getMovie());
+//        assertEquals(movie, showList.get(1).getMovie());
+//    }
+
+//    @Test
+//    public void shouldPrepareShows() {
+//        addDatesToList();
+//        showDto = createShowDto(movieId, dates);
+//
+//        List<Show> showList = showPreparationStrategy.prepare(cinema, movie, showDto);
+//
+//        assertTrue(showList.size() == 2);
+//        assertEquals(expectedDate, showList.get(0).getDate());
+//        assertEquals(expectedDate2, showList.get(1).getDate());
+//        assertEquals(expectedTime, showList.get(0).getTime());
+//        assertEquals(expectedTime2, showList.get(1).getTime());
+//        assertEquals(cinema, showList.get(0).getCinema());
+//        assertEquals(cinema, showList.get(1).getCinema());
+//        assertEquals(movie, showList.get(0).getMovie());
+//        assertEquals(movie, showList.get(1).getMovie());
+//    }
 
     private void createShowsRequestInstance() {
         createShowRequest = new CreateShowRequest();

@@ -1,10 +1,6 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import pl.com.bottega.cinemamanagement.domain.Cinema;
-import pl.com.bottega.cinemamanagement.domain.Movie;
-import pl.com.bottega.cinemamanagement.domain.Show;
-
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -19,8 +15,12 @@ public class CreateShowRequest {
         shows.validate();
     }
 
-    public List<Show> prepareShows(Cinema cinema, Movie movie) {
-        return shows.prepareShow(cinema, movie);
+    public CalendarDto getCalendarDto() {
+        return shows.getCalendar();
+    }
+
+    public Collection<String> getDates() {
+        return shows.getDates();
     }
 
     public ShowDto getShows() {

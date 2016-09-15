@@ -4,6 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -48,7 +52,6 @@ public class AdminPanel {
                 request.getMovie().getMinAge(),
                 request.getMovie().getLength());
         movieRepository.save(movie);
-
     }
 
     @Transactional
@@ -56,9 +59,28 @@ public class AdminPanel {
         request.validate();
         Cinema cinema = cinemaRepository.findById(cinemaId);
         Movie movie = movieRepository.findById(request.getMovieId());
-        List<Show> shows = request.prepareShows(cinema, movie);
+        List<Show> shows = prepare(cinema, movie, request);
         for (Show show : shows)
             showsRepository.save(show);
     }
 
+    private List<Show> prepare(Cinema cinema, Movie movie, CreateShowRequest request) {
+        if (request.getDates() != null)
+            return prepareShowsWithDates(cinema, movie, request.getDates());
+        else
+            return new ShowPreparationWithCalendar().prepare(cinema, movie, request.getCalendarDto());
+    }
+
+    private List<Show> prepareShowsWithDates(Cinema cinema, Movie movie, Collection<String> dates) {
+        List<LocalDateTime> datesList = parseStringsToDates(dates);
+        return new ShowsFactory().createShows(cinema, movie, datesList);
+    }
+
+    private List<LocalDateTime> parseStringsToDates(Collection<String> stringDates) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        List<LocalDateTime> dates = new LinkedList<>();
+        for (String s : stringDates)
+            dates.add(LocalDateTime.parse(s, formatter));
+        return dates;
+    }
 }

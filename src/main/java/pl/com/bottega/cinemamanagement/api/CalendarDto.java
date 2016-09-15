@@ -1,13 +1,9 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -53,7 +49,6 @@ public class CalendarDto {
     }
 
     public void validate() {
-        //TODO
         isValidFormat(fromDate);
         isValidFormat(untilDate);
 
@@ -68,7 +63,7 @@ public class CalendarDto {
     private void isValidFormat(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         try {
-            LocalDateTime date = LocalDateTime.parse(dateString,formatter);
+            LocalDateTime.parse(dateString,formatter);
         } catch (DateTimeParseException e) {
             throw new InvalidRequestException("Invalid date format");
         }

@@ -1,15 +1,8 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import pl.com.bottega.cinemamanagement.api.shows.strategies.ShowPreparationWithCalendar;
-import pl.com.bottega.cinemamanagement.api.shows.strategies.ShowPreparationWithDates;
-import pl.com.bottega.cinemamanagement.domain.Cinema;
-import pl.com.bottega.cinemamanagement.domain.Movie;
-import pl.com.bottega.cinemamanagement.domain.Show;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.List;
-
-import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * Created by Dell on 2016-09-09.
@@ -25,14 +18,12 @@ public class ShowDto {
             throw new InvalidRequestException("movieId with dates or movieId with calendar are required");
         if (checkIfThereAreToManyParameters())
             throw new InvalidRequestException("can not put dates and calendar at the same time");
+        if (!(dates == null)) {
+            checkIfDatesAreEmptyCollection();
+            checkIfDatesAreValid();
+        }
         else
-            chooseStrategy().validate(this);
-    }
-
-    public List<Show> prepareShow(Cinema cinema, Movie movie) {
-        checkArgument(!(cinema == null || movie == null));
-
-        return chooseStrategy().prepare(cinema, movie, this);
+            calendar.validate();
     }
 
     private boolean checkIfThereAreToManyParameters() {
@@ -55,14 +46,6 @@ public class ShowDto {
         return calendar;
     }
 
-    private ShowPreparationStrategy chooseStrategy() {
-        ShowPreparationStrategy strategy;
-        if (dates != null)
-            return strategy = new ShowPreparationWithDates();
-        else
-            return strategy = new ShowPreparationWithCalendar();
-    }
-
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
     }
@@ -73,5 +56,28 @@ public class ShowDto {
 
     public void setCalendar(CalendarDto calendar) {
         this.calendar = calendar;
+    }
+
+    private void checkIfDatesAreValid() throws InvalidRequestException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        for (String date : dates) {
+            try {
+                LocalDate.parse(date, formatter);
+//                checkAdditionalDates(date);
+            }
+            catch (Exception ex) {
+                throw new InvalidRequestException("Invalid date format");
+            }
+        }
+    }
+
+    private void checkAdditionalDates(String date) {
+        if (date == "yyyy/MM/dd HH:mm")
+            throw new IllegalArgumentException();
+    }
+
+    private void checkIfDatesAreEmptyCollection() throws InvalidRequestException {
+        if (dates.isEmpty())
+            throw new InvalidRequestException("Dates are required");
     }
 }
