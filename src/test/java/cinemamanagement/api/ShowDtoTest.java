@@ -12,7 +12,8 @@ import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 import pl.com.bottega.cinemamanagement.api.ShowDto;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.Movie;
-import pl.com.bottega.cinemamanagement.domain.Show;
+
+import java.time.DayOfWeek;
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
@@ -52,30 +53,27 @@ public class ShowDtoTest {
         exception.expect(InvalidRequestException.class);
         dates.add("2016/10/22 10:00");
         showDto = createShowDtoInstance(null, dates, calendarDto);
-
         exception.expectMessage("MovieId with dates or movieId with calendar are required");
-        showDto.validate();
 
+        showDto.validate();
     }
 
     @Test
     public void shouldNotVerifyBecauseDatesAndCalendarAreNull() {
         exception.expect(InvalidRequestException.class);
         showDto = createShowDtoInstance(movieId, null, null);
+        exception.expectMessage("MovieId with dates or movieId with calendar are required");
 
         showDto.validate();
-
-        exception.expectMessage("MovieId with dates or movieId with calendar are required");
     }
 
     @Test
     public void shouldNotVerifyBecauseAllArgumentsAreNull() {
         exception.expect(InvalidRequestException.class);
         showDto = createShowDtoInstance(null, null, null);
+        exception.expectMessage("MovieId with dates or movieId with calendar are required");
 
         showDto.validate();
-
-        exception.expectMessage("MovieId with dates or movieId with calendar are required");
     }
 
     @Test
@@ -83,10 +81,9 @@ public class ShowDtoTest {
         exception.expect(InvalidRequestException.class);
         dates.add(date);
         showDto = createShowDtoInstance(movieId, dates, calendarDto);
+        exception.expectMessage("Can not put dates and calendar at the same time");
 
         showDto.validate();
-
-        exception.expectMessage("Can not put dates and calendar at the same time");
     }
 
     @Test
@@ -111,20 +108,24 @@ public class ShowDtoTest {
         String date = "2016/13/22 22:00";
         dates.add(date);
         showDto = createShowDto(movieId, dates);
+        exception.expectMessage("Invalid date format");
 
         showDto.validate();
-
-        exception.expectMessage("Invalid date format");
     }
 
     @Test
     public void shouldNotValidateBecauseOfEmptyDates() {
         exception.expect(InvalidRequestException.class);
         showDto = createShowDto(movieId, dates);
+        exception.expectMessage("Dates are required");
 
         showDto.validate();
+    }
 
-        exception.expectMessage("Dates are required");
+    @Test
+    public void weekDays() {
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf("MONDAY".toUpperCase());
+        System.out.println(dayOfWeek);
     }
 
     private ShowDto createShowDto(Long movieId, Collection<String> dates) {

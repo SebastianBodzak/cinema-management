@@ -15,11 +15,10 @@ import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
 import static junit.framework.Assert.assertEquals;
 
 /**
- * Created by Dell on 2016-09-06.
+ * Created by Dell on 2016-09-15.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CreateCinemaRequestTest {
-
     private CreateCinemaRequest createCinemaRequest;
     private String cinemaName = "anyName";
     private String cinemaCity = "anyCity";
@@ -51,50 +50,45 @@ public class CreateCinemaRequestTest {
     public void shouldNotCreateCinemaBecauseNameIsNullValue() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
         createCinemaRequestInstance(null, cinemaCity);
+        exception.expectMessage("value NAME can not be empty");
 
         createCinemaRequest.validate(cinemaRepository);
-
-        exception.expectMessage("value NAME can not be empty");
     }
 
     @Test
     public void shouldNotCreateCinemaBecauseNameIsEmptyValue() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
         createCinemaRequestInstance(emptyString, cinemaCity);
+        exception.expectMessage("value NAME can not be empty");
 
         createCinemaRequest.validate(cinemaRepository);
-
-        exception.expectMessage("value NAME can not be empty");
     }
 
     @Test
     public void shouldNotCreateCinemaBecauseCityIsNullValue() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
         createCinemaRequestInstance(cinemaName, null);
+        exception.expectMessage("value CITY can not be empty");
 
         createCinemaRequest.validate(cinemaRepository);
-
-        exception.expectMessage("value CITY can not be empty");
     }
 
     @Test
     public void shouldNotCreateCinemaBecauseCityIsEmptyValue() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
         createCinemaRequestInstance(cinemaName, emptyString);
+        exception.expectMessage("value CITY can not be empty");
 
         createCinemaRequest.validate(cinemaRepository);
-
-        exception.expectMessage("value CITY can not be empty");
     }
 
     @Test
     public void shouldNotCreateCinemaBecauseCinemaValueIsNull() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
         createCinemaRequest.setCinema(null);
+        exception.expectMessage("Cinema is required");
 
         createCinemaRequest.validate(cinemaRepository);
-
-        exception.expectMessage("Cinema is required");
     }
 
     private void createCinemaRequestInstance(String cinemaName, String cinemaCity) {
@@ -103,6 +97,4 @@ public class CreateCinemaRequestTest {
         cinemaDto.setName(cinemaName);
         cinemaDto.setCity(cinemaCity);
     }
-
 }
-

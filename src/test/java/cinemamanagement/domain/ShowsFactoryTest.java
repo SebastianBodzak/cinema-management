@@ -45,7 +45,7 @@ public class ShowsFactoryTest {
         datesList.add(anotherDate);
 
         List<Show> shows = showsFactory.createShows(cinema, movie, datesList);
-//
+
         Show show1 = shows.get(0);
         Show show2 = shows.get(1);
         assertTrue(shows.size() == 2);
@@ -59,5 +59,18 @@ public class ShowsFactoryTest {
         assertEquals(anotherDate.toLocalTime(), show2.getTime());
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void shouldNotCreateShowWithDateBecauseCinemaIsNull() {
+        showsFactory.createShows(null, movie, datesList);
+    }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void shouldNotCreateShowWithDateBecauseMovieIsNull() {
+        showsFactory.createShows(cinema, null, datesList);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void shouldNotCreateShowWithDateBecauseDatesListIsEmpty() {
+        showsFactory.createShows(cinema, movie, datesList);
+    }
 }

@@ -12,7 +12,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class ShowsFactory {
 
     public List<Show> createShows(Cinema cinema, Movie movie, List<LocalDateTime> dates) {
-        checkArgument(!(cinema == null || movie == null || dates == null));
+        checkArgument(!(cinema == null || movie == null || dates == null || dates.isEmpty()));
 
         List<Show> shows = new LinkedList<>();
         for (LocalDateTime date : dates)

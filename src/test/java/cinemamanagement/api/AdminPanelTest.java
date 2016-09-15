@@ -11,10 +11,9 @@ import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -51,7 +50,9 @@ public class AdminPanelTest {
     private ShowDto showDto;
     private Collection<String> stringDates;
     private String stringDate = "2016/10/22 10:00";
+    private LocalDateTime expectedDate = LocalDateTime.of(2016, 10, 22, 10, 00);
     private String stringDate2 = "2016/11/22 10:00";
+    private LocalDateTime expectedDate2 = LocalDateTime.of(2016, 11, 22, 10, 00);
     private Long anyMovieId = 1L;
     private Long anyCinemaId = 10L;
     private List<Show> shows = new LinkedList<>();
@@ -82,6 +83,9 @@ public class AdminPanelTest {
 
     @Mock
     private Show show2;
+
+    @Mock
+    private ShowsFactory showsFactory;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -130,44 +134,10 @@ public class AdminPanelTest {
         stringDates.add(stringDate2);
         when(cinemaRepository.findById(anyCinemaId)).thenReturn(cinema);
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        List<LocalDateTime> dates = new LinkedList<>(Arrays.asList(expectedDate, expectedDate2));
 
         adminPanel.createShows(anyCinemaId, createShowRequest);
-
-//        verify(showsRepository, times(2)).save(show);
     }
-
-//    @Test
-//    public void shouldPrepareShowsWithDates() {
-//        dates.add(date);
-//        dates.add(date2);
-//        showDto = createShowDtoInstance(movieId, dates, null);
-//
-//        showList = showDto.prepareShow(cinema, movie);
-//
-//        assertTrue(showList.size() == 2);
-//        assertEquals(cinema, showList.get(0).getCinema());
-//        assertEquals(cinema, showList.get(1).getCinema());
-//        assertEquals(movie, showList.get(0).getMovie());
-//        assertEquals(movie, showList.get(1).getMovie());
-//    }
-
-//    @Test
-//    public void shouldPrepareShows() {
-//        addDatesToList();
-//        showDto = createShowDto(movieId, dates);
-//
-//        List<Show> showList = showPreparationStrategy.prepare(cinema, movie, showDto);
-//
-//        assertTrue(showList.size() == 2);
-//        assertEquals(expectedDate, showList.get(0).getDate());
-//        assertEquals(expectedDate2, showList.get(1).getDate());
-//        assertEquals(expectedTime, showList.get(0).getTime());
-//        assertEquals(expectedTime2, showList.get(1).getTime());
-//        assertEquals(cinema, showList.get(0).getCinema());
-//        assertEquals(cinema, showList.get(1).getCinema());
-//        assertEquals(movie, showList.get(0).getMovie());
-//        assertEquals(movie, showList.get(1).getMovie());
-//    }
 
     private void createShowsRequestInstance() {
         createShowRequest = new CreateShowRequest();
