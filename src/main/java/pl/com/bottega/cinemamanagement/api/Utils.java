@@ -20,7 +20,7 @@ public class Utils {
     }
 
     private static boolean checkIfDatesAreNotCorrect(int year, int month, int day) {
-        return (month == 2 && checkIfFebruaryDateIsInvalid(year, day)) || ((month == 4 || month == 6 || month == 9 || month == 11) && day == 31);
+        return (month == 2 && checkIfFebruaryDateIsInvalid(year, day)) || (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11));
     }
 
     private static boolean checkIfFebruaryDateIsInvalid(int year, int day) {
