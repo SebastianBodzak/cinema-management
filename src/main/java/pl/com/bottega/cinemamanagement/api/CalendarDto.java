@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemamanagement.api;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
@@ -20,7 +21,6 @@ public class CalendarDto {
     }
 
     public void setFromDate(String fromDate) {
-        isValidFormat(fromDate);
         this.fromDate = fromDate;
     }
 
@@ -49,28 +49,45 @@ public class CalendarDto {
     }
 
     public void validate() {
+        if (fromDate == null || untilDate == null)
+            throw new InvalidRequestException("Date can not be empty");
+
         isValidFormat(fromDate);
         isValidFormat(untilDate);
 
-        if (weekDays == null || checkEmptyElement(weekDays))
-            throw new InvalidRequestException("value weekDays can not be empty");
-
-        if (hours == null || checkEmptyElement(hours))
-            throw new InvalidRequestException("value hours can not be empty");
+        if (weekDays == null || checkEmptyElement(weekDays) || weekDays.isEmpty())
+            throw new InvalidRequestException("Value weekDays can not be empty");
+        if (hours == null || checkEmptyElement(hours) || hours.isEmpty()) {
+            throw new InvalidRequestException("Value hours can not be empty");
+        }
+        isValidHourFormat(hours);
     }
 
 
     private void isValidFormat(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         try {
-            LocalDateTime.parse(dateString,formatter);
+            LocalDateTime.parse(dateString, formatter);
+            Utils.checkAdditionalDates(dateString);
         } catch (DateTimeParseException e) {
             throw new InvalidRequestException("Invalid date format");
         }
     }
 
+    private void isValidHourFormat(Collection<String> hours) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        try {
+            for (String hour : hours)
+                LocalTime.parse(hour, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidRequestException("Invalid value of hour");
+        }
+    }
+
     private boolean checkEmptyElement(Collection<String> collection) {
         for (String str : collection) {
+            if (str == null)
+                throw new InvalidRequestException("Value of day/hour can not be null");
             if (str.trim().isEmpty())
                 return true;
         }

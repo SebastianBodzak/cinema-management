@@ -15,9 +15,9 @@ public class ShowDto {
 
     public void validate() {
         if (checkIfThereAreAllRequiredParameters())
-            throw new InvalidRequestException("movieId with dates or movieId with calendar are required");
+            throw new InvalidRequestException("MovieId with dates or movieId with calendar are required");
         if (checkIfThereAreToManyParameters())
-            throw new InvalidRequestException("can not put dates and calendar at the same time");
+            throw new InvalidRequestException("Can not put dates and calendar at the same time");
         if (!(dates == null)) {
             checkIfDatesAreEmptyCollection();
             checkIfDatesAreValid();

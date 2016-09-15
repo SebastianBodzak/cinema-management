@@ -53,9 +53,9 @@ public class ShowDtoTest {
         dates.add("2016/10/22 10:00");
         showDto = createShowDtoInstance(null, dates, calendarDto);
 
+        exception.expectMessage("MovieId with dates or movieId with calendar are required");
         showDto.validate();
 
-        exception.expectMessage("movieId with dates or movieId with calendar are required");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ShowDtoTest {
 
         showDto.validate();
 
-        exception.expectMessage("movieId with dates or movieId with calendar are required");
+        exception.expectMessage("MovieId with dates or movieId with calendar are required");
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ShowDtoTest {
 
         showDto.validate();
 
-        exception.expectMessage("movieId with dates or movieId with calendar are required");
+        exception.expectMessage("MovieId with dates or movieId with calendar are required");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ShowDtoTest {
 
         showDto.validate();
 
-        exception.expectMessage("can not put dates and calendar at the same time");
+        exception.expectMessage("Can not put dates and calendar at the same time");
     }
 
     @Test

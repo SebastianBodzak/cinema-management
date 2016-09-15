@@ -21,56 +21,50 @@ public class ShowPreparationWithCalendar {
         LocalDateTime untilDate = changeStringToDate(calendarDto.getUntilDate());
         List<DayOfWeek> weekDays = changeStringDaysToEnumDays(calendarDto.getWeekDays());
         List<LocalTime> hoursList = changeStringsToHours(calendarDto.getHours());
-        Calendar calendar = new Calendar(fromDate,untilDate, weekDays, hoursList);
-        return showsFactory.createShows(cinema,movie, calendar);
+        Calendar calendar = new Calendar(fromDate, untilDate, weekDays, hoursList);
+        return showsFactory.createShows(cinema, movie, calendar);
     }
 
-    private LocalDateTime changeStringToDate(String string){
+    private LocalDateTime changeStringToDate(String string) {
+        if (string == null)
+            throw new InvalidRequestException("Date can not be null");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return LocalDateTime.parse(string,formatter);
+        try {
+            return LocalDateTime.parse(string, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidRequestException("Invalid date");
+        }
     }
 
-    private List<DayOfWeek> changeStringDaysToEnumDays(Collection<String> strings){
+    private List<DayOfWeek> changeStringDaysToEnumDays(Collection<String> strings) {
         List<DayOfWeek> weekDays = new ArrayList<>();
-        DayOfWeek dayOfWeek;
         for (String str : strings) {
-            String s = str.toUpperCase();
-            dayOfWeek = selectDay(s);
-            weekDays.add(dayOfWeek);
+            if (str == null)
+                throw new InvalidRequestException("Day can not be null");
+            try {
+                weekDays.add(DayOfWeek.valueOf(str.toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new InvalidRequestException("Invalid name of day");
+            }
         }
         return weekDays;
     }
 
-    private List<LocalTime> changeStringsToHours(Collection<String> strings){
+    private List<LocalTime> changeStringsToHours(Collection<String> strings) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         List<LocalTime> hours = new ArrayList<>();
-        for (String str : strings){
+        for (String str : strings) {
+            if (str == null)
+                throw new InvalidRequestException("Hour can not be null");
             try {
                 LocalTime hour = LocalTime.parse(str, formatter);
                 hours.add(hour);
-            }catch (DateTimeParseException e) {
+            } catch (DateTimeParseException e) {
                 throw new InvalidRequestException("Invalid value for hour of day (valid values 0 - 23)");
             }
         }
         return hours;
     }
 
-    private DayOfWeek selectDay(String daySting) {
-        if (daySting.equals(DayOfWeek.MONDAY.name()))
-            return DayOfWeek.MONDAY;
-        else if (daySting.equals(DayOfWeek.TUESDAY.name()))
-            return DayOfWeek.TUESDAY;
-        else if (daySting.equals(DayOfWeek.WEDNESDAY.name()))
-            return DayOfWeek.WEDNESDAY;
-        else if (daySting.equals(DayOfWeek.THURSDAY.name()))
-            return DayOfWeek.THURSDAY;
-        else if (daySting.equals(DayOfWeek.FRIDAY.name()))
-            return DayOfWeek.FRIDAY;
-        else if (daySting.equals(DayOfWeek.SATURDAY.name()))
-            return DayOfWeek.SATURDAY;
-        else if (daySting.equals(DayOfWeek.SUNDAY.name()))
-            return DayOfWeek.SUNDAY;
-        else throw new InvalidRequestException("Wrong name of day");
-    }
 
 }
