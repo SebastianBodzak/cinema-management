@@ -63,17 +63,12 @@ public class ShowDto {
         for (String date : dates) {
             try {
                 LocalDate.parse(date, formatter);
-//                checkAdditionalDates(date);
+                Utils.checkAdditionalDates(date);
             }
             catch (Exception ex) {
                 throw new InvalidRequestException("Invalid date format");
             }
         }
-    }
-
-    private void checkAdditionalDates(String date) {
-        if (date == "yyyy/MM/dd HH:mm")
-            throw new IllegalArgumentException();
     }
 
     private void checkIfDatesAreEmptyCollection() throws InvalidRequestException {

@@ -1,6 +1,5 @@
 package pl.com.bottega.cinemamanagement.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
@@ -27,10 +26,6 @@ public class ShowsFactory {
         for (LocalDateTime date : dates)
             shows.add(new Show(cinema, date.toLocalDate(), movie, date.toLocalTime()));
         return shows;
-    }
-
-    private LocalDate addHours(LocalDate date, LocalTime hours) {
-        return date.with(hours);
     }
 
     private List<LocalDateTime> addDate(Calendar calendar) {
