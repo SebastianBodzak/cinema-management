@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
-
 /**
  * Created by Dell on 2016-09-04.
  */
@@ -17,7 +15,7 @@ public class CreateCinemaRequest {
         this.cinema = cinema;
     }
 
-    public void validate(CinemaRepository repository) throws InvalidRequestException {
+    public void validate() {
         if (cinema == null)
             throw new InvalidRequestException("Cinema is required");
         cinema.validate();

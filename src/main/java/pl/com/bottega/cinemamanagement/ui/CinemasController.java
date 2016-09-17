@@ -27,10 +27,6 @@ public class CinemasController {
         adminPanel.createCinema(request);
     }
 
-    public void addAll(ListAllCinemasResponse response) {
-
-    }
-
     @GetMapping
     public ListAllCinemasResponse listAll() {
         return cinemaCatalog.listAll();

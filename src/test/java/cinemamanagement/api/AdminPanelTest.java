@@ -11,7 +11,6 @@ import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -111,10 +110,9 @@ public class AdminPanelTest {
         exception.expect(InvalidRequestException.class);
         createCinemaRequestInstance();
         when(cinemaRepository.load(cinemaName, cinemaCity)).thenReturn(cinema);
+        exception.expectMessage("Cinema already exists");
 
         adminPanel.createCinema(createCinemaRequest);
-
-        exception.expectMessage("Cinema already exists");
     }
 
     @Test
@@ -134,7 +132,6 @@ public class AdminPanelTest {
         stringDates.add(stringDate2);
         when(cinemaRepository.findById(anyCinemaId)).thenReturn(cinema);
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
-        List<LocalDateTime> dates = new LinkedList<>(Arrays.asList(expectedDate, expectedDate2));
 
         adminPanel.createShows(anyCinemaId, createShowRequest);
     }

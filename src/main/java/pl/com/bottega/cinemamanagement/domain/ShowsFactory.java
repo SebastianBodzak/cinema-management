@@ -24,13 +24,13 @@ public class ShowsFactory {
 
     public List<Show> createShows(Cinema cinema, Movie movie, Calendar calendar) {
         List<Show> shows = new LinkedList<>();
-        List<LocalDateTime> dates = addDate(calendar);
+        List<LocalDateTime> dates = createDates(calendar);
         for (LocalDateTime date : dates)
             shows.add(new Show(cinema, date.toLocalDate(), movie, date.toLocalTime()));
         return shows;
     }
 
-    private List<LocalDateTime> addDate(Calendar calendar) {
+    private List<LocalDateTime> createDates(Calendar calendar) {
         LocalDateTime fromDate = calendar.getFromDate();
         LocalDateTime untilDate = calendar.getUntilDate();
         List<LocalDateTime> totalDates = new ArrayList<>();

@@ -103,17 +103,6 @@ public class ShowDtoTest {
     }
 
     @Test
-    public void shouldNotValidateBecauseOfWrongStringFormat() {
-        exception.expect(InvalidRequestException.class);
-        String date = "2016/13/22 22:00";
-        dates.add(date);
-        showDto = createShowDto(movieId, dates);
-        exception.expectMessage("Invalid date format");
-
-        showDto.validate();
-    }
-
-    @Test
     public void shouldNotValidateBecauseOfEmptyDates() {
         exception.expect(InvalidRequestException.class);
         showDto = createShowDto(movieId, dates);

@@ -71,7 +71,6 @@ public class CalendarDto {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         try {
             LocalDateTime.parse(dateString, formatter);
-            Utils.checkAdditionalDates(dateString);
         } catch (DateTimeParseException e) {
             throw new InvalidRequestException("Invalid date format");
         }

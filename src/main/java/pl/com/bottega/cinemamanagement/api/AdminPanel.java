@@ -31,8 +31,8 @@ public class AdminPanel {
     }
 
     @Transactional
-    public void createCinema(CreateCinemaRequest request) throws InvalidRequestException {
-        request.validate(cinemaRepository);
+    public void createCinema(CreateCinemaRequest request) {
+        request.validate();
         Cinema cinema = cinemaRepository.load(request.getName(), request.getCity());
         if (cinema == null) {
             cinema = cinemaFactory.create(request.getName(), request.getCity());
@@ -54,10 +54,12 @@ public class AdminPanel {
     }
 
     @Transactional
-    public void createShows(Long cinemaId, CreateShowRequest request) throws InvalidRequestException {
+    public void createShows(Long cinemaId, CreateShowRequest request) {
         request.validate();
         Cinema cinema = cinemaRepository.findById(cinemaId);
         Movie movie = movieRepository.findById(request.getMovieId());
+        if (cinema == null || movie == null)
+            throw new InvalidRequestException("Cinema or Movie does not exist");
         List<Show> shows = prepare(cinema, movie, request);
         for (Show show : shows)
             showsRepository.save(show);

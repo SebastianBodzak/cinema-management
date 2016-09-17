@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemamanagement.api;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -10,7 +12,8 @@ import java.util.Collection;
 public class ShowDto {
 
     private Long movieId;
-    private Collection<String> dates;
+//    @JsonFormat(pattern = "")
+    private Collection<String> dates; //todo collection of dates
     private CalendarDto calendar;
 
     public void validate() {
@@ -20,7 +23,6 @@ public class ShowDto {
             throw new InvalidRequestException("Can not put dates and calendar at the same time");
         if (!(dates == null)) {
             checkIfDatesAreEmptyCollection();
-            checkIfDatesAreValid();
         } else
             calendar.validate();
     }
@@ -55,18 +57,6 @@ public class ShowDto {
 
     public void setCalendar(CalendarDto calendar) {
         this.calendar = calendar;
-    }
-
-    private void checkIfDatesAreValid() throws InvalidRequestException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        for (String date : dates) {
-            try {
-                LocalDate.parse(date, formatter);
-                Utils.checkAdditionalDates(date);
-            } catch (Exception ex) {
-                throw new InvalidRequestException("Invalid date format");
-            }
-        }
     }
 
     private void checkIfDatesAreEmptyCollection() throws InvalidRequestException {

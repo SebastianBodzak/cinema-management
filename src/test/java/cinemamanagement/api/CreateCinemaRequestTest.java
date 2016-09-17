@@ -40,7 +40,7 @@ public class CreateCinemaRequestTest {
     public void shouldCorrectlyValidateCinema() {
         createCinemaRequestInstance(cinemaName, cinemaCity);
 
-        createCinemaRequest.validate(cinemaRepository);
+        createCinemaRequest.validate();
 
         assertEquals(cinemaName, cinemaDto.getName());
         assertEquals(cinemaCity, cinemaDto.getCity());
@@ -52,7 +52,7 @@ public class CreateCinemaRequestTest {
         createCinemaRequestInstance(null, cinemaCity);
         exception.expectMessage("value NAME can not be empty");
 
-        createCinemaRequest.validate(cinemaRepository);
+        createCinemaRequest.validate();
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CreateCinemaRequestTest {
         createCinemaRequestInstance(emptyString, cinemaCity);
         exception.expectMessage("value NAME can not be empty");
 
-        createCinemaRequest.validate(cinemaRepository);
+        createCinemaRequest.validate();
     }
 
     @Test
@@ -70,7 +70,7 @@ public class CreateCinemaRequestTest {
         createCinemaRequestInstance(cinemaName, null);
         exception.expectMessage("value CITY can not be empty");
 
-        createCinemaRequest.validate(cinemaRepository);
+        createCinemaRequest.validate();
     }
 
     @Test
@@ -79,7 +79,7 @@ public class CreateCinemaRequestTest {
         createCinemaRequestInstance(cinemaName, emptyString);
         exception.expectMessage("value CITY can not be empty");
 
-        createCinemaRequest.validate(cinemaRepository);
+        createCinemaRequest.validate();
     }
 
     @Test
@@ -88,7 +88,7 @@ public class CreateCinemaRequestTest {
         createCinemaRequest.setCinema(null);
         exception.expectMessage("Cinema is required");
 
-        createCinemaRequest.validate(cinemaRepository);
+        createCinemaRequest.validate();
     }
 
     private void createCinemaRequestInstance(String cinemaName, String cinemaCity) {
