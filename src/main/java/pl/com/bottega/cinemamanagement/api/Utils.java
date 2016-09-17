@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemamanagement.api;
 
+import java.time.Year;
+
 /**
  * Created by Dell on 2016-09-15.
  */
@@ -28,6 +30,8 @@ public class Utils {
     }
 
     private static boolean checkIfIsLeapYear(int year) {
+
         return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
+      //  ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0))  //TODO
     }
 }
