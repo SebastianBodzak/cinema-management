@@ -54,9 +54,9 @@ public class AdminPanel {
     }
 
     @Transactional
-    public void createShows(Long cinemaId, CreateShowRequest request) {
+    public void createShows(CreateShowRequest request) {
         request.validate();
-        Cinema cinema = cinemaRepository.findById(cinemaId);
+        Cinema cinema = cinemaRepository.findById(request.getCinemaId());
         Movie movie = movieRepository.findById(request.getMovieId());
         if (cinema == null || movie == null)
             throw new InvalidRequestException("Cinema or Movie does not exist");

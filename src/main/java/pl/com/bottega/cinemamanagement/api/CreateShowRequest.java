@@ -8,6 +8,7 @@ import java.util.Collection;
 public class CreateShowRequest {
 
     private ShowDto shows;
+    private Long cinemaId;
 
     public void validate() {
         if (shows == null)
@@ -33,5 +34,13 @@ public class CreateShowRequest {
 
     public Long getMovieId() {
         return shows.getMovieId();
+    }
+
+    public Long getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(Long cinemaId) {
+        this.cinemaId = cinemaId;
     }
 }
