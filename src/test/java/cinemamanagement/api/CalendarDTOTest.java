@@ -188,4 +188,18 @@ public class CalendarDTOTest {
         calendarDto.setWeekDays(weekDays);
         calendarDto.setHours(hours);
     }
+
+    @Test
+    public void shouldNotAllowDateFromToBeGreaterThanUntil(){
+
+            setCalendarDtoInstance(fromDate, "2016/09/10 23:00", weekDays, hours);
+
+            try {
+                calendarDto.validate();
+            } catch (InvalidRequestException ex) {
+                assertEquals("Date From cant be greater than date until", ex.getMessage());
+                return;
+            }
+            fail("InvalidRequestException expected");
+        }
 }
