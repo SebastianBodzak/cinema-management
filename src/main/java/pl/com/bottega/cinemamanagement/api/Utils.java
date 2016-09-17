@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemamanagement.api;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.Year;
 
 /**
@@ -21,6 +23,8 @@ public class Utils {
             throw new IllegalArgumentException();
     }
 
+
+
     private static boolean checkIfDatesAreNotCorrect(int year, int month, int day) {
         return (month == 2 && checkIfFebruaryDateIsInvalid(year, day)) || (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11));
     }
@@ -33,5 +37,17 @@ public class Utils {
 
         return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
       //  ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0))  //TODO
+        //Year.isLeap(year);
     }
+
+   /* public static boolean isDateNotValid(int year, int month, int day) {  //TODO  //zastępuje 3 powyższe
+        boolean dateIsValid = false;
+        try {
+            LocalDate.of(year, month, day);
+        } catch (DateTimeException e) {
+            dateIsValid = false;
+        }
+        return dateIsValid;
+    }
+   */
 }
