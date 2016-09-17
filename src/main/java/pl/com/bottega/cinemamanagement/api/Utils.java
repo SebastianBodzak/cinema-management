@@ -1,9 +1,5 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.Year;
-
 /**
  * Created by Dell on 2016-09-15.
  */
@@ -11,6 +7,7 @@ public class Utils {
 
     /**
      * It is working with date format which is starting with "yyyy/MM/dd"
+     *
      * @param date
      */
     public static void checkAdditionalDates(String date) {
@@ -24,7 +21,6 @@ public class Utils {
     }
 
 
-
     private static boolean checkIfDatesAreNotCorrect(int year, int month, int day) {
         return (month == 2 && checkIfFebruaryDateIsInvalid(year, day)) || (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11));
     }
@@ -36,7 +32,7 @@ public class Utils {
     private static boolean checkIfIsLeapYear(int year) {
 
         return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
-      //  ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0))  //TODO
+        //  ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0))  //TODO
         //Year.isLeap(year);
     }
 

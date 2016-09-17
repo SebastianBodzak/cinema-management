@@ -29,13 +29,13 @@ public class JPACinemaCatalog implements CinemaCatalog {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<CinemaDto> query = builder.createQuery(CinemaDto.class);
         Root<Cinema> root = query.from(Cinema.class);
-        selectCinemaDto(builder, query,root);
+        selectCinemaDto(builder, query, root);
         Query jpaQuery = entityManager.createQuery(query);
 
         return new ListAllCinemasResponse(jpaQuery.getResultList());
     }
 
-    private void selectCinemaDto(CriteriaBuilder builder, CriteriaQuery<CinemaDto> query, Root<Cinema> root){
+    private void selectCinemaDto(CriteriaBuilder builder, CriteriaQuery<CinemaDto> query, Root<Cinema> root) {
         query.select(builder.construct(CinemaDto.class,
                 root.get(Cinema_.id),
                 root.get(Cinema_.name),

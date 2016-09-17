@@ -10,6 +10,21 @@ public class CreateMovieRequest {
 
     private MovieDto movie;
 
+    public void validate() {
+        if (movie == null) {
+            throw new InvalidRequestException("Movie not specified");
+        }
+        movie.validate();
+    }
+
+    public MovieDto getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieDto movie) {
+        this.movie = movie;
+    }
+
     public class MovieDto {
 
         private String title;
@@ -23,20 +38,20 @@ public class CreateMovieRequest {
             return actors;
         }
 
-        public String getDescription() {
-            return description;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
         public void setActors(Collection<String> actors) {
             this.actors = actors;
         }
 
+        public String getDescription() {
+            return description;
+        }
+
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public String getTitle() {
+            return title;
         }
 
         public void setTitle(String title) {
@@ -55,16 +70,16 @@ public class CreateMovieRequest {
             return minAge;
         }
 
+        public void setMinAge(Integer minAge) {
+            this.minAge = minAge;
+        }
+
         public void setGeners(Collection<String> geners) {
             this.genres = geners;
         }
 
         public void setLenght(Integer lenght) {
             this.length = lenght;
-        }
-
-        public void setMinAge(Integer minAge) {
-            this.minAge = minAge;
         }
 
         public void validate() {
@@ -78,7 +93,7 @@ public class CreateMovieRequest {
                 throw new InvalidRequestException("value ACTORS can not be empty");
             }
 
-            if (genres == null || genres.isEmpty()|| checkEmptyElement(genres))
+            if (genres == null || genres.isEmpty() || checkEmptyElement(genres))
                 throw new InvalidRequestException("value GENRES can not be empty");
 
             if (minAge == null)
@@ -95,21 +110,6 @@ public class CreateMovieRequest {
             }
             return false;
         }
-    }
-
-    public void validate() {
-        if (movie == null) {
-            throw new InvalidRequestException("Movie not specified");
-        }
-        movie.validate();
-    }
-
-    public MovieDto getMovie() {
-        return movie;
-    }
-
-    public void setMovie(MovieDto movie) {
-        this.movie = movie;
     }
 
 

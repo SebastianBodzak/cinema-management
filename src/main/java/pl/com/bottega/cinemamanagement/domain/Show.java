@@ -3,7 +3,10 @@ package pl.com.bottega.cinemamanagement.domain;
 import com.sun.istack.internal.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -31,9 +34,10 @@ public class Show {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     @NotNull
-    private  LocalTime time;
+    private LocalTime time;
 
-    private Show() {}
+    private Show() {
+    }
 
     public Show(Cinema cinema, LocalDate date, Movie movie, LocalTime time) {
         this.cinema = cinema;

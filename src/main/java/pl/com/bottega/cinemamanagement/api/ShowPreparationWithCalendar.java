@@ -1,14 +1,15 @@
 package pl.com.bottega.cinemamanagement.api;
 
 import pl.com.bottega.cinemamanagement.domain.*;
-import pl.com.bottega.cinemamanagement.domain.Calendar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Dell on 2016-09-09.

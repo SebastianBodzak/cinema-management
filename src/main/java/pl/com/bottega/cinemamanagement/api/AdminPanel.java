@@ -37,8 +37,7 @@ public class AdminPanel {
         if (cinema == null) {
             cinema = cinemaFactory.create(request.getName(), request.getCity());
             cinemaRepository.save(cinema);
-        }
-        else
+        } else
             throw new InvalidRequestException("Cinema already exists");
     }
 

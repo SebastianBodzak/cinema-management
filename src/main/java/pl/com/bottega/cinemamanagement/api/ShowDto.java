@@ -21,8 +21,7 @@ public class ShowDto {
         if (!(dates == null)) {
             checkIfDatesAreEmptyCollection();
             checkIfDatesAreValid();
-        }
-        else
+        } else
             calendar.validate();
     }
 
@@ -38,20 +37,20 @@ public class ShowDto {
         return movieId;
     }
 
-    public Collection<String> getDates() {
-        return dates;
-    }
-
-    public CalendarDto getCalendar() {
-        return calendar;
-    }
-
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
     }
 
+    public Collection<String> getDates() {
+        return dates;
+    }
+
     public void setDates(Collection<String> dates) {
         this.dates = dates;
+    }
+
+    public CalendarDto getCalendar() {
+        return calendar;
     }
 
     public void setCalendar(CalendarDto calendar) {
@@ -64,8 +63,7 @@ public class ShowDto {
             try {
                 LocalDate.parse(date, formatter);
                 Utils.checkAdditionalDates(date);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new InvalidRequestException("Invalid date format");
             }
         }

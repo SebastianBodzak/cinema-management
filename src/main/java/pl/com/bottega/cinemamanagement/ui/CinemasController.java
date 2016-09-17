@@ -32,7 +32,7 @@ public class CinemasController {
     }
 
     @GetMapping
-    public ListAllCinemasResponse listAll(){
-       return cinemaCatalog.listAll();
+    public ListAllCinemasResponse listAll() {
+        return cinemaCatalog.listAll();
     }
 }

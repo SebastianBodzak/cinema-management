@@ -55,7 +55,7 @@ public class CalendarDto {
         isValidFormat(fromDate);
         isValidFormat(untilDate);
 
-        if(fromDate.compareTo(untilDate)>0)
+        if (fromDate.compareTo(untilDate) > 0)
             throw new InvalidRequestException("Date From cant be greater than date until");
 
         if (weekDays == null || checkEmptyElement(weekDays) || weekDays.isEmpty())
