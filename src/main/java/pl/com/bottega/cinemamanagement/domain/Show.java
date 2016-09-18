@@ -1,6 +1,5 @@
 package pl.com.bottega.cinemamanagement.domain;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
@@ -21,22 +20,18 @@ public class Show {
     private Long id;
 
     @ManyToOne
-    @NotNull
     private Cinema cinema;
 
     @ManyToOne
-    @NotNull
     private Movie movie;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @NotNull
     private LocalDate date;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @NotNull
     private LocalTime time;
 
-    private Show() {
+    public Show() {
     }
 
     public Show(Cinema cinema, LocalDate date, Movie movie, LocalTime time) {

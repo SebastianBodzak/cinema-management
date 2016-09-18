@@ -4,7 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.*;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -59,6 +60,21 @@ public class AdminPanel {
         List<Show> shows = prepare(cinema, movie, request);
         for (Show show : shows)
             showsRepository.save(show);
+    }
+
+    @Transactional
+    public void updatePrices(Long movieId, UpdatePriceRequest updatePriceRequest) {
+        Movie movie = movieRepository.findById(movieId);
+        Set<TicketPrice> ticketPrices = changeMapToSet(updatePriceRequest.getPrices(),movie);
+        movie.updatePrices(ticketPrices);
+    }
+
+    private Set<TicketPrice> changeMapToSet(HashMap<String, BigDecimal> prices, Movie movie) {
+        Set<TicketPrice> ticprice = new HashSet<>();
+        for (Map.Entry<String, BigDecimal> entry : prices.entrySet())
+            ticprice.add(new TicketPrice(entry.getKey(), entry.getValue()));
+
+        return ticprice;
     }
 
     private List<Show> prepare(Cinema cinema, Movie movie, CreateShowRequest request) {

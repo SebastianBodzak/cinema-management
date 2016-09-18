@@ -1,10 +1,8 @@
 package pl.com.bottega.cinemamanagement.domain;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by ulvar on 04.09.2016.
@@ -27,6 +25,9 @@ public class Movie {
 
     private Integer minAge;
     private Integer length;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<TicketPrice> ticketPrices;
 
     public Movie() {
     }
@@ -94,5 +95,9 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void updatePrices(Set<TicketPrice> ticketPricesSet){
+        this.ticketPrices = ticketPricesSet;
     }
 }

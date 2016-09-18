@@ -1,11 +1,9 @@
 package pl.com.bottega.cinemamanagement.ui;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.AdminPanel;
 import pl.com.bottega.cinemamanagement.api.CreateMovieRequest;
+import pl.com.bottega.cinemamanagement.api.UpdatePriceRequest;
 
 /**
  * Created by arkadiuszarak on 04/09/2016.
@@ -24,4 +22,10 @@ public class MoviesController {
     public void create(@RequestBody CreateMovieRequest createMovieRequest) {
         adminPanel.createMovie(createMovieRequest);
     }
+
+    @PutMapping("/{movieId}/prices")
+    public void updatePrices(@PathVariable Long movieId, @RequestBody UpdatePriceRequest updatePriceRequest){
+        adminPanel.updatePrices(movieId,updatePriceRequest);
+    }
+
 }
