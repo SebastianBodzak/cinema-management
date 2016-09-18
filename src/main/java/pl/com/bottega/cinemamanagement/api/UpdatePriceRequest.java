@@ -20,10 +20,18 @@ public class UpdatePriceRequest {
     }
 
     public HashMap getPrices() {
+        validate();
         return prices;
     }
 
     public void setPrices(HashMap<String,BigDecimal> prices) {
         this.prices = prices;
+    }
+
+    public void validate(){
+              if (!prices.containsKey("regular") && !prices.containsKey("student")) {
+            throw new InvalidRequestException("Regular and student prices are required");
+        }
+
     }
 }
