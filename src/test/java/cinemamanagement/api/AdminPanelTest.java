@@ -142,7 +142,7 @@ public class AdminPanelTest {
         createShowRequest.setShows(showDto);
         showDto.setMovieId(anyMovieId);
         stringDates = new LinkedList<>();
-        showDto.setDates(stringDates);
+//        showDto.setDates(stringDates);
     }
 
     private void createCinemaRequestInstance() {

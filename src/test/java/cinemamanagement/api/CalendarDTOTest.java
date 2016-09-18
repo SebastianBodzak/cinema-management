@@ -5,6 +5,8 @@ import org.junit.Test;
 import pl.com.bottega.cinemamanagement.api.CalendarDto;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -17,8 +19,8 @@ import static org.junit.Assert.assertEquals;
 public class CalendarDTOTest {
 
     private CalendarDto calendarDto;
-    private String fromDate = "2016/09/13 01:00";
-    private String untilDate = "2016/09/30 23:00";
+    private LocalDateTime fromDate = LocalDateTime.of(2016, 9, 13, 01, 00);
+    private LocalDateTime untilDate = LocalDateTime.of(2016, 9, 30, 23, 0);
     private Collection<String> weekDays = new ArrayList<String>() {{
         add("Monday");
         add("Tuesday");
@@ -39,65 +41,27 @@ public class CalendarDTOTest {
         add("Tuesday");
         add("Wednesday");
     }};
-    private Collection<String> hours = new ArrayList<String>() {{
-        add("13:00");
-        add("15:00");
-        add("17:00");
+    private Collection<LocalTime> hours = new ArrayList<LocalTime>() {{
+        add(LocalTime.of(13, 0));
+        add(LocalTime.of(15, 0));
+        add(LocalTime.of(17, 0));
     }};
-    private Collection<String> hoursWithNull = new ArrayList<String>() {{
+    private Collection<LocalTime> hoursWithNull = new ArrayList<LocalTime>() {{
         add(null);
-        add("15:00");
-        add("17:00");
+        add(LocalTime.of(15, 0));
+        add(LocalTime.of(17, 0));
     }};
-    private Collection<String> hoursWithEmptyElement = new ArrayList<String>() {{
-        add("13:00");
-        add("");
-        add("17:00");
-    }};
-    private Collection<String> hoursWithErrorHour = new ArrayList<String>() {{
-        add("13:00");
-        add("28:00");
-        add("17:00");
-    }};
-
 
     @Before
     public void Setup() {
         calendarDto = new CalendarDto();
-
     }
 
     @Test
     public void shouldValidate(){
-        setCalendarDtoInstance(fromDate, untilDate, weekDays, hours);
+        calendarDto = setCalendarDtoInstance(fromDate, untilDate, weekDays, hours);
 
         calendarDto.validate();
-    }
-
-    @Test
-    public void shouldNotValidateWithWrongDate(){
-        setCalendarDtoInstance(fromDate, "2016/09/35 23:00", weekDays, hours);
-
-        try {
-            calendarDto.validate();
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid date format", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-    }
-
-    @Test
-    public void shouldNotValidateWithLetterInDate(){
-        setCalendarDtoInstance(fromDate, "2016/09/2t 23:00", weekDays, hours);
-
-        try {
-            calendarDto.validate();
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid date format", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
     }
 
     @Test
@@ -107,7 +71,7 @@ public class CalendarDTOTest {
         try {
             calendarDto.validate();
         } catch (InvalidRequestException ex) {
-            assertEquals("Value of day/hour can not be null", ex.getMessage());
+            assertEquals("Value of day can not be null", ex.getMessage());
             return;
         }
         fail("InvalidRequestException expected");
@@ -153,46 +117,10 @@ public class CalendarDTOTest {
         fail("InvalidRequestException expected");
 
     }
-    @Test
-    public void shouldNotValidateWithEmptyHours(){
-        setCalendarDtoInstance(fromDate, untilDate, weekDays, hoursWithEmptyElement);
-
-        try {
-            calendarDto.validate();
-        } catch (InvalidRequestException ex) {
-            assertEquals("Value hours can not be empty", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-
-    }
-
-    @Test
-    public void shouldNotValidateWithErrorHours(){
-        setCalendarDtoInstance(fromDate, untilDate, weekDays, hoursWithErrorHour);
-
-        try {
-            calendarDto.validate();
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid value of hour", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-
-    }
-
-
-    private void setCalendarDtoInstance(String fromDate, String untilDate, Collection<String> weekDays, Collection<String> hours) {
-        calendarDto.setFromDate(fromDate);
-        calendarDto.setUntilDate(untilDate);
-        calendarDto.setWeekDays(weekDays);
-        calendarDto.setHours(hours);
-    }
 
     @Test
     public void shouldNotAllowDateFromToBeGreaterThanUntil(){
-
-            setCalendarDtoInstance(fromDate, "2016/09/10 23:00", weekDays, hours);
+            setCalendarDtoInstance(fromDate, LocalDateTime.of(2016, 9, 10, 23, 0), weekDays, hours);
 
             try {
                 calendarDto.validate();
@@ -202,4 +130,12 @@ public class CalendarDTOTest {
             }
             fail("InvalidRequestException expected");
         }
+
+    private CalendarDto setCalendarDtoInstance(LocalDateTime fromDate, LocalDateTime untilDate, Collection<String> weekDays, Collection<LocalTime> hours) {
+        calendarDto.setFromDate(fromDate);
+        calendarDto.setUntilDate(untilDate);
+        calendarDto.setWeekDays(weekDays);
+        calendarDto.setHours(hours);
+        return calendarDto;
+    }
 }

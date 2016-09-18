@@ -4,10 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -67,21 +63,9 @@ public class AdminPanel {
 
     private List<Show> prepare(Cinema cinema, Movie movie, CreateShowRequest request) {
         if (request.getDates() != null)
-            return prepareShowsWithDates(cinema, movie, request.getDates());
+            return new ShowsFactory().createShows(cinema, movie, request.getDates());
         else
             return new ShowPreparationWithCalendar().prepare(cinema, movie, request.getCalendarDto());
     }
 
-    private List<Show> prepareShowsWithDates(Cinema cinema, Movie movie, Collection<String> dates) {
-        List<LocalDateTime> datesList = parseStringsToDates(dates);
-        return new ShowsFactory().createShows(cinema, movie, datesList);
-    }
-
-    private List<LocalDateTime> parseStringsToDates(Collection<String> stringDates) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        List<LocalDateTime> dates = new LinkedList<>();
-        for (String s : stringDates)
-            dates.add(LocalDateTime.parse(s, formatter));
-        return dates;
-    }
 }

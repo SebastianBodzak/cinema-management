@@ -3,12 +3,9 @@ package pl.com.bottega.cinemamanagement.api;
 import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,24 +14,13 @@ import java.util.List;
 public class ShowPreparationWithCalendar {
 
     public List<Show> prepare(Cinema cinema, Movie movie, CalendarDto calendarDto) {
-        ShowsFactory showsFactory = new ShowsFactory();
-        LocalDateTime fromDate = changeStringToDate(calendarDto.getFromDate());
-        LocalDateTime untilDate = changeStringToDate(calendarDto.getUntilDate());
-        List<DayOfWeek> weekDays = changeStringDaysToEnumDays(calendarDto.getWeekDays());
-        List<LocalTime> hoursList = changeStringsToHours(calendarDto.getHours());
-        Calendar calendar = new Calendar(fromDate, untilDate, weekDays, hoursList);
-        return showsFactory.createShows(cinema, movie, calendar);
-    }
-
-    private LocalDateTime changeStringToDate(String string) {
-        if (string == null)
+        if (cinema == null || movie == null || calendarDto == null)
             throw new InvalidRequestException("Date can not be null");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        try {
-            return LocalDateTime.parse(string, formatter);
-        } catch (DateTimeParseException e) {
-            throw new InvalidRequestException("Invalid date");
-        }
+
+        ShowsFactory showsFactory = new ShowsFactory();
+        List<DayOfWeek> weekDays = changeStringDaysToEnumDays(calendarDto.getWeekDays());
+        Calendar calendar = new Calendar(calendarDto.getFromDate(), calendarDto.getUntilDate(), weekDays, new LinkedList<>(calendarDto.getHours()));
+        return showsFactory.createShows(cinema, movie, calendar);
     }
 
     private List<DayOfWeek> changeStringDaysToEnumDays(Collection<String> strings) {
@@ -50,22 +36,4 @@ public class ShowPreparationWithCalendar {
         }
         return weekDays;
     }
-
-    private List<LocalTime> changeStringsToHours(Collection<String> strings) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        List<LocalTime> hours = new ArrayList<>();
-        for (String str : strings) {
-            if (str == null)
-                throw new InvalidRequestException("Hour can not be null");
-            try {
-                LocalTime hour = LocalTime.parse(str, formatter);
-                hours.add(hour);
-            } catch (DateTimeParseException e) {
-                throw new InvalidRequestException("Invalid value for hour of day (valid values 0 - 23)");
-            }
-        }
-        return hours;
-    }
-
-
 }

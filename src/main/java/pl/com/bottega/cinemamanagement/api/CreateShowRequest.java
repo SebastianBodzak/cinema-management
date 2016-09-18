@@ -1,6 +1,9 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import java.util.Collection;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -20,7 +23,7 @@ public class CreateShowRequest {
         return shows.getCalendar();
     }
 
-    public Collection<String> getDates() {
+    public Set<LocalDateTime> getDates() {
         return shows.getDates();
     }
 

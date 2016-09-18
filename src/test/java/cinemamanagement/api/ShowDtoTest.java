@@ -14,11 +14,9 @@ import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.*;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 /**
  * Created by Dell on 2016-09-10.
  */
@@ -27,9 +25,9 @@ public class ShowDtoTest {
 
     private ShowDto showDto;
     private Long movieId = 1L;
-    private Collection<String> dates = new LinkedList<>();
-    private String date = "2016/10/22 10:00";
-    private String date2 = "2016/11/05 12:30";
+    private Collection<LocalDateTime> dates = new LinkedList<>();
+    private LocalDateTime date = LocalDateTime.of(2016, 10, 22, 10, 0);
+    private LocalDateTime date2 = LocalDateTime.of(2016, 11, 5, 12, 30);
 
     @Mock
     private CalendarDto calendarDto;
@@ -45,13 +43,13 @@ public class ShowDtoTest {
 
     @Before
     public void setUp() {
-        showDto = new ShowDto();
+        showDto = createShowDtoInstance(movieId, dates, calendarDto);
     }
 
     @Test
     public void shouldNotVerifyBecauseMovieIdIsNull() {
         exception.expect(InvalidRequestException.class);
-        dates.add("2016/10/22 10:00");
+        dates.add(date);
         showDto = createShowDtoInstance(null, dates, calendarDto);
         exception.expectMessage("MovieId with dates or movieId with calendar are required");
 
@@ -61,16 +59,8 @@ public class ShowDtoTest {
     @Test
     public void shouldNotVerifyBecauseDatesAndCalendarAreNull() {
         exception.expect(InvalidRequestException.class);
-        showDto = createShowDtoInstance(movieId, null, null);
-        exception.expectMessage("MovieId with dates or movieId with calendar are required");
-
-        showDto.validate();
-    }
-
-    @Test
-    public void shouldNotVerifyBecauseAllArgumentsAreNull() {
-        exception.expect(InvalidRequestException.class);
-        showDto = createShowDtoInstance(null, null, null);
+        showDto.setDates(null);
+        showDto.setCalendar(null);
         exception.expectMessage("MovieId with dates or movieId with calendar are required");
 
         showDto.validate();
@@ -117,9 +107,9 @@ public class ShowDtoTest {
         System.out.println(dayOfWeek);
     }
 
-    private ShowDto createShowDto(Long movieId, Collection<String> dates) {
+    private ShowDto createShowDto(Long movieId, Collection<LocalDateTime> dates) {
         ShowDto showDto = new ShowDto();
-        showDto.setDates(dates);
+        showDto.setDates(new HashSet<>(dates));
         showDto.setMovieId(movieId);
         return showDto;
     }
@@ -129,10 +119,10 @@ public class ShowDtoTest {
         dates.add(date2);
     }
 
-    private ShowDto createShowDtoInstance(Long movieId, Collection<String> dates, CalendarDto calendarDto) {
+    private ShowDto createShowDtoInstance(Long movieId, Collection<LocalDateTime> dates, CalendarDto calendarDto) {
         ShowDto showDto = new ShowDto();
         showDto.setMovieId(movieId);
-        showDto.setDates(dates);
+        showDto.setDates(new HashSet<>(dates));
         showDto.setCalendar(calendarDto);
         return showDto;
     }

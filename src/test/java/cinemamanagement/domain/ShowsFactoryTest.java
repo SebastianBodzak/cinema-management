@@ -11,8 +11,9 @@ import pl.com.bottega.cinemamanagement.domain.Show;
 import pl.com.bottega.cinemamanagement.domain.ShowsFactory;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -24,9 +25,9 @@ import static junit.framework.Assert.assertTrue;
 public class ShowsFactoryTest {
 
     private ShowsFactory showsFactory;
-    private List<LocalDateTime> datesList = new LinkedList<>();
-    private LocalDateTime anyDate = LocalDateTime.now();
-    private LocalDateTime anotherDate = LocalDateTime.now().plusDays(1L);
+    private Set<LocalDateTime> datesList = new HashSet<>();
+    private LocalDateTime anyDate = LocalDateTime.of(2016, 9, 10, 21, 00);
+    private LocalDateTime anotherDate = LocalDateTime.of(2016, 9, 11, 22, 00);
 
     @Mock
     private Cinema cinema;
