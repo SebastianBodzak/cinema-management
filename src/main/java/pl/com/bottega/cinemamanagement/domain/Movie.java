@@ -1,10 +1,8 @@
 package pl.com.bottega.cinemamanagement.domain;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by ulvar on 04.09.2016.
@@ -20,18 +18,25 @@ public class Movie {
     private String description;
 
     @ElementCollection
-    private Collection<String> actors;
+    private Set<String> actors;
 
     @ElementCollection
-    private Collection<String> genres;
+    private Set<String> genres;
 
     private Integer minAge;
     private Integer length;
 
+    public Set<Show> getShows() {
+        return shows;
+    }
+
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
+    private Set<Show> shows;
+
     public Movie() {
     }
 
-    public Movie(String title, String description, Collection<String> actors, Collection<String> genres, Integer minAge, Integer length) {
+    public Movie(String title, String description, Set<String> actors, Set<String> genres, Integer minAge, Integer length) {
         this.actors = actors;
         this.description = description;
         this.genres = genres;
@@ -44,7 +49,7 @@ public class Movie {
         return actors;
     }
 
-    public void setActors(Collection<String> actors) {
+    public void setActors(Set<String> actors) {
         this.actors = actors;
     }
 
@@ -60,7 +65,7 @@ public class Movie {
         return genres;
     }
 
-    public void setGenres(Collection<String> genres) {
+    public void setGenres(Set<String> genres) {
         this.genres = genres;
     }
 

@@ -46,6 +46,10 @@ public class Show {
         this.time = time;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Cinema getCinema() {
         return cinema;
     }
