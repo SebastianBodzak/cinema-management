@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -13,7 +14,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class ShowsFactory {
 
-    public List<Show> createShows(Cinema cinema, Movie movie, List<LocalDateTime> dates) {
+    public List<Show> createShows(Cinema cinema, Movie movie, Set<LocalDateTime> dates) {
         checkArgument(!(cinema == null || movie == null || dates == null || dates.isEmpty()));
 
         List<Show> shows = new LinkedList<>();

@@ -33,6 +33,9 @@ public class Movie {
     @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
     private Set<Show> shows;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<TicketPrice> ticketPrices;
+
     public Movie() {
     }
 
@@ -99,5 +102,9 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void updatePrices(Set<TicketPrice> ticketPricesSet){
+        this.ticketPrices = ticketPricesSet;
     }
 }

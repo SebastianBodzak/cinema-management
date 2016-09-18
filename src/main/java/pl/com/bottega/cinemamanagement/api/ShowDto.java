@@ -2,9 +2,8 @@ package pl.com.bottega.cinemamanagement.api;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * Created by Dell on 2016-09-09.
@@ -12,8 +11,8 @@ import java.util.Collection;
 public class ShowDto {
 
     private Long movieId;
-//    @JsonFormat(pattern = "")
-    private Collection<String> dates; //todo collection of dates
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
+    private Set<LocalDateTime> dates;
     private CalendarDto calendar;
 
     public void validate() {
@@ -43,14 +42,6 @@ public class ShowDto {
         this.movieId = movieId;
     }
 
-    public Collection<String> getDates() {
-        return dates;
-    }
-
-    public void setDates(Collection<String> dates) {
-        this.dates = dates;
-    }
-
     public CalendarDto getCalendar() {
         return calendar;
     }
@@ -62,5 +53,13 @@ public class ShowDto {
     private void checkIfDatesAreEmptyCollection() throws InvalidRequestException {
         if (dates.isEmpty())
             throw new InvalidRequestException("Dates are required");
+    }
+
+    public Set<LocalDateTime> getDates() {
+        return dates;
+    }
+
+    public void setDates(Set<LocalDateTime> dates) {
+        this.dates = dates;
     }
 }

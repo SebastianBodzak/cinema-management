@@ -4,11 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -60,23 +57,26 @@ public class AdminPanel {
             showsRepository.save(show);
     }
 
+    @Transactional
+    public void updatePrices(Long movieId, UpdatePriceRequest updatePriceRequest) {
+        Movie movie = movieRepository.findById(movieId);
+        Set<TicketPrice> ticketPrices = changeMapToSet(updatePriceRequest.getPrices(),movie);
+        movie.updatePrices(ticketPrices);
+    }
+
+    private Set<TicketPrice> changeMapToSet(HashMap<String, BigDecimal> prices, Movie movie) {
+        Set<TicketPrice> ticprice = new HashSet<>();
+        for (Map.Entry<String, BigDecimal> entry : prices.entrySet())
+            ticprice.add(new TicketPrice(entry.getKey(), entry.getValue()));
+
+        return ticprice;
+    }
+
     private List<Show> prepare(Cinema cinema, Movie movie, CreateShowRequest request) {
         if (request.getDates() != null)
-            return prepareShowsWithDates(cinema, movie, request.getDates());
+            return new ShowsFactory().createShows(cinema, movie, request.getDates());
         else
             return new ShowPreparationWithCalendar().prepare(cinema, movie, request.getCalendarDto());
     }
 
-    private List<Show> prepareShowsWithDates(Cinema cinema, Movie movie, Collection<String> dates) {
-        List<LocalDateTime> datesList = parseStringsToDates(dates);
-        return new ShowsFactory().createShows(cinema, movie, datesList);
-    }
-
-    private List<LocalDateTime> parseStringsToDates(Collection<String> stringDates) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        List<LocalDateTime> dates = new LinkedList<>();
-        for (String s : stringDates)
-            dates.add(LocalDateTime.parse(s, formatter));
-        return dates;
-    }
 }

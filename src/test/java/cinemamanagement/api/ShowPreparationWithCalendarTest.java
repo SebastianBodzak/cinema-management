@@ -11,6 +11,8 @@ import pl.com.bottega.cinemamanagement.api.ShowPreparationWithCalendar;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -25,8 +27,8 @@ public class ShowPreparationWithCalendarTest {
 
     private CalendarDto calendarDto;
     private ShowPreparationWithCalendar showPreparationWithCalendar;
-    private String fromDate = "2016/09/13 01:00";
-    private String untilDate = "2016/09/30 23:00";
+    private LocalDateTime fromDate = LocalDateTime.of(2016, 9, 13, 01, 00);
+    private LocalDateTime untilDate = LocalDateTime.of(2016, 9, 30, 23, 0);
     private Collection<String> weekDays = new ArrayList<String>() {{
         add("Monday");
         add("Tuesday");
@@ -47,25 +49,10 @@ public class ShowPreparationWithCalendarTest {
         add("Tuesday");
         add("Wednesday");
     }};
-    private Collection<String> hours = new ArrayList<String>() {{
-        add("13:00");
-        add("15:00");
-        add("17:00");
-    }};
-    private Collection<String> hoursWithNull = new ArrayList<String>() {{
-        add(null);
-        add("15:00");
-        add("17:00");
-    }};
-    private Collection<String> hoursWithEmptyElement = new ArrayList<String>() {{
-        add("13:00");
-        add("");
-        add("17:00");
-    }};
-    private Collection<String> hoursWithErrorHour = new ArrayList<String>() {{
-        add("13:00");
-        add("28:00");
-        add("17:00");
+    private Collection<LocalTime> hours = new ArrayList<LocalTime>() {{
+        add(LocalTime.of(13, 0));
+        add(LocalTime.of(15, 0));
+        add(LocalTime.of(17, 0));
     }};
 
     @Mock
@@ -76,66 +63,18 @@ public class ShowPreparationWithCalendarTest {
 
     @Before
     public void Setup() {
-        calendarDto = createCalendarDtoInstance(fromDate, untilDate, weekDays, hours);
+        calendarDto = new CalendarDto();
+        calendarDto.setFromDate(fromDate);
+        calendarDto.setUntilDate(untilDate);
+        calendarDto.setHours(hours);
+        calendarDto.setWeekDays(weekDays);
         showPreparationWithCalendar = new ShowPreparationWithCalendar();
     }
 
     @Test
     public void shouldDoNotPrepareShows() {
-
         showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
 
-    }
-
-    @Test
-    public void shouldDoNotPrepareShowsWithWrongDate() {
-        calendarDto.setFromDate("2016/09/40 01:00");
-
-        try {
-            showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid date", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-    }
-
-    @Test
-    public void shouldDoNotPrepareShowsWithLetterInDate() {
-        calendarDto.setFromDate("2016/09/30 p1:00");
-
-        try {
-            showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid date", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-    }
-    @Test
-    public void shouldDoNotPrepareShowsWithoutProperDate() {
-        calendarDto.setFromDate("2016/09/30");
-
-        try {
-            showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid date", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-    }
-
-    @Test
-    public void shouldDoNotPrepareShowsWithNullDate() {
-        calendarDto.setFromDate(null);
-
-        try {
-            showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
-        } catch (InvalidRequestException ex) {
-            assertEquals("Date can not be null", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
     }
 
     @Test
@@ -175,54 +114,5 @@ public class ShowPreparationWithCalendarTest {
             return;
         }
         fail("InvalidRequestException expected");
-    }
-
-    @Test
-    public void shouldDoNotPrepareShowsWithNullHours() {
-        calendarDto.setHours(hoursWithNull);
-
-        try {
-            showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
-        } catch (InvalidRequestException ex) {
-            assertEquals("Hour can not be null", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-    }
-
-    @Test
-    public void shouldDoNotPrepareShowsWithEmptyHours() {
-        calendarDto.setHours(hoursWithEmptyElement);
-
-        try {
-            showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid value for hour of day (valid values 0 - 23)", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-    }
-
-    @Test
-    public void shouldDoNotPrepareShowsWithErrorHours() {
-        calendarDto.setHours(hoursWithErrorHour);
-
-        try {
-            showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
-        } catch (InvalidRequestException ex) {
-            assertEquals("Invalid value for hour of day (valid values 0 - 23)", ex.getMessage());
-            return;
-        }
-        fail("InvalidRequestException expected");
-    }
-
-
-    private CalendarDto createCalendarDtoInstance(String fromDate, String untilDate, Collection<String> weekDays, Collection<String> hours) {
-        CalendarDto calendarDto = new CalendarDto();
-        calendarDto.setFromDate(fromDate);
-        calendarDto.setUntilDate(untilDate);
-        calendarDto.setWeekDays(weekDays);
-        calendarDto.setHours(hours);
-        return calendarDto;
     }
 }
