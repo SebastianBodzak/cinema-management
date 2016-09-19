@@ -29,9 +29,9 @@ public class UpdatePriceRequest {
     }
 
     public void validate(){
-              if (!prices.containsKey("regular") && !prices.containsKey("student")) {
+              if (!(prices.containsKey("regular") && prices.containsKey("student"))) {
             throw new InvalidRequestException("Regular and student prices are required");
-        }
+              }
 
     }
 }
