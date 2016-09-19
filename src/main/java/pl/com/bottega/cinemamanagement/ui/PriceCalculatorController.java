@@ -1,11 +1,12 @@
 package pl.com.bottega.cinemamanagement.ui;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.com.bottega.cinemamanagement.api.AdminPanel;
 import pl.com.bottega.cinemamanagement.api.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.CalculatePriceResponse;
+import pl.com.bottega.cinemamanagement.api.PriceCalculator;
 
 /**
  * Created by Dell on 2016-09-19.
@@ -14,14 +15,14 @@ import pl.com.bottega.cinemamanagement.api.CalculatePriceResponse;
 @RequestMapping("/price_calculator")
 public class PriceCalculatorController {
 
-    private AdminPanel adminPanel;
+    private PriceCalculator priceCalculator;
 
-    public PriceCalculatorController(AdminPanel adminPanel) {
-        this.adminPanel = adminPanel;
+    public PriceCalculatorController(PriceCalculator priceCalculator) {
+        this.priceCalculator = priceCalculator;
     }
 
     @PostMapping
-    public CalculatePriceResponse calculatePrice(CalculatePriceRequest request) {
-        return adminPanel.calculatePrice(request);
+    public CalculatePriceResponse calculatePrice(@RequestBody CalculatePriceRequest request) {
+        return priceCalculator.calculatePrice(request);
     }
 }

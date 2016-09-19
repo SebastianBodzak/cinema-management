@@ -6,7 +6,6 @@ import pl.com.bottega.cinemamanagement.domain.Show;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Timer;
 
 /**
  * Created by arkadiuszarak on 18/09/2016.

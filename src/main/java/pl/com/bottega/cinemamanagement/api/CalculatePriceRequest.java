@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import pl.com.bottega.cinemamanagement.domain.TicketOrder;
-
 import java.util.Set;
 
 /**
@@ -10,7 +8,7 @@ import java.util.Set;
 public class CalculatePriceRequest {
 
     private Long showId;
-    private Set<TicketOrder> tickets;
+    private Set<TicketOrderDto> tickets;
 
     public Long getShowId() {
         return showId;
@@ -20,11 +18,11 @@ public class CalculatePriceRequest {
         this.showId = showId;
     }
 
-    public Set<TicketOrder> getTickets() {
+    public Set<TicketOrderDto> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Set<TicketOrder> tickets) {
+    public void setTickets(Set<TicketOrderDto> tickets) {
         this.tickets = tickets;
     }
 }

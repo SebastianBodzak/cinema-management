@@ -107,4 +107,8 @@ public class Movie {
     public void updatePrices(Set<TicketPrice> ticketPricesSet){
         this.ticketPrices = ticketPricesSet;
     }
+
+    public Set<TicketPrice> getTicketPrices() {
+        return ticketPrices;
+    }
 }

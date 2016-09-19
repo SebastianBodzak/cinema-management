@@ -9,6 +9,10 @@ public class CalculatePriceResponse {
 
     private Calculation calculation;
 
+    public CalculatePriceResponse(Calculation calculation) {
+        this.calculation = calculation;
+    }
+
     public Calculation getCalculation() {
         return calculation;
     }
