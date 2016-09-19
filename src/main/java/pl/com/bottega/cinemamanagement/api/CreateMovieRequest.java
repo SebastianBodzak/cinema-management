@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemamanagement.api;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -29,16 +30,16 @@ public class CreateMovieRequest {
 
         private String title;
         private String description;
-        private Collection<String> actors;
-        private Collection<String> genres;
+        private Set<String> actors;
+        private Set<String> genres;
         private Integer minAge;
         private Integer length;
 
-        public Collection<String> getActors() {
+        public Set<String> getActors() {
             return actors;
         }
 
-        public void setActors(Collection<String> actors) {
+        public void setActors(Set<String> actors) {
             this.actors = actors;
         }
 
@@ -58,7 +59,7 @@ public class CreateMovieRequest {
             this.title = title;
         }
 
-        public Collection<String> getGenres() {
+        public Set<String> getGenres() {
             return genres;
         }
 
@@ -74,7 +75,7 @@ public class CreateMovieRequest {
             this.minAge = minAge;
         }
 
-        public void setGeners(Collection<String> geners) {
+        public void setGeners(Set<String> geners) {
             this.genres = geners;
         }
 

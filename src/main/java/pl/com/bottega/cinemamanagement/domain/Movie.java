@@ -18,13 +18,20 @@ public class Movie {
     private String description;
 
     @ElementCollection
-    private Collection<String> actors;
+    private Set<String> actors;
 
     @ElementCollection
-    private Collection<String> genres;
+    private Set<String> genres;
 
     private Integer minAge;
     private Integer length;
+
+    public Set<Show> getShows() {
+        return shows;
+    }
+
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
+    private Set<Show> shows;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<TicketPrice> ticketPrices;
@@ -32,7 +39,7 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String title, String description, Collection<String> actors, Collection<String> genres, Integer minAge, Integer length) {
+    public Movie(String title, String description, Set<String> actors, Set<String> genres, Integer minAge, Integer length) {
         this.actors = actors;
         this.description = description;
         this.genres = genres;
@@ -45,7 +52,7 @@ public class Movie {
         return actors;
     }
 
-    public void setActors(Collection<String> actors) {
+    public void setActors(Set<String> actors) {
         this.actors = actors;
     }
 
@@ -61,7 +68,7 @@ public class Movie {
         return genres;
     }
 
-    public void setGenres(Collection<String> genres) {
+    public void setGenres(Set<String> genres) {
         this.genres = genres;
     }
 

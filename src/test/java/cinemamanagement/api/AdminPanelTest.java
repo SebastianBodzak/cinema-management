@@ -32,18 +32,17 @@ public class AdminPanelTest {
 
     private String movieTitle = "any title";
     private String movieDescription = "any description";
-    private Collection<String> movieActors = new ArrayList<String>(){{
+    private Set<String> movieActors = new HashSet<String>(){{
         add("any actor 1");
         add("any actor 2");
         add("any actor 3");
     }};
-    private Collection<String> movieGenres = new ArrayList<String>(){{
+    private Set<String> movieGenres = new HashSet<String>(){{
         add("any genres1");
         add("any genres2");
     }};
     private int movieMinAge = 16;
     private int movieLength = 120;
-    private CreateMovieRequest createMovieRequest = new CreateMovieRequest();
     private CreateMovieRequest.MovieDto movieDto;
     private CreateShowRequest createShowRequest;
     private ShowDto showDto;
@@ -55,6 +54,9 @@ public class AdminPanelTest {
     private Long anyMovieId = 1L;
     private Long anyCinemaId = 10L;
     private List<Show> shows = new LinkedList<>();
+
+    @Mock
+    private CreateMovieRequest createMovieRequest;
 
     @Mock
     private CinemaRepository cinemaRepository;
@@ -118,7 +120,7 @@ public class AdminPanelTest {
     @Test
     public void shouldCreateMovie(){
         createMovieRequestInstance();
-        when(movieFactory.create(movieTitle, movieDescription, movieActors, movieGenres, movieMinAge, movieLength)).thenReturn(movie);
+        when(movieFactory.create(createMovieRequest)).thenReturn(movie);
 
         adminPanel.createMovie(createMovieRequest);
 

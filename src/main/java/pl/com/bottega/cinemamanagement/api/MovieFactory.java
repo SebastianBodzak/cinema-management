@@ -11,7 +11,12 @@ import java.util.Collection;
 @Component
 public class MovieFactory {
 
-    public Movie create(String title, String description, Collection<String> actors, Collection<String> genres, Integer minAge, Integer length) {
-        return new Movie(title, description, actors, genres, minAge, length);
+    public Movie create(CreateMovieRequest request) {
+        return new Movie(request.getMovie().getTitle(),
+                request.getMovie().getDescription(),
+                request.getMovie().getActors(),
+                request.getMovie().getGenres(),
+                request.getMovie().getMinAge(),
+                request.getMovie().getLength());
     }
 }
