@@ -64,6 +64,11 @@ public class AdminPanel {
         movie.updatePrices(ticketPrices);
     }
 
+    @Transactional
+    public CalculatePriceResponse calculatePrice(CalculatePriceRequest request) {
+        return null;
+    }
+
     private Set<TicketPrice> changeMapToSet(HashMap<String, BigDecimal> prices, Movie movie) {
         Set<TicketPrice> ticprice = new HashSet<>();
         for (Map.Entry<String, BigDecimal> entry : prices.entrySet())
@@ -78,5 +83,4 @@ public class AdminPanel {
         else
             return new ShowPreparationWithCalendar().prepare(cinema, movie, request.getCalendarDto());
     }
-
 }
