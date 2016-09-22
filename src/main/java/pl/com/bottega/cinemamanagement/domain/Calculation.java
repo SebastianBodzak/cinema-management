@@ -27,7 +27,7 @@ public class Calculation {
             TicketPrice price = getTicketPrice(ticketPrices, ticket.getKind());
             ticket.setUnitPrice(price.getPrice());
             ticket.calculateTotalPrice();
-            totalPrice = totalPrice.add(price.getPrice());
+            totalPrice = totalPrice.add(ticket.getTotalPrice());
         }
     }
 

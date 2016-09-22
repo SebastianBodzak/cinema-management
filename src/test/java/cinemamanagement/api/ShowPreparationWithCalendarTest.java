@@ -72,7 +72,7 @@ public class ShowPreparationWithCalendarTest {
     }
 
     @Test
-    public void shouldDoNotPrepareShows() {
+    public void shouldPrepareShows() {
         showPreparationWithCalendar.prepare(cinema, movie, calendarDto);
 
     }

@@ -60,11 +60,13 @@ public class AdminPanel {
     @Transactional
     public void updatePrices(Long movieId, UpdatePriceRequest updatePriceRequest) {
         Movie movie = movieRepository.findById(movieId);
-        Set<TicketPrice> ticketPrices = changeMapToSet(updatePriceRequest.getPrices(),movie);
+        if (movie == null)
+            throw new  InvalidRequestException("Wrong id. Movie does not exist.");
+        Set<TicketPrice> ticketPrices = changeMapToSet(updatePriceRequest.getPrices());
         movie.updatePrices(ticketPrices);
     }
 
-    private Set<TicketPrice> changeMapToSet(HashMap<String, BigDecimal> prices, Movie movie) {
+    private Set<TicketPrice> changeMapToSet(HashMap<String, BigDecimal> prices) {
         Set<TicketPrice> ticprice = new HashSet<>();
         for (Map.Entry<String, BigDecimal> entry : prices.entrySet())
             ticprice.add(new TicketPrice(entry.getKey().toLowerCase(), entry.getValue()));

@@ -10,6 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.*;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -138,6 +139,44 @@ public class AdminPanelTest {
         adminPanel.createShows(createShowRequest);
     }
 
+    @Test
+    public void shouldUpdatePrice(){
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequest();
+
+        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+    }
+
+    @Test
+    public void shouldNotUpdatePriceBecauseWrongMovieId(){
+        exception.expect(InvalidRequestException.class);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequest();
+        exception.expectMessage("Wrong id. Movie does not exist.");
+
+        adminPanel.updatePrices(0L,updatePriceRequest);
+    }
+
+    @Test
+    public void shouldNotUpdatePriceWithoutStudentTicket(){
+        exception.expect(InvalidRequestException.class);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequestWithoutStudentTicket();
+        exception.expectMessage("Regular and student prices are required");
+
+        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+    }
+
+    @Test
+    public void shouldNotUpdatePriceWithoutRegularTicket(){
+        exception.expect(InvalidRequestException.class);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequestWithoutRegularTicket();
+        exception.expectMessage("Regular and student prices are required");
+
+        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+    }
+
     private void createShowsRequestInstance() {
         createShowRequest = new CreateShowRequest();
         showDto = new ShowDto();
@@ -164,4 +203,37 @@ public class AdminPanelTest {
         movieDto.setMinAge(movieMinAge);
         movieDto.setLenght(movieLength);
     }
+
+    private UpdatePriceRequest createUpdatePriceRequest() {
+        UpdatePriceRequest updatePriceRequest = new UpdatePriceRequest();
+        updatePriceRequest.setMovieId(anyMovieId);
+        HashMap<String,BigDecimal> map = new HashMap<>();
+        map.put("regular",new BigDecimal(15.00));
+        map.put("student",new BigDecimal(10.00));
+        map.put("school",new BigDecimal(8.00));
+        map.put("children",new BigDecimal(5.00));
+        updatePriceRequest.setPrices(map);
+        return updatePriceRequest;
+    }
+    private UpdatePriceRequest createUpdatePriceRequestWithoutStudentTicket() {
+        UpdatePriceRequest updatePriceRequest = new UpdatePriceRequest();
+        updatePriceRequest.setMovieId(anyMovieId);
+        HashMap<String,BigDecimal> map = new HashMap<>();
+        map.put("regular",new BigDecimal(15.00));
+        map.put("school",new BigDecimal(8.00));
+        map.put("children",new BigDecimal(5.00));
+        updatePriceRequest.setPrices(map);
+        return updatePriceRequest;
+    }
+    private UpdatePriceRequest createUpdatePriceRequestWithoutRegularTicket() {
+        UpdatePriceRequest updatePriceRequest = new UpdatePriceRequest();
+        updatePriceRequest.setMovieId(anyMovieId);
+        HashMap<String,BigDecimal> map = new HashMap<>();
+        map.put("student",new BigDecimal(10.00));
+        map.put("school",new BigDecimal(8.00));
+        map.put("children",new BigDecimal(5.00));
+        updatePriceRequest.setPrices(map);
+        return updatePriceRequest;
+    }
+
 }
