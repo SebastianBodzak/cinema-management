@@ -1,3 +1,4 @@
+/*
 package pl.com.bottega.cinemamanagement.api.shows.strategies;
 
 
@@ -18,9 +19,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+*/
 /**
  * Created by Dell on 2016-09-09.
- */
+ *//*
+
 public class ShowPreparationWithCalendar implements ShowPreparationStrategy {
 
     @Override
@@ -89,3 +92,4 @@ public class ShowPreparationWithCalendar implements ShowPreparationStrategy {
     }
 
 }
+*/

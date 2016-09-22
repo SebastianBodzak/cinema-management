@@ -30,7 +30,7 @@ public class Movie {
         return shows;
     }
 
-    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.EAGER)
     private Set<Show> shows;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

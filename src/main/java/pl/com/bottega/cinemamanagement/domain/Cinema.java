@@ -1,8 +1,7 @@
 package pl.com.bottega.cinemamanagement.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by bartosz.paszkowski on 04.09.2016.
@@ -16,6 +15,10 @@ public class Cinema {
 
     private String name;
     private String city;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cinema", fetch = FetchType.EAGER)
+    private Set<Show> shows;
+
 
     public Cinema() {
     }

@@ -1,4 +1,3 @@
-/*
 package cinemamanagement.api;
 
 import org.junit.Before;
@@ -14,14 +13,14 @@ import pl.com.bottega.cinemamanagement.domain.MovieRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
 
-*/
 /**
- * Created by arkadiuszarak on 07/09/2016.
- *//*
+ * Created by arkadiuszarak on 07/09/2016.*/
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMovieRequestTest {
@@ -31,12 +30,12 @@ public class CreateMovieRequestTest {
 
     private String anyTitle = "any title";
     private String anyDescription = "any description";
-    private Collection<String> anyActors = new ArrayList<String>(){{
+    private Set<String> anyActors = new HashSet<String>(){{
         add("any actor 1");
         add("any actor 2");
         add("any actor 3");
     }};
-    private Collection<String> anyGenres = new ArrayList<String>(){{
+    private Set<String> anyGenres = new HashSet<String>(){{
         add("any genres1");
         add("any genres2");
     }};
@@ -149,4 +148,3 @@ public class CreateMovieRequestTest {
     }
 
 }
-*/
