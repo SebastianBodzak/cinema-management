@@ -37,6 +37,5 @@ public class JPAMovieCatalog implements MovieCatalog {
         query.setParameter("date", date);
         List<Movie> movies = query.getResultList();
         return new ListMoviesInCinemaResponse(movies);
-
     }
 }

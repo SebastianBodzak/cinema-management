@@ -17,22 +17,17 @@ public class TicketPrice {
     private String type;
     private BigDecimal price;
 
-
     public TicketPrice(String type, BigDecimal price) {
         this.type = type;
         this.price = price;
-
     }
 
     public TicketPrice() {
     }
 
-
     public String getType() {
         return type;
     }
-
-
 
     public BigDecimal getPrice() {
         return price;

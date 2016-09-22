@@ -3,9 +3,13 @@ package pl.com.bottega.cinemamanagement.infrastructure;
 import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemamanagement.domain.Show;
 import pl.com.bottega.cinemamanagement.domain.ShowsRepository;
+import pl.com.bottega.cinemamanagement.domain.TicketPrice;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Dell on 2016-09-08.
@@ -19,5 +23,27 @@ public class JPAShowsRepository implements ShowsRepository {
     @Override
     public void save(Show show) {
         entityManager.persist(show);
+    }
+
+    @Override
+    public Show findById(Long id) {
+        return entityManager.find(Show.class, id);
+    }
+
+    @Override
+    public Set<TicketPrice> listTicketPrices(Long showId) {
+
+        String jpa = "SELECT DISTINCT sh FROM Show sh " +
+                "JOIN FETCH sh.movie m " +
+                "JOIN FETCH m.ticketPrices tp " +
+                "WHERE sh.id = :showId";
+
+        TypedQuery<Show> query = entityManager.createQuery(jpa, Show.class);
+        query.setParameter("showId", showId);
+        Show show = query.getResultList().get(0);
+        Set<TicketPrice> prices;
+        prices = show.getMovie().getTicketPrices();
+        return prices;
+
     }
 }

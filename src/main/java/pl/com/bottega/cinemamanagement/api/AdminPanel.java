@@ -67,8 +67,7 @@ public class AdminPanel {
     private Set<TicketPrice> changeMapToSet(HashMap<String, BigDecimal> prices, Movie movie) {
         Set<TicketPrice> ticprice = new HashSet<>();
         for (Map.Entry<String, BigDecimal> entry : prices.entrySet())
-            ticprice.add(new TicketPrice(entry.getKey(), entry.getValue()));
-
+            ticprice.add(new TicketPrice(entry.getKey().toLowerCase(), entry.getValue()));
         return ticprice;
     }
 
@@ -78,5 +77,4 @@ public class AdminPanel {
         else
             return new ShowPreparationWithCalendar().prepare(cinema, movie, request.getCalendarDto());
     }
-
 }

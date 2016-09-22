@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * Created by Dell on 2016-09-04.
