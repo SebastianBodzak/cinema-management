@@ -32,6 +32,4 @@ public class TicketPrice {
     public BigDecimal getPrice() {
         return price;
     }
-
-
 }

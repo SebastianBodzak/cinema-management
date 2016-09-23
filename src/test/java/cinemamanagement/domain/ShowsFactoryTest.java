@@ -71,18 +71,28 @@ public class ShowsFactoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotCreateShowWithDateBecauseCinemaIsNull() {
+    public void shouldNotCreateShowBecauseCinemaIsNull() {
         showsFactory.createShows(null, movie, datesList, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotCreateShowWithDateBecauseMovieIsNull() {
+    public void shouldNotCreateShowBecauseMovieIsNull() {
         showsFactory.createShows(cinema, null, datesList, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotCreateShowWithDateBecauseDatesListIsEmpty() {
+    public void shouldNotCreateShowWithDatesBecauseDatesListIsEmpty() {
         showsFactory.createShows(cinema, movie, datesList, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotCreateShowBecauseDateListAndCalendarAreGivenSimultaneously() {
+        showsFactory.createShows(cinema, movie, datesList, calendar);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotCreateShowBecauseDateListAndCalendarAreNulls() {
+        showsFactory.createShows(cinema, movie, null, null);
     }
 
     @Test

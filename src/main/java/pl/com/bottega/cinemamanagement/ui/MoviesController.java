@@ -25,7 +25,8 @@ public class MoviesController {
 
     @PutMapping("/{movieId}/prices")
     public void updatePrices(@PathVariable Long movieId, @RequestBody UpdatePriceRequest updatePriceRequest){
-        adminPanel.updatePrices(movieId,updatePriceRequest);
+        updatePriceRequest.setMovieId(movieId);
+        adminPanel.updatePrices(updatePriceRequest);
     }
 
 }

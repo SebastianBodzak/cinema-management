@@ -7,8 +7,9 @@ import pl.com.bottega.cinemamanagement.domain.ShowsRepository;
 import pl.com.bottega.cinemamanagement.domain.TicketOrder;
 import pl.com.bottega.cinemamanagement.domain.TicketPrice;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * Created by Dell on 2016-09-19.
  */
@@ -22,18 +23,34 @@ public class PriceCalculator {
     }
 
     @Transactional
-    public CalculatePriceResponse calculatePrice(CalculatePriceRequest request) {
+    public CalculatePriceResponse calculatePrices(CalculatePriceRequest request) {
+        validateShowId(request.getShowId());
         Set<TicketPrice> prices = showsRepository.listTicketPrices(request.getShowId());
-        //validate ticketOrder todo
+        validate(request, prices);
         Set<TicketOrder> ticketOrders = createSetOfTicketOrders(request.getTickets());
         Calculation calculation = new Calculation(ticketOrders, prices);
+
         return new CalculatePriceResponse(calculation);
     }
 
+    private void validateShowId(Long showId) {
+        if (showsRepository.findById(showId) == null)
+            throw new InvalidRequestException("Invalid showId");
+    }
+
+    private void validate(CalculatePriceRequest request, Set<TicketPrice> prices) {
+        request.validate();
+        checkIfTicketsAreValid(request.getTickets(), prices);
+    }
+
+    private void checkIfTicketsAreValid(Set<TicketOrderDto> tickets, Set<TicketPrice> prices) {
+        Set<String> ticketTypes = prices.stream().map(ticket -> ticket.getType()).collect(Collectors.toSet());
+        for (TicketOrderDto orderType : tickets)
+            if (!ticketTypes.contains(orderType.getKind().toLowerCase()))
+                throw new InvalidRequestException("Invalid ticket type");
+    }
+
     private Set<TicketOrder> createSetOfTicketOrders(Set<TicketOrderDto> tickets) {
-        Set<TicketOrder> ticketOrders = new HashSet<>();
-        for (TicketOrderDto dto : tickets)
-            ticketOrders.add(new TicketOrder(dto.getKind(), dto.getCount()));
-        return ticketOrders;
+        return  tickets.stream().map(dto -> new TicketOrder(dto.getKind(), dto.getCount())).collect(Collectors.toSet());
     }
 }
