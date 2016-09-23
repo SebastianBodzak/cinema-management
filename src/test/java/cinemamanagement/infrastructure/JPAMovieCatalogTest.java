@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.api.CinemaDto;
 import pl.com.bottega.cinemamanagement.api.ListMoviesInCinemaResponse;
 import pl.com.bottega.cinemamanagement.api.MovieCatalog;
-import pl.com.bottega.cinemamanagement.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

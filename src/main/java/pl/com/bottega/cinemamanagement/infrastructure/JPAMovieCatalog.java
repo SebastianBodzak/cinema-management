@@ -1,17 +1,14 @@
 package pl.com.bottega.cinemamanagement.infrastructure;
 
 import org.springframework.stereotype.Component;
-import pl.com.bottega.cinemamanagement.api.CreateMovieRequest;
 import pl.com.bottega.cinemamanagement.api.ListMoviesInCinemaResponse;
 import pl.com.bottega.cinemamanagement.api.MovieCatalog;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,8 +27,9 @@ public class JPAMovieCatalog implements MovieCatalog {
                 "JOIN FETCH s.cinema c " +
                 "JOIN FETCH m.actors " +
                 "JOIN FETCH m.genres " +
-                "WHERE c.id = :cinemaId AND s.date= :date";
-//ORDER BY
+                "WHERE c.id = :cinemaId AND s.date= :date " +
+                "ORDER BY m.title";
+
         TypedQuery<Movie> query = entityManager.createQuery(jpa, Movie.class);
         query.setParameter("cinemaId", cinemaId);
         query.setParameter("date", date);

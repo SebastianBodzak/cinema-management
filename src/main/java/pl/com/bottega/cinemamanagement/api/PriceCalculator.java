@@ -26,8 +26,7 @@ public class PriceCalculator {
         Set<TicketPrice> prices = showsRepository.listTicketPrices(request.getShowId());
         //validate ticketOrder todo
         Set<TicketOrder> ticketOrders = createSetOfTicketOrders(request.getTickets());
-        Calculation calculation = new Calculation(ticketOrders);
-        calculation.calculatePrices(prices);
+        Calculation calculation = new Calculation(ticketOrders, prices);
         return new CalculatePriceResponse(calculation);
     }
 

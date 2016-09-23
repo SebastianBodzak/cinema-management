@@ -1,5 +1,6 @@
 package cinemamanagement.api;
 
+import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.*;
 
-import java.text.ParseException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -46,11 +47,9 @@ public class AdminPanelTest {
     private CreateMovieRequest.MovieDto movieDto;
     private CreateShowRequest createShowRequest;
     private ShowDto showDto;
-    private Collection<String> stringDates;
-    private String stringDate = "2016/10/22 10:00";
-    private LocalDateTime expectedDate = LocalDateTime.of(2016, 10, 22, 10, 00);
-    private String stringDate2 = "2016/11/22 10:00";
-    private LocalDateTime expectedDate2 = LocalDateTime.of(2016, 11, 22, 10, 00);
+    private LocalDateTime date = LocalDateTime.of(2016, 10, 22, 10, 00);
+    private LocalDateTime date2 = LocalDateTime.of(2016, 11, 22, 10, 00);
+    private Set<LocalDateTime> dates = Sets.newHashSet(date, date2);
     private Long anyMovieId = 1L;
     private Long anyCinemaId = 10L;
     private List<Show> shows = new LinkedList<>();
@@ -93,7 +92,7 @@ public class AdminPanelTest {
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory, movieFactory, showsRepository);
+        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory, movieFactory, showsRepository, showsFactory);
     }
 
     @Test
@@ -127,24 +126,77 @@ public class AdminPanelTest {
         verify(movieRepository).save(movie);
     }
 
-//    @Test
-    public void shouldCreateShowsWithDates() throws ParseException {
-        createShowsRequestInstance();
-        stringDates.add(stringDate);
-        stringDates.add(stringDate2);
+    @Test
+    public void shouldCreateShowsWithDates() {
+        createShowsRequestInstance(anyCinemaId, anyMovieId, dates);
+
         when(cinemaRepository.findById(anyCinemaId)).thenReturn(cinema);
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
 
         adminPanel.createShows(createShowRequest);
+
+        verify(showsFactory).createShows(cinema, movie, dates, null);
     }
 
-    private void createShowsRequestInstance() {
+    @Test
+    public void shouldSaveShowsWithDates() {
+        createShowsRequestInstance(anyCinemaId, anyMovieId, dates);
+
+        when(cinemaRepository.findById(anyCinemaId)).thenReturn(cinema);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        when(showsFactory.createShows(cinema, movie, dates, null)).thenReturn(new LinkedList<>(Arrays.asList(show, show2)));
+
+        adminPanel.createShows(createShowRequest);
+
+        verify(showsRepository).save(show);
+        verify(showsRepository).save(show2);
+    }
+
+    @Test
+    public void shouldUpdatePrice(){
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequest();
+
+        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+    }
+
+    @Test
+    public void shouldNotUpdatePriceBecauseWrongMovieId(){
+        exception.expect(InvalidRequestException.class);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequest();
+        exception.expectMessage("Wrong id. Movie does not exist.");
+
+        adminPanel.updatePrices(0L,updatePriceRequest);
+    }
+
+    @Test
+    public void shouldNotUpdatePriceWithoutStudentTicket(){
+        exception.expect(InvalidRequestException.class);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequestWithoutStudentTicket();
+        exception.expectMessage("Regular and student prices are required");
+
+        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+    }
+
+    @Test
+    public void shouldNotUpdatePriceWithoutRegularTicket() throws InvalidRequestException {
+        exception.expect(InvalidRequestException.class);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        UpdatePriceRequest updatePriceRequest = createUpdatePriceRequestWithoutRegularTicket();
+        exception.expectMessage("Regular and student prices are required");
+
+        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+    }
+
+    private void createShowsRequestInstance(Long cinemaId, Long movieId, Set<LocalDateTime> dates) {
         createShowRequest = new CreateShowRequest();
         showDto = new ShowDto();
         createShowRequest.setShows(showDto);
-        showDto.setMovieId(anyMovieId);
-        stringDates = new LinkedList<>();
-//        showDto.setDates(stringDates);
+        createShowRequest.setCinemaId(cinemaId);
+        showDto.setMovieId(movieId);
+        showDto.setDates(dates);
     }
 
     private void createCinemaRequestInstance() {
@@ -164,4 +216,37 @@ public class AdminPanelTest {
         movieDto.setMinAge(movieMinAge);
         movieDto.setLenght(movieLength);
     }
+
+    private UpdatePriceRequest createUpdatePriceRequest() {
+        UpdatePriceRequest updatePriceRequest = new UpdatePriceRequest();
+        updatePriceRequest.setMovieId(anyMovieId);
+        HashMap<String,BigDecimal> map = new HashMap<>();
+        map.put("regular",new BigDecimal(15.00));
+        map.put("student",new BigDecimal(10.00));
+        map.put("school",new BigDecimal(8.00));
+        map.put("children",new BigDecimal(5.00));
+        updatePriceRequest.setPrices(map);
+        return updatePriceRequest;
+    }
+    private UpdatePriceRequest createUpdatePriceRequestWithoutStudentTicket() {
+        UpdatePriceRequest updatePriceRequest = new UpdatePriceRequest();
+        updatePriceRequest.setMovieId(anyMovieId);
+        HashMap<String,BigDecimal> map = new HashMap<>();
+        map.put("regular",new BigDecimal(15.00));
+        map.put("school",new BigDecimal(8.00));
+        map.put("children",new BigDecimal(5.00));
+        updatePriceRequest.setPrices(map);
+        return updatePriceRequest;
+    }
+    private UpdatePriceRequest createUpdatePriceRequestWithoutRegularTicket() {
+        UpdatePriceRequest updatePriceRequest = new UpdatePriceRequest();
+        updatePriceRequest.setMovieId(anyMovieId);
+        HashMap<String,BigDecimal> map = new HashMap<>();
+        map.put("student",new BigDecimal(10.00));
+        map.put("school",new BigDecimal(8.00));
+        map.put("children",new BigDecimal(5.00));
+        updatePriceRequest.setPrices(map);
+        return updatePriceRequest;
+    }
+
 }
