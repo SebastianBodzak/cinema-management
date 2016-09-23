@@ -75,8 +75,6 @@ public class ListMoviesInCinemaResponse {
             for (Show show : movie.getShows()){
                 this.shows.add(new ShowDto(show));
             }
-
-
         }
     }
 
