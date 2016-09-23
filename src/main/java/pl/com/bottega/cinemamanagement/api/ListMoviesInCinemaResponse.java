@@ -4,8 +4,7 @@ import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.Show;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Created by arkadiuszarak on 18/09/2016.
@@ -21,7 +20,6 @@ public class ListMoviesInCinemaResponse {
         }
     }
 
-
     public Collection<MovieDto> getMovies() {
         return movies;
     }
@@ -33,7 +31,7 @@ public class ListMoviesInCinemaResponse {
         private Collection<String> generes;
         private Integer minAge;
         private Integer length;
-        private Collection<ShowDto> shows;
+        private ArrayList<ShowDto> shows;
 
 
         public Collection<String> getActors() {
@@ -75,12 +73,18 @@ public class ListMoviesInCinemaResponse {
             for (Show show : movie.getShows()){
                 this.shows.add(new ShowDto(show));
             }
-
-
+            Collections.sort(shows, new Comparator<ShowDto>() {
+                @Override
+                public int compare(ShowDto o1, ShowDto o2) {
+                    if (o1.time.isAfter(o2.time))
+                        return 1;
+                    return -1;
+                }
+            });
         }
     }
 
-    public class ShowDto{
+    public class ShowDto {
         private Long id;
         private LocalTime time;
 

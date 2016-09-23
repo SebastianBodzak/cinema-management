@@ -55,7 +55,7 @@ public class ShowsFactoryTest {
         datesList.add(anyDate);
         datesList.add(anotherDate);
 
-        List<Show> shows = showsFactory.createShows(cinema, movie, datesList);
+        List<Show> shows = showsFactory.createShows(cinema, movie, datesList, null);
 
         Show show1 = shows.get(0);
         Show show2 = shows.get(1);
@@ -72,24 +72,24 @@ public class ShowsFactoryTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotCreateShowWithDateBecauseCinemaIsNull() {
-        showsFactory.createShows(null, movie, datesList);
+        showsFactory.createShows(null, movie, datesList, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotCreateShowWithDateBecauseMovieIsNull() {
-        showsFactory.createShows(cinema, null, datesList);
+        showsFactory.createShows(cinema, null, datesList, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotCreateShowWithDateBecauseDatesListIsEmpty() {
-        showsFactory.createShows(cinema, movie, datesList);
+        showsFactory.createShows(cinema, movie, datesList, null);
     }
 
     @Test
     public void shouldCreateShowWithCalendar() {
         calendar = createCalendar();
 
-        List<Show> shows = showsFactory.createShows(cinema, movie, calendar);
+        List<Show> shows = showsFactory.createShows(cinema, movie, null, calendar);
 
         Show show1 = shows.get(0);
         Show show2 = shows.get(1);

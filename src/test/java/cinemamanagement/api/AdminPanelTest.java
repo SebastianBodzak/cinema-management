@@ -1,5 +1,6 @@
 package cinemamanagement.api;
 
+import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -11,7 +12,6 @@ import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -47,11 +47,9 @@ public class AdminPanelTest {
     private CreateMovieRequest.MovieDto movieDto;
     private CreateShowRequest createShowRequest;
     private ShowDto showDto;
-    private Collection<String> stringDates;
-    private String stringDate = "2016/10/22 10:00";
-    private LocalDateTime expectedDate = LocalDateTime.of(2016, 10, 22, 10, 00);
-    private String stringDate2 = "2016/11/22 10:00";
-    private LocalDateTime expectedDate2 = LocalDateTime.of(2016, 11, 22, 10, 00);
+    private LocalDateTime date = LocalDateTime.of(2016, 10, 22, 10, 00);
+    private LocalDateTime date2 = LocalDateTime.of(2016, 11, 22, 10, 00);
+    private Set<LocalDateTime> dates = Sets.newHashSet(date, date2);
     private Long anyMovieId = 1L;
     private Long anyCinemaId = 10L;
     private List<Show> shows = new LinkedList<>();
@@ -94,7 +92,7 @@ public class AdminPanelTest {
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory, movieFactory, showsRepository);
+        adminPanel = new AdminPanel(cinemaRepository, movieRepository, cinemaFactory, movieFactory, showsRepository, showsFactory);
     }
 
     @Test
@@ -128,15 +126,30 @@ public class AdminPanelTest {
         verify(movieRepository).save(movie);
     }
 
-//    @Test
-    public void shouldCreateShowsWithDates() throws ParseException {
-        createShowsRequestInstance();
-        stringDates.add(stringDate);
-        stringDates.add(stringDate2);
+    @Test
+    public void shouldCreateShowsWithDates() {
+        createShowsRequestInstance(anyCinemaId, anyMovieId, dates);
+
         when(cinemaRepository.findById(anyCinemaId)).thenReturn(cinema);
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
 
         adminPanel.createShows(createShowRequest);
+
+        verify(showsFactory).createShows(cinema, movie, dates, null);
+    }
+
+    @Test
+    public void shouldSaveShowsWithDates() {
+        createShowsRequestInstance(anyCinemaId, anyMovieId, dates);
+
+        when(cinemaRepository.findById(anyCinemaId)).thenReturn(cinema);
+        when(movieRepository.findById(anyMovieId)).thenReturn(movie);
+        when(showsFactory.createShows(cinema, movie, dates, null)).thenReturn(new LinkedList<>(Arrays.asList(show, show2)));
+
+        adminPanel.createShows(createShowRequest);
+
+        verify(showsRepository).save(show);
+        verify(showsRepository).save(show2);
     }
 
     @Test
@@ -168,7 +181,7 @@ public class AdminPanelTest {
     }
 
     @Test
-    public void shouldNotUpdatePriceWithoutRegularTicket(){
+    public void shouldNotUpdatePriceWithoutRegularTicket() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
         UpdatePriceRequest updatePriceRequest = createUpdatePriceRequestWithoutRegularTicket();
@@ -177,13 +190,13 @@ public class AdminPanelTest {
         adminPanel.updatePrices(anyMovieId,updatePriceRequest);
     }
 
-    private void createShowsRequestInstance() {
+    private void createShowsRequestInstance(Long cinemaId, Long movieId, Set<LocalDateTime> dates) {
         createShowRequest = new CreateShowRequest();
         showDto = new ShowDto();
         createShowRequest.setShows(showDto);
-        showDto.setMovieId(anyMovieId);
-        stringDates = new LinkedList<>();
-//        showDto.setDates(stringDates);
+        createShowRequest.setCinemaId(cinemaId);
+        showDto.setMovieId(movieId);
+        showDto.setDates(dates);
     }
 
     private void createCinemaRequestInstance() {

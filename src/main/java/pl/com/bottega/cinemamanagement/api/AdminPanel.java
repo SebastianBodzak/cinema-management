@@ -3,6 +3,7 @@ package pl.com.bottega.cinemamanagement.api;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.*;
+import pl.com.bottega.cinemamanagement.domain.Calendar;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -18,13 +19,16 @@ public class AdminPanel {
     private CinemaFactory cinemaFactory;
     private MovieFactory movieFactory;
     private ShowsRepository showsRepository;
+    private ShowsFactory showsFactory;
 
-    public AdminPanel(CinemaRepository cinemaRepository, MovieRepository movieRepository, CinemaFactory cinemaFactory, MovieFactory movieFactory, ShowsRepository showsRepository) {
+    public AdminPanel(CinemaRepository cinemaRepository, MovieRepository movieRepository, CinemaFactory cinemaFactory,
+                      MovieFactory movieFactory, ShowsRepository showsRepository, ShowsFactory showsFactory) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
         this.cinemaFactory = cinemaFactory;
         this.movieFactory = movieFactory;
         this.showsRepository = showsRepository;
+        this.showsFactory = showsFactory;
     }
 
     @Transactional
@@ -52,7 +56,8 @@ public class AdminPanel {
         Movie movie = movieRepository.findById(request.getMovieId());
         if (cinema == null || movie == null)
             throw new InvalidRequestException("Cinema or Movie does not exist");
-        List<Show> shows = prepare(cinema, movie, request);
+        Calendar calendar = prepare(cinema, movie, request.getCalendarDto());
+        List<Show> shows = showsFactory.createShows(cinema, movie, request.getDates(), calendar);
         for (Show show : shows)
             showsRepository.save(show);
     }
@@ -73,10 +78,9 @@ public class AdminPanel {
         return ticprice;
     }
 
-    private List<Show> prepare(Cinema cinema, Movie movie, CreateShowRequest request) {
-        if (request.getDates() != null)
-            return new ShowsFactory().createShows(cinema, movie, request.getDates());
-        else
-            return new ShowPreparationWithCalendar().prepare(cinema, movie, request.getCalendarDto());
+    private Calendar prepare(Cinema cinema, Movie movie, CalendarDto calendarDto) {
+        if (calendarDto != null)
+            return new ShowPreparationWithCalendar().prepare(cinema, movie, calendarDto);
+        return null;
     }
 }

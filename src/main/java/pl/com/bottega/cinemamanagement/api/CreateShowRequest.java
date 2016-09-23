@@ -1,8 +1,6 @@
 package pl.com.bottega.cinemamanagement.api;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 /**

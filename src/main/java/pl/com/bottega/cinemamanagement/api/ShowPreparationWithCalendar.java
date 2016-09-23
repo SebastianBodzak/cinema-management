@@ -13,14 +13,12 @@ import java.util.List;
  */
 public class ShowPreparationWithCalendar {
 
-    public List<Show> prepare(Cinema cinema, Movie movie, CalendarDto calendarDto) {
+    public Calendar prepare(Cinema cinema, Movie movie, CalendarDto calendarDto) {
         if (cinema == null || movie == null || calendarDto == null)
             throw new InvalidRequestException("Date can not be null");
 
-        ShowsFactory showsFactory = new ShowsFactory();
         List<DayOfWeek> weekDays = changeStringDaysToEnumDays(calendarDto.getWeekDays());
-        Calendar calendar = new Calendar(calendarDto.getFromDate(), calendarDto.getUntilDate(), weekDays, new LinkedList<>(calendarDto.getHours()));
-        return showsFactory.createShows(cinema, movie, calendar);
+        return new Calendar(calendarDto.getFromDate(), calendarDto.getUntilDate(), weekDays, new LinkedList<>(calendarDto.getHours()));
     }
 
     private List<DayOfWeek> changeStringDaysToEnumDays(Collection<String> strings) {
