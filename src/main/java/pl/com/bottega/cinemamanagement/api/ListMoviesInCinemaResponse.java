@@ -11,10 +11,9 @@ import java.util.*;
  */
 public class ListMoviesInCinemaResponse {
 
-    private Collection<MovieDto> movies;
+    private List<MovieDto> movies = new LinkedList<>();
 
     public ListMoviesInCinemaResponse(Collection<Movie> movies) {
-        this.movies = new ArrayList<>();
         for (Movie movie : movies){
             this.movies.add(new MovieDto(movie));
         }

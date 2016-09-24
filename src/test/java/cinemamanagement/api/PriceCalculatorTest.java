@@ -29,16 +29,13 @@ public class PriceCalculatorTest {
     private Long showId = 1l;
     private TicketOrderDto ticketOrderDto = new TicketOrderDto();
     private TicketOrderDto ticketOrderDto2 = new TicketOrderDto();
+    private TicketOrderDto ticketOrderDto3 = new TicketOrderDto();
     private TicketPrice ticketPrice = new TicketPrice("regular", new BigDecimal(15));
     private TicketPrice ticketPrice2 = new TicketPrice("student", new BigDecimal(10));
-
-
     private TicketPrice ticketPrice3 = new TicketPrice("regular", new BigDecimal(15));
-
 
     @Mock
     private ShowsRepository showsRepository;
-
     @Mock
     private Show show;
 
@@ -47,11 +44,11 @@ public class PriceCalculatorTest {
     public void setUp() {
         priceCalculator = new PriceCalculator(showsRepository);
         ticketOrderDto.setKind("regular");
-        ticketOrderDto.setKind("regular");
-        ticketOrderDto.setCount(2);
         ticketOrderDto.setCount(2);
         ticketOrderDto2.setKind("student");
         ticketOrderDto2.setCount(2);
+        ticketOrderDto3.setKind("regular");
+        ticketOrderDto3.setCount(2);
     }
 
     @Test
@@ -83,17 +80,6 @@ public class PriceCalculatorTest {
         when(showsRepository.listTicketPrices(calculatePriceRequest.getShowId())).thenReturn(Sets.newHashSet(ticketPrice, ticketPrice2));
 
         priceCalculator.calculatePrices(calculatePriceRequest);
-
-    }
-
-    @Test(expected = InvalidRequestException.class)
-    public void shouldNotAllowDuplicateTicketTypes() {
-        ticketOrderDto.setKind("regular");
-        ticketOrderDto2.setKind("regular");
-        calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrderDto, ticketOrderDto2));
-
-        priceCalculator.calculatePrices(calculatePriceRequest);
-
 
     }
 

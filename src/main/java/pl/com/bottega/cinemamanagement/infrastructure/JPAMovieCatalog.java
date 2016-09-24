@@ -7,7 +7,7 @@ import pl.com.bottega.cinemamanagement.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class JPAMovieCatalog implements MovieCatalog {
                 "WHERE c.id = :cinemaId AND s.date= :date " +
                 "ORDER BY m.title";
 
-        TypedQuery<Movie> query = entityManager.createQuery(jpa, Movie.class);
+        Query query = entityManager.createQuery(jpa);
         query.setParameter("cinemaId", cinemaId);
         query.setParameter("date", date);
         List<Movie> movies = query.getResultList();
