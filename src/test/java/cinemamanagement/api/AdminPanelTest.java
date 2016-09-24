@@ -157,7 +157,7 @@ public class AdminPanelTest {
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
         UpdatePriceRequest updatePriceRequest = createUpdatePriceRequest();
 
-        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+        adminPanel.updatePrices(updatePriceRequest);
     }
 
     @Test
@@ -165,9 +165,10 @@ public class AdminPanelTest {
         exception.expect(InvalidRequestException.class);
         when(movieRepository.findById(anyMovieId)).thenReturn(movie);
         UpdatePriceRequest updatePriceRequest = createUpdatePriceRequest();
+        updatePriceRequest.setMovieId(0L);
         exception.expectMessage("Wrong id. Movie does not exist.");
 
-        adminPanel.updatePrices(0L,updatePriceRequest);
+        adminPanel.updatePrices(updatePriceRequest);
     }
 
     @Test
@@ -177,7 +178,7 @@ public class AdminPanelTest {
         UpdatePriceRequest updatePriceRequest = createUpdatePriceRequestWithoutStudentTicket();
         exception.expectMessage("Regular and student prices are required");
 
-        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+        adminPanel.updatePrices(updatePriceRequest);
     }
 
     @Test
@@ -187,7 +188,7 @@ public class AdminPanelTest {
         UpdatePriceRequest updatePriceRequest = createUpdatePriceRequestWithoutRegularTicket();
         exception.expectMessage("Regular and student prices are required");
 
-        adminPanel.updatePrices(anyMovieId,updatePriceRequest);
+        adminPanel.updatePrices(updatePriceRequest);
     }
 
     private void createShowsRequestInstance(Long cinemaId, Long movieId, Set<LocalDateTime> dates) {

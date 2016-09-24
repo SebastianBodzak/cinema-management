@@ -38,7 +38,14 @@ public class CinemasController {
     public ListMoviesInCinemaResponse listMoviesInCinema(@PathVariable Long cinemaId, @RequestParam
                                                             @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate date){
 
-        return movieCatalog.listMoviesInCinema(cinemaId, date);
+        if (cinemaId == null || date == null)
+            throw new InvalidRequestException("CinemaId and date are required"); //todo case that will not occur???
+
+        ListMoviesInCinemaResponse response = movieCatalog.listMoviesInCinema(cinemaId, date);
+        if (response.getMovies().isEmpty())
+            throw new InvalidRequestException("At that date no movies have been found");
+        else
+            return response;
     }
 
 }

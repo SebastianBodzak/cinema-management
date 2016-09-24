@@ -23,6 +23,6 @@ public class PriceCalculatorController {
 
     @PostMapping
     public CalculatePriceResponse calculatePrice(@RequestBody CalculatePriceRequest request) {
-        return priceCalculator.calculatePrice(request);
+        return priceCalculator.calculatePrices(request);
     }
 }
