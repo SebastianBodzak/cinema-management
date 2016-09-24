@@ -72,7 +72,7 @@ public class AdminPanel {
         movie.updatePrices(ticketPrices);
     }
 
-    private Set<TicketPrice> changeMapToSet(HashMap<String, BigDecimal> prices) {
+    private Set<TicketPrice> changeMapToSet(Map<String, BigDecimal> prices) {
         Set<TicketPrice> ticprice = new HashSet<>();
         for (Map.Entry<String, BigDecimal> entry : prices.entrySet())
             ticprice.add(new TicketPrice(entry.getKey().toLowerCase(), entry.getValue()));

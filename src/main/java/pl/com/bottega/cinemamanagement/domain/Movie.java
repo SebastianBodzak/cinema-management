@@ -25,15 +25,15 @@ public class Movie {
     private Integer minAge;
     private Integer length;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.EAGER)
-    @OrderBy("time")
-    private Set<Show> shows;
-
     public Set<Show> getShows() {
         return shows;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.EAGER)
+    @OrderBy("time")
+    private Set<Show> shows;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TicketPrice> ticketPrices;
 
     public Movie() {

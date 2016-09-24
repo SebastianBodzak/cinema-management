@@ -2,10 +2,7 @@ package pl.com.bottega.cinemamanagement.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemamanagement.domain.Calculation;
-import pl.com.bottega.cinemamanagement.domain.ShowsRepository;
-import pl.com.bottega.cinemamanagement.domain.TicketOrder;
-import pl.com.bottega.cinemamanagement.domain.TicketPrice;
+import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,7 +22,9 @@ public class PriceCalculator {
     @Transactional
     public CalculatePriceResponse calculatePrices(CalculatePriceRequest request) {
         validateShowId(request.getShowId());
-        Set<TicketPrice> prices = showsRepository.listTicketPrices(request.getShowId());
+        Show show = showsRepository.findById(request.getShowId());
+        Set<TicketPrice> prices = show.getTicketPrices();
+        //Set<TicketPrice> prices2 = showsRepository.listTicketPrices(request.getShowId());
         validate(request, prices);
         Set<TicketOrder> ticketOrders = createSetOfTicketOrders(request.getTickets());
         Calculation calculation = new Calculation(ticketOrders, prices);

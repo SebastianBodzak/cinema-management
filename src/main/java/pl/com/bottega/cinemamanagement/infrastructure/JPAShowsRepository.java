@@ -8,7 +8,6 @@ import pl.com.bottega.cinemamanagement.domain.TicketPrice;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,7 +26,16 @@ public class JPAShowsRepository implements ShowsRepository {
 
     @Override
     public Show findById(Long id) {
+//        String jpa = "SELECT DISTINCT sh FROM Show sh " +
+//                "JOIN FETCH sh.movie m " +
+//                "JOIN FETCH m.ticketPrices tp " +
+//                "WHERE sh.id = :showId";
+//
+//        TypedQuery<Show> query = entityManager.createQuery(jpa, Show.class);
+//        query.setParameter("showId", id);
+//        Show show = query.getResultList().get(0);
         return entityManager.find(Show.class, id);
+        //return show;
     }
 
     @Override

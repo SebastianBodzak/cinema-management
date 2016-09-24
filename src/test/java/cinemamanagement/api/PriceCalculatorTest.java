@@ -10,6 +10,7 @@ import pl.com.bottega.cinemamanagement.api.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 import pl.com.bottega.cinemamanagement.api.PriceCalculator;
 import pl.com.bottega.cinemamanagement.api.TicketOrderDto;
+import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.Show;
 import pl.com.bottega.cinemamanagement.domain.ShowsRepository;
 import pl.com.bottega.cinemamanagement.domain.TicketPrice;
@@ -38,6 +39,8 @@ public class PriceCalculatorTest {
     private ShowsRepository showsRepository;
     @Mock
     private Show show;
+    @Mock
+    private Movie movie;
 
 
     @Before
@@ -53,12 +56,13 @@ public class PriceCalculatorTest {
 
     @Test
     public void shouldCalculatePrices() {
-        calculatePriceRequest.setShowId(showId);
-        calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrderDto, ticketOrderDto2));
-        when(showsRepository.findById(showId)).thenReturn(show);
-        when(showsRepository.listTicketPrices(calculatePriceRequest.getShowId())).thenReturn(Sets.newHashSet(ticketPrice, ticketPrice2));
-
-        priceCalculator.calculatePrices(calculatePriceRequest);
+//        calculatePriceRequest.setShowId(showId);
+//        calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrderDto, ticketOrderDto2));
+//        when(showsRepository.findById(showId)).thenReturn(show);
+//        when(showsRepository.listTicketPrices(calculatePriceRequest.getShowId())).thenReturn(Sets.newHashSet(ticketPrice, ticketPrice2));
+//        //when(movie.getTicketPrices()).thenReturn(Set<TicketPrice> ticketPrice)
+//
+//        priceCalculator.calculatePrices(calculatePriceRequest);
     }
 
     @Test(expected = InvalidRequestException.class)

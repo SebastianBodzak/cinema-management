@@ -2,12 +2,10 @@ package pl.com.bottega.cinemamanagement.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 /**
  * Created by arkadiuszarak on 04/09/2016.
@@ -22,7 +20,7 @@ public class Show {
     @ManyToOne
     private Cinema cinema;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Movie movie;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -82,5 +80,9 @@ public class Show {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
+    }
+
+    public Set<TicketPrice> getTicketPrices() {
+        return movie.getTicketPrices();
     }
 }
