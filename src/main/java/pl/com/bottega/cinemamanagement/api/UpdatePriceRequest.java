@@ -20,7 +20,6 @@ public class UpdatePriceRequest {
     }
 
     public HashMap getPrices() {
-        validate();
         return prices;
     }
 

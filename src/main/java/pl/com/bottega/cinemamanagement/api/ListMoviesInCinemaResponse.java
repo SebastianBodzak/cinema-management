@@ -31,7 +31,7 @@ public class ListMoviesInCinemaResponse {
         private Collection<String> generes;
         private Integer minAge;
         private Integer length;
-        private ArrayList<ShowDto> shows;
+        private List<ShowDto> shows;
 
 
         public Collection<String> getActors() {
@@ -73,14 +73,6 @@ public class ListMoviesInCinemaResponse {
             for (Show show : movie.getShows()){
                 this.shows.add(new ShowDto(show));
             }
-            Collections.sort(shows, new Comparator<ShowDto>() {
-                @Override
-                public int compare(ShowDto o1, ShowDto o2) {
-                    if (o1.time.isAfter(o2.time))
-                        return 1;
-                    return -1;
-                }
-            });
         }
     }
 

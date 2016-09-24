@@ -67,6 +67,7 @@ public class AdminPanel {
         Movie movie = movieRepository.findById(updatePriceRequest.getMovieId());
         if (movie == null)
             throw new  InvalidRequestException("Wrong id. Movie does not exist.");
+        updatePriceRequest.validate();
         Set<TicketPrice> ticketPrices = changeMapToSet(updatePriceRequest.getPrices());
         movie.updatePrices(ticketPrices);
     }
