@@ -1,5 +1,6 @@
 package pl.com.bottega.cinemamanagement.api;
 
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -20,9 +21,9 @@ public class CalculatePriceRequest {
 
     private void validateTickets() {
         tickets.forEach(ticket -> ticket.validate());
-//        for (TicketOrderDto ticket : tickets) //todo case that will not occur???
-//            if (Collections.frequency(tickets, ticket) > 1)
-//                throw new InvalidRequestException("Duplicate ticket type");
+        for (TicketOrderDto ticket : tickets)
+            if (Collections.frequency(tickets, ticket) > 1)
+                throw new InvalidRequestException("Duplicate ticket type");
     }
 
     public Long getShowId() {
