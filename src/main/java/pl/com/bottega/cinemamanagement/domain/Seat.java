@@ -1,10 +1,18 @@
 package pl.com.bottega.cinemamanagement.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Created by ulvar on 25.09.2016.
  */
-
+@Entity
 public class Seat {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
 
     private Integer row;
