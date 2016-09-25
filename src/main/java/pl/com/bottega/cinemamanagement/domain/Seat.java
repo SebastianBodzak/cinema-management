@@ -35,7 +35,7 @@ public class Seat {
     public String toString() {
         return "seats{" +
                 "row ='" + row + '\'' +
-                ", number ='" + number + '\'' +
+                ", seat ='" + number + '\'' +
                 '}';
     }
 
