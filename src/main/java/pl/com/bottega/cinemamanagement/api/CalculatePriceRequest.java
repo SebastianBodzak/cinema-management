@@ -19,12 +19,19 @@ public class CalculatePriceRequest {
         validateTickets();
     }
 
+
     private void validateTickets() {
+
         tickets.forEach(ticket -> ticket.validate());
-        for (TicketOrderDto ticket : tickets)
+
+        for (TicketOrderDto ticket : tickets) {
+
             if (Collections.frequency(tickets, ticket) > 1)
                 throw new InvalidRequestException("Duplicate ticket type");
+        }
+
     }
+
 
     public Long getShowId() {
         return showId;

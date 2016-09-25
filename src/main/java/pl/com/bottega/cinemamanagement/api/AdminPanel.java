@@ -3,10 +3,12 @@ package pl.com.bottega.cinemamanagement.api;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.*;
-import pl.com.bottega.cinemamanagement.domain.Calendar;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Dell on 2016-09-04.
@@ -66,7 +68,7 @@ public class AdminPanel {
     public void updatePrices(UpdatePriceRequest updatePriceRequest) {
         Movie movie = movieRepository.findById(updatePriceRequest.getMovieId());
         if (movie == null)
-            throw new  InvalidRequestException("Wrong id. Movie does not exist.");
+            throw new InvalidRequestException("Wrong id. Movie does not exist.");
         updatePriceRequest.validate();
         Set<TicketPrice> ticketPrices = changeMapToSet(updatePriceRequest.getPrices());
         movie.updatePrices(ticketPrices);

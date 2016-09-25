@@ -28,7 +28,7 @@ public class JPAMovieCatalog implements MovieCatalog {
                 "JOIN FETCH m.actors " +
                 "JOIN FETCH m.genres " +
                 "WHERE c.id = :cinemaId AND s.date= :date " +
-                "ORDER BY m.title";
+                " ORDER BY m.title";
 
         Query query = entityManager.createQuery(jpa);
         query.setParameter("cinemaId", cinemaId);

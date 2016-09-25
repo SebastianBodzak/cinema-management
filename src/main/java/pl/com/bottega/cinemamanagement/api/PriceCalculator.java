@@ -50,6 +50,6 @@ public class PriceCalculator {
     }
 
     private Set<TicketOrder> createSetOfTicketOrders(Set<TicketOrderDto> tickets) {
-        return  tickets.stream().map(dto -> new TicketOrder(dto.getKind(), dto.getCount())).collect(Collectors.toSet());
+        return tickets.stream().map(dto -> new TicketOrder(dto.getKind(), dto.getCount())).collect(Collectors.toSet());
     }
 }

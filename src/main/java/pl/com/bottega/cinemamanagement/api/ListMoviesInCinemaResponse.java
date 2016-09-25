@@ -4,7 +4,10 @@ import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.Show;
 
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by arkadiuszarak on 18/09/2016.
@@ -14,7 +17,7 @@ public class ListMoviesInCinemaResponse {
     private List<MovieDto> movies = new LinkedList<>();
 
     public ListMoviesInCinemaResponse(Collection<Movie> movies) {
-        for (Movie movie : movies){
+        for (Movie movie : movies) {
             this.movies.add(new MovieDto(movie));
         }
     }
@@ -32,6 +35,19 @@ public class ListMoviesInCinemaResponse {
         private Integer length;
         private List<ShowDto> shows;
 
+
+        public MovieDto(Movie movie) {
+            this.title = movie.getTitle();
+            this.description = movie.getDescription();
+            this.actors = movie.getActors();
+            this.generes = movie.getGenres();
+            this.minAge = movie.getMinAge();
+            this.length = movie.getLength();
+            this.shows = new ArrayList<>();
+            for (Show show : movie.getShows()) {
+                this.shows.add(new ShowDto(show));
+            }
+        }
 
         public Collection<String> getActors() {
             return actors;
@@ -59,19 +75,6 @@ public class ListMoviesInCinemaResponse {
 
         public String getTitle() {
             return title;
-        }
-
-        public MovieDto(Movie movie) {
-            this.title = movie.getTitle();
-            this.description = movie.getDescription();
-            this.actors = movie.getActors();
-            this.generes = movie.getGenres();
-            this.minAge = movie.getMinAge();
-            this.length = movie.getLength();
-            this.shows = new ArrayList<>();
-            for (Show show : movie.getShows()){
-                this.shows.add(new ShowDto(show));
-            }
         }
     }
 

@@ -36,7 +36,7 @@ public class CinemasController {
 
     @GetMapping("/{cinemaId}/movies")
     public ListMoviesInCinemaResponse listMoviesInCinema(@PathVariable Long cinemaId, @RequestParam
-                                                            @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate date){
+    @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate date) {
 
         return movieCatalog.listMoviesInCinema(cinemaId, date);
     }

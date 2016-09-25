@@ -8,7 +8,11 @@ import java.util.Set;
 public interface ShowsRepository {
 
     void save(Show show);
+
     Show findById(Long id);
 
+
     Set<TicketPrice> listTicketPrices(Long showId);
+
+    Show findShowWithReservations(Long showId);
 }

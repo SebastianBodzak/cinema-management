@@ -20,7 +20,7 @@ public class Show {
     @ManyToOne
     private Cinema cinema;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Movie movie;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -28,6 +28,9 @@ public class Show {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime time;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Reservation> reservations;
 
     public Show() {
     }
@@ -57,6 +60,10 @@ public class Show {
 
     public LocalTime getTime() {
         return time;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
     }
 
     @Override

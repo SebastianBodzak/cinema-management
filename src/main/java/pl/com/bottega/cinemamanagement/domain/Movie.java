@@ -1,7 +1,8 @@
 package pl.com.bottega.cinemamanagement.domain;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by ulvar on 04.09.2016.
@@ -24,15 +25,9 @@ public class Movie {
 
     private Integer minAge;
     private Integer length;
-
-    public Set<Show> getShows() {
-        return shows;
-    }
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.EAGER)
     @OrderBy("time")
     private Set<Show> shows;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TicketPrice> ticketPrices;
 
@@ -46,6 +41,10 @@ public class Movie {
         this.length = length;
         this.minAge = minAge;
         this.title = title;
+    }
+
+    public Set<Show> getShows() {
+        return shows;
     }
 
     public Collection<String> getActors() {
@@ -104,7 +103,7 @@ public class Movie {
         this.title = title;
     }
 
-    public void updatePrices(Set<TicketPrice> ticketPricesSet){
+    public void updatePrices(Set<TicketPrice> ticketPricesSet) {
 //        ticketPrices.clear();
 //        ticketPrices.add(ticketPricesSet);
         this.ticketPrices = ticketPricesSet;

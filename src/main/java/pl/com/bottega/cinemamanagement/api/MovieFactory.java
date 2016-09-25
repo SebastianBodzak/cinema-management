@@ -3,8 +3,6 @@ package pl.com.bottega.cinemamanagement.api;
 import org.springframework.stereotype.Component;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 
-import java.util.Collection;
-
 /**
  * Created by arkadiuszarak on 05/09/2016.
  */

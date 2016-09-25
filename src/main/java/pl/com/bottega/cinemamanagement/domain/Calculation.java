@@ -5,7 +5,8 @@ import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.Set;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Created by Bartosz on 2016-09-19.
  */
@@ -22,7 +23,7 @@ public class Calculation {
         calculatePrices(prices);
     }
 
-    private void calculatePrices(Set<TicketPrice> ticketPrices){
+    private void calculatePrices(Set<TicketPrice> ticketPrices) {
         for (TicketOrder ticket : tickets) {
             TicketPrice price = getTicketPrice(ticketPrices, ticket.getKind());
             ticket.setUnitPrice(price.getPrice());
@@ -32,7 +33,7 @@ public class Calculation {
     }
 
     private TicketPrice getTicketPrice(Set<TicketPrice> price, String ticketType) {
-        for (Iterator<TicketPrice> it = price.iterator(); it.hasNext();) {
+        for (Iterator<TicketPrice> it = price.iterator(); it.hasNext(); ) {
             TicketPrice ticketPrice = it.next();
             if (ticketPrice.getType().equals(ticketType))
                 return ticketPrice;

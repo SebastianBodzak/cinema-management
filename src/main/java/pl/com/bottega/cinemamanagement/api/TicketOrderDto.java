@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import com.google.common.base.Objects;
-
 /**
  * Created by Dell on 2016-09-19.
  */
@@ -31,7 +29,7 @@ public class TicketOrderDto {
         this.count = count;
     }
 
-    @Override
+  /*  @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -43,4 +41,5 @@ public class TicketOrderDto {
     public int hashCode() {
         return Objects.hashCode(kind);
     }
+*/
 }
