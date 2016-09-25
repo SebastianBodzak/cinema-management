@@ -10,8 +10,9 @@ import java.util.Set;
 @Entity
 public class Reservation {
 
-    @EmbeddedId
-    private ReservationNumber number;
+    @Id
+    @GeneratedValue
+    private Long reservationNumber;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<TicketOrder> ticketsOrder;
@@ -26,22 +27,27 @@ public class Reservation {
     private ReservationStatus status;
 
     private BigDecimal totalPrice;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Show show;
 
-
-    private Reservation() {
+    public Reservation() {
     }
 
-    public Reservation(Set<TicketOrder> ticketsOrder, Set<Seat> seats, Customer customer, BigDecimal totalPrice) {
+    public Reservation(Show show, Set<TicketOrder> ticketsOrder, Set<Seat> seats, Customer customer, BigDecimal totalPrice) {
         this.ticketsOrder = ticketsOrder;
         this.seats = seats;
         this.customer = customer;
-        this.number = new ReservationNumber();
         this.status = ReservationStatus.PENDING;
         this.totalPrice = totalPrice;
+        this.show = show;
     }
 
-    public ReservationNumber getNumber() {
-        return number;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public Long getReservationNumber() {
+        return reservationNumber;
     }
 
     public Set<TicketOrder> getTicketsOrder() {
@@ -59,9 +65,4 @@ public class Reservation {
     public ReservationStatus getStatus() {
         return status;
     }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
 }
-

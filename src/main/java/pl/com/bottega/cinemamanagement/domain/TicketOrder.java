@@ -16,13 +16,16 @@ public class TicketOrder {
     private Long id;
 
     private String kind;
-    private Integer count;
+    private Integer quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
 
+    public TicketOrder() {
+    }
+
     public TicketOrder(String kind, Integer count) {
         this.kind = kind;
-        this.count = count;
+        this.quantity = count;
     }
 
     public String getKind() {
@@ -30,7 +33,7 @@ public class TicketOrder {
     }
 
     public Integer getCount() {
-        return count;
+        return quantity;
     }
 
     public BigDecimal getUntilPrice() {
@@ -46,7 +49,7 @@ public class TicketOrder {
     }
 
     public void calculateTotalPrice() {
-        this.totalPrice = unitPrice.multiply(new BigDecimal(count));
+        this.totalPrice = unitPrice.multiply(new BigDecimal(quantity));
     }
 
 

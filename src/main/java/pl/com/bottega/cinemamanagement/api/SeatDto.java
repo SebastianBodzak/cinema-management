@@ -8,8 +8,15 @@ public class SeatDto {
     private Integer seat;
 
 
-    public void validate(){
-
+    public void validate() {
+        if (row == null)
+            throw new InvalidRequestException("Missing seat row");
+        if (row < 1 || row > 10)
+            throw new InvalidRequestException("Invalid row. Chose row number between 1-10");
+        if (seat == null)
+            throw new InvalidRequestException("Missing seat number");
+        if (seat < 1 || seat > 15)
+            throw new InvalidRequestException("Invalid seat. Chose seat number between 1-15");
     }
 
     public Integer getRow() {
