@@ -51,10 +51,10 @@ public class CinemaHallTest {
         Set<Seat> seats = new HashSet<>();
         Customer customer = new Customer("jan", "kowalski", "mail@mail.com", "+486439543039");
         BigDecimal totalPrice = new BigDecimal(100);
-
+        Show show = new Show();
         for (Seat s : seat)
             seats.add(s);
 
-        return new Reservation(ticketOrders, seats, customer, totalPrice);
+        return new Reservation(show , ticketOrders, seats, customer, totalPrice);
     }
 }
