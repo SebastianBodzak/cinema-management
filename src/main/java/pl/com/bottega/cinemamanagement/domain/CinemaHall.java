@@ -28,7 +28,7 @@ public class CinemaHall {
     }
 
     public boolean checkIfSeatsCanBeReserved(Set<Seat> seatsSet) {
-        if (checkIfBookedSeatsAreFree(seatsSet)) return false;
+        if (!checkIfBookedSeatsAreFree(seatsSet)) return false;
         if (checkIfSeatsAreInSameRow(seatsSet)) {
             List<Seat> seatsList = seatsSet.stream().sorted((e1, e2) -> Integer.compare(e1.getNumber(), e2.getNumber())).collect(Collectors.toList());
             if (!checkIfSeatsHaveCorrectOrder(seatsList))
@@ -44,7 +44,7 @@ public class CinemaHall {
             for (int seatsCounter = 0; seatsCount < seats; seatsCounter++) {
                 if (seatsCounter + seatsCount < seats) {
                     int freeSeatsCounter = 0;
-                    for (int counter = seatsCounter; counter <= seatsCounter + seatsCount; counter++) {
+                    for (int counter = seatsCounter; counter < seatsCounter + seatsCount; counter++) {
                         if (!occupiedSeats[rowCounter][seatsCounter])
                             freeSeatsCounter++;
                         else
