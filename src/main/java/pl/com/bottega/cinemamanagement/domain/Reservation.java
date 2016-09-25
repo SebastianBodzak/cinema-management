@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemamanagement.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 /**
@@ -9,8 +10,9 @@ import java.util.Set;
 @Entity
 public class Reservation {
 
-    @EmbeddedId
-    private ReservationNumber number;
+    @Id
+    @GeneratedValue
+    private Long reservationNumber;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Set<TicketOrder> ticketsOrder;
@@ -24,19 +26,28 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
-    private Reservation() {
+    private BigDecimal totalPrice;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Show show;
+
+    public Reservation() {
     }
 
-    public Reservation(Set<TicketOrder> ticketsOrder, Set<Seat> seats, Customer customer) {
+    public Reservation(Show show, Set<TicketOrder> ticketsOrder, Set<Seat> seats, Customer customer, BigDecimal totalPrice) {
         this.ticketsOrder = ticketsOrder;
         this.seats = seats;
         this.customer = customer;
-        this.number = new ReservationNumber();
         this.status = ReservationStatus.PENDING;
+        this.totalPrice = totalPrice;
+        this.show = show;
     }
 
-    public ReservationNumber getNumber() {
-        return number;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public Long getReservationNumber() {
+        return reservationNumber;
     }
 
     public Set<TicketOrder> getTicketsOrder() {

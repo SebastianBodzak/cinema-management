@@ -29,7 +29,7 @@ public class Show {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime time;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
     public Show() {
@@ -92,4 +92,6 @@ public class Show {
     public Set<TicketPrice> getTicketPrices() {
         return movie.getTicketPrices();
     }
+
+
 }

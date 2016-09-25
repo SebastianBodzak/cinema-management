@@ -18,6 +18,9 @@ public class Seat {
     private Integer row;
     private Integer number;
 
+    public Seat() {
+    }
+
     public Seat(Integer row, Integer number) {
         this.row = row;
         this.number = number;

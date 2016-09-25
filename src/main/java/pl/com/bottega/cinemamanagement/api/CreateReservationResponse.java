@@ -5,13 +5,17 @@ package pl.com.bottega.cinemamanagement.api;
  */
 public class CreateReservationResponse {
 
-    private String ReservationNumber;
+    private String reservationNumber;
+
+    public CreateReservationResponse(Long reservationNumber) {
+        this.reservationNumber = reservationNumber.toString();
+    }
 
     public String getReservationNumber() {
-        return ReservationNumber;
+        return reservationNumber;
     }
 
     public void setReservationNumber(String reservationNumber) {
-        ReservationNumber = reservationNumber;
+        reservationNumber = reservationNumber;
     }
 }

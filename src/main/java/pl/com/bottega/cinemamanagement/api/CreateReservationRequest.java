@@ -7,45 +7,64 @@ import java.util.Set;
  */
 public class CreateReservationRequest {
 
-    private Long showId;
-    private TicketOrderDto tickets;
-    private Set<SeatDto> seats;
-    private CustomerDto customer;
+    private ReservationDto reservation;
 
-
-    public void validate(){
-
+    public ReservationDto getReservation() {
+        return reservation;
     }
 
-    public Long getShowId() {
-        return showId;
+    public void setReservation(ReservationDto reservation) {
+        this.reservation = reservation;
     }
 
-    public void setShowId(Long showId) {
-        this.showId = showId;
-    }
+    public class ReservationDto {
+        private Long showId;
+        private Set<TicketOrderDto> tickets;
+        private Set<SeatDto> seats;
+        private CustomerDto customer;
 
-    public TicketOrderDto getTickets() {
-        return tickets;
-    }
 
-    public void setTickets(TicketOrderDto tickets) {
-        this.tickets = tickets;
-    }
+        public void validate() {
+            if (showId == null)
+                throw new InvalidRequestException("Missing show id");
+            if (tickets == null || tickets.isEmpty())
+                throw new InvalidRequestException("No tickets");
+            if (seats == null || seats.isEmpty())
+                throw new InvalidRequestException("No seats");
+            if (customer == null)
+                throw new InvalidRequestException("No customer");
+        }
 
-    public Set<SeatDto> getSeats() {
-        return seats;
-    }
+        public Long getShowId() {
+            return showId;
+        }
 
-    public void setSeats(Set<SeatDto> seats) {
-        this.seats = seats;
-    }
+        public void setShowId(Long showId) {
+            this.showId = showId;
+        }
 
-    public CustomerDto getCustomer() {
-        return customer;
-    }
+        public Set<TicketOrderDto> getTickets() {
+            return tickets;
+        }
 
-    public void setCustomer(CustomerDto customer) {
-        this.customer = customer;
+        public void setTickets(Set<TicketOrderDto> tickets) {
+            this.tickets = tickets;
+        }
+
+        public Set<SeatDto> getSeats() {
+            return seats;
+        }
+
+        public void setSeats(Set<SeatDto> seats) {
+            this.seats = seats;
+        }
+
+        public CustomerDto getCustomer() {
+            return customer;
+        }
+
+        public void setCustomer(CustomerDto customer) {
+            this.customer = customer;
+        }
     }
 }

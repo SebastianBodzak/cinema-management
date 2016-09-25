@@ -49,6 +49,13 @@ public class JPAShowsRepository implements ShowsRepository {
 
     @Override
     public Show findShowWithReservations(Long showId) {
-        return null;
+//        String jpa = "SELECT DISTINCT sh FROM Show sh " +
+//                "JOIN FETCH sh.reservations r " +
+//                "WHERE sh.id = :showId";
+//        TypedQuery<Show> query = entityManager.createQuery(jpa, Show.class);
+//        query.setParameter("showId", showId);
+//        Show show = query.getResultList().get(0);
+//        return show;
+        return entityManager.find(Show.class, showId);
     }
 }
