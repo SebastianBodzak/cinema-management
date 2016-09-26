@@ -1,7 +1,7 @@
 package pl.com.bottega.cinemamanagement.infrastructure;
 
 import org.springframework.stereotype.Component;
-import pl.com.bottega.cinemamanagement.api.ListMoviesInCinemaResponse;
+import pl.com.bottega.cinemamanagement.api.responses.ListMoviesInCinemaResponse;
 import pl.com.bottega.cinemamanagement.api.MovieCatalog;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 

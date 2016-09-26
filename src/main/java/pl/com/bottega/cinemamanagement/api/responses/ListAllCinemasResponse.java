@@ -1,4 +1,6 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.responses;
+
+import pl.com.bottega.cinemamanagement.api.dtos.CinemaDto;
 
 import java.util.List;
 

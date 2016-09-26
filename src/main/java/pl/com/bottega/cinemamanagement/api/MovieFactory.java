@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemamanagement.api;
 
 import org.springframework.stereotype.Component;
+import pl.com.bottega.cinemamanagement.api.requests.CreateMovieRequest;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 
 /**

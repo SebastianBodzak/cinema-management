@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.*;
 /**
  * Created by ulvar on 25.09.2016.
  */
@@ -15,6 +16,8 @@ public class CinemaHall {
     private boolean[][] occupiedSeats = new boolean[rows][seats];
 
     public CinemaHall(Set<Reservation> reservations) {
+        checkNotNull(reservations);
+
         createOccupiedSeats(reservations);
     }
 
@@ -28,6 +31,8 @@ public class CinemaHall {
     }
 
     public boolean checkIfSeatsCanBeReserved(Set<Seat> seatsSet) {
+        checkNotNull(seatsSet);
+
         if (!checkIfBookedSeatsAreFree(seatsSet)) return false;
         if (checkIfSeatsAreInSameRow(seatsSet)) {
             List<Seat> seatsList = seatsSet.stream().sorted((e1, e2) -> Integer.compare(e1.getNumber(), e2.getNumber())).collect(Collectors.toList());

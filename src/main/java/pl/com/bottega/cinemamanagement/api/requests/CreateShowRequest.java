@@ -1,4 +1,8 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.requests;
+
+import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
+import pl.com.bottega.cinemamanagement.api.dtos.ShowDto;
+import pl.com.bottega.cinemamanagement.api.dtos.CalendarDto;
 
 import java.time.LocalDateTime;
 import java.util.Set;

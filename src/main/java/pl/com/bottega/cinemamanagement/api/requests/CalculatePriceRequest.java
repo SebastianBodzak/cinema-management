@@ -1,4 +1,7 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.requests;
+
+import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
+import pl.com.bottega.cinemamanagement.api.dtos.TicketOrderDto;
 
 import java.util.Collections;
 import java.util.Set;

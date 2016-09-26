@@ -3,6 +3,9 @@ package pl.com.bottega.cinemamanagement.ui;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.*;
+import pl.com.bottega.cinemamanagement.api.requests.CreateCinemaRequest;
+import pl.com.bottega.cinemamanagement.api.responses.ListAllCinemasResponse;
+import pl.com.bottega.cinemamanagement.api.responses.ListMoviesInCinemaResponse;
 
 import java.time.LocalDate;
 

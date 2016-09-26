@@ -2,7 +2,7 @@ package pl.com.bottega.cinemamanagement.ui;
 
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.AdminPanel;
-import pl.com.bottega.cinemamanagement.api.CreateShowRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateShowRequest;
 
 /**
  * Created by Dell on 2016-09-08.

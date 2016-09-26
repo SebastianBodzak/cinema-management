@@ -1,4 +1,6 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.dtos;
+
+import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
 /**
  * Created by Dell on 2016-09-19.

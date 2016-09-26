@@ -2,7 +2,15 @@ package pl.com.bottega.cinemamanagement.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.com.bottega.cinemamanagement.api.dtos.CalendarDto;
+import pl.com.bottega.cinemamanagement.api.requests.CreateCinemaRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateMovieRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateShowRequest;
+import pl.com.bottega.cinemamanagement.api.requests.UpdatePriceRequest;
 import pl.com.bottega.cinemamanagement.domain.*;
+import pl.com.bottega.cinemamanagement.domain.repositories.CinemaRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.MovieRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 
 import java.math.BigDecimal;
 import java.util.HashSet;

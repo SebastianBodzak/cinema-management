@@ -1,4 +1,6 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.requests;
+
+import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

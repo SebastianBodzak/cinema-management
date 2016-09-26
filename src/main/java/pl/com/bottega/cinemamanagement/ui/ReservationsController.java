@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.com.bottega.cinemamanagement.api.CreateReservationRequest;
-import pl.com.bottega.cinemamanagement.api.CreateReservationResponse;
+import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
+import pl.com.bottega.cinemamanagement.api.responses.CreateReservationResponse;
 import pl.com.bottega.cinemamanagement.api.ReservationManager;
 
 /**

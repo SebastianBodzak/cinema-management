@@ -1,4 +1,4 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.responses;
 
 /**
  * Created by bartosz.paszkowski on 25.09.2016.

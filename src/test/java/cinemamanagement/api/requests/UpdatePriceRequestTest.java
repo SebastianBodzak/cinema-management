@@ -1,10 +1,10 @@
-package cinemamanagement.api;
+package cinemamanagement.api.requests;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
-import pl.com.bottega.cinemamanagement.api.UpdatePriceRequest;
+import pl.com.bottega.cinemamanagement.api.requests.UpdatePriceRequest;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

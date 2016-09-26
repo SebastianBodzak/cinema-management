@@ -1,6 +1,9 @@
 package cinemamanagement.domain;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.math.BigDecimal;
@@ -13,7 +16,11 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by ulvar on 25.09.2016.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ReservationTest {
+
+    @Mock
+    private Show show;
 
     @Test
     public void shouldMakeReservation() {
@@ -21,7 +28,7 @@ public class ReservationTest {
         Set<Seat> seats = new HashSet<>(Arrays.asList(new Seat(2, 2), new Seat(3, 3)));
         Customer customer = new Customer("jan", "kowalski", "mail@mail.com", "+486439543039");
         BigDecimal totalPrice = new BigDecimal(100);
-        Show show = new Show();
+
         Reservation reservation = new Reservation(show, ticketOrders, seats, customer, totalPrice);
 
         assertEquals(ticketOrders, reservation.getTicketsOrder());

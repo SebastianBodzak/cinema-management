@@ -1,8 +1,8 @@
-package cinemamanagement.api;
+package cinemamanagement.api.dtos;
 
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.bottega.cinemamanagement.api.CalendarDto;
+import pl.com.bottega.cinemamanagement.api.dtos.CalendarDto;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
 import java.time.LocalDateTime;

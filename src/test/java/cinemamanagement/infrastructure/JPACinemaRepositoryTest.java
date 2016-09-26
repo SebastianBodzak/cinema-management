@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
-import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.CinemaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

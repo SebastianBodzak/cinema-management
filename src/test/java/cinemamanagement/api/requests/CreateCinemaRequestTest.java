@@ -1,4 +1,4 @@
-package cinemamanagement.api;
+package cinemamanagement.api.requests;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -7,10 +7,10 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemamanagement.api.CinemaDto;
-import pl.com.bottega.cinemamanagement.api.CreateCinemaRequest;
+import pl.com.bottega.cinemamanagement.api.dtos.CinemaDto;
+import pl.com.bottega.cinemamanagement.api.requests.CreateCinemaRequest;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
-import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.CinemaRepository;
 
 import static junit.framework.Assert.assertEquals;
 

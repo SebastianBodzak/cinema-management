@@ -1,6 +1,7 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

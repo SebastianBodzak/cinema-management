@@ -1,4 +1,6 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.dtos;
+
+import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
 /**
  * Created by bartosz.paszkowski on 25.09.2016.

@@ -1,4 +1,4 @@
-package cinemamanagement.api;
+package cinemamanagement.api.dtos;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -7,9 +7,9 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemamanagement.api.CalendarDto;
+import pl.com.bottega.cinemamanagement.api.dtos.CalendarDto;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
-import pl.com.bottega.cinemamanagement.api.ShowDto;
+import pl.com.bottega.cinemamanagement.api.dtos.ShowDto;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 

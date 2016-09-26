@@ -3,6 +3,9 @@ package cinemamanagement.domain;
 import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.domain.*;
 
 import java.math.BigDecimal;
@@ -16,11 +19,15 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * Created by ulvar on 25.09.2016.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class CinemaHallTest {
 
     private Set<Reservation> reservations = new HashSet<>();
     private Set<Reservation> emptyReservations = new HashSet<>();
     private CinemaHall cinemaHall;
+
+    @Mock
+    private Show show;
 
     @Before
     public void setUp() {
