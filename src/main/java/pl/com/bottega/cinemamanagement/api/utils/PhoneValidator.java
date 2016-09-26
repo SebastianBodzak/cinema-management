@@ -10,11 +10,11 @@ public class PhoneValidator {
     private Pattern pattern;
     private Matcher matcher;
 
-    private static final String EMAIL_PATTERN =
+    private static final String PHONE_PATTERN =
             "\\d{3}-\\d{3}-\\d{3}";
 
     public PhoneValidator() {
-        pattern = Pattern.compile(EMAIL_PATTERN);
+        pattern = Pattern.compile(PHONE_PATTERN);
     }
 
     /**

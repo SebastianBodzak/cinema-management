@@ -40,7 +40,8 @@ public class ReservationManager {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
         Set<Seat> seats = repackSeatDtoToSeat(request.getReservation().getSeats());
-        // TODO validacja na siedzenia
+        if (!cinemaHall.checkIfSeatsCanBeReserved(seats))
+            throw new InvalidRequestException("Seats can not be booked");
         Calculation calculation = calculatePrices(request);
 
         Customer customer = new Customer(request.getReservation().getCustomer().getFirstName(), request.getReservation().getCustomer().getLastName(),

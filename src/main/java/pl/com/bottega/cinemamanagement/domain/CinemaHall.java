@@ -25,15 +25,15 @@ public class CinemaHall {
         for (Reservation reservation : reservations) {
             Set<Seat> seatsSet = reservation.getSeats();
             for (Seat seat : seatsSet)
-                occupiedSeats[seat.getRow()][seat.getNumber()] = true;
+                occupiedSeats[seat.getRow() - 1][seat.getNumber() - 1] = true;
         }
-
     }
 
     public boolean checkIfSeatsCanBeReserved(Set<Seat> seatsSet) {
         checkNotNull(seatsSet);
+        checkArgument(!seatsSet.isEmpty());
 
-        if (!checkIfBookedSeatsAreFree(seatsSet)) return false;
+        if (checkIfBookedSeatsAreOccupied(seatsSet)) return false;
         if (checkIfSeatsAreInSameRow(seatsSet)) {
             List<Seat> seatsList = seatsSet.stream().sorted((e1, e2) -> Integer.compare(e1.getNumber(), e2.getNumber())).collect(Collectors.toList());
             if (!checkIfSeatsHaveCorrectOrder(seatsList))
@@ -42,6 +42,14 @@ public class CinemaHall {
         } else {
             return noAvailableSeatsInSameRow(seatsSet.size());
         }
+    }
+
+    public Set<Seat> getFreeSeats() {
+        return checkSeatsState(false);
+    }
+
+    public Set<Seat> getOccupiedSeats() {
+        return checkSeatsState(true);
     }
 
     private boolean noAvailableSeatsInSameRow(int seatsCount) {
@@ -62,9 +70,9 @@ public class CinemaHall {
         return true;
     }
 
-    private boolean checkIfBookedSeatsAreFree(Set<Seat> seatsSet) {
+    private boolean checkIfBookedSeatsAreOccupied(Set<Seat> seatsSet) {
         for (Seat seat : seatsSet)
-            if (occupiedSeats[seat.getRow()][seat.getNumber()] = true)
+            if (occupiedSeats[seat.getRow() - 1][seat.getNumber() - 1])
                 return true;
         return false;
     }
@@ -84,22 +92,12 @@ public class CinemaHall {
         return !seatsSet.stream().filter(e -> !e.getRow().equals(row)).findFirst().isPresent();
     }
 
-    public Set<Seat> getFreeSeats() {
-        return checkSeatsState(false);
-    }
-
-    public Set<Seat> getOccupiedSeats() {
-        return checkSeatsState(true);
-    }
-
-
     private Set<Seat> checkSeatsState(boolean occupied) {
         Set<Seat> seatsSet = new LinkedHashSet<>();
         for (int i = 0; i <= rows; i++)
             for (int j = 0; j <= seats; j++)
                 if (occupiedSeats[i][j] == occupied)
-                    seatsSet.add(new Seat(i, j));
+                    seatsSet.add(new Seat(i + 1, j + 1));
         return seatsSet;
     }
-
 }
