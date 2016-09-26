@@ -40,6 +40,7 @@ public class CreateReservationRequest {
                 throw new InvalidRequestException("No customer");
             seats.stream().forEach(SeatDto::validate);
             tickets.stream().forEach(TicketOrderDto::validate);
+            customer.validate();
         }
 
         public Long getShowId() {
