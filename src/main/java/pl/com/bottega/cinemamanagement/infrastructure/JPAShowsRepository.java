@@ -30,24 +30,14 @@ public class JPAShowsRepository implements ShowsRepository {
 
     @Override
     public Show showWithTicketPrices(Long showId) {
-        String jpa = "SELECT DISTINCT sh FROM Show sh " +
-                "JOIN FETCH sh.movie m " +
-                "JOIN FETCH m.ticketPrices tp " +
-                "WHERE sh.id = :showId";
-
-        TypedQuery<Show> query = entityManager.createQuery(jpa, Show.class);
+        TypedQuery<Show> query = entityManager.createNamedQuery("Show.showWithTicketPrices", Show.class);
         query.setParameter("showId", showId);
         return query.getResultList().get(0);
     }
 
     @Override
     public Show findShowWithReservations(Long showId) {
-        String jpa = "SELECT DISTINCT sh FROM Show sh " +
-                "JOIN FETCH sh.movie m " +
-                "JOIN FETCH m.ticketPrices tp " +
-                "LEFT JOIN FETCH sh.reservations r " +
-                "WHERE sh.id = :showId";
-        Query query = entityManager.createQuery(jpa).setParameter("showId", showId);
-        return (Show) query.getResultList().get(0);
+        TypedQuery<Show> query = entityManager.createNamedQuery("Show.findShowWithReservations", Show.class).setParameter("showId", showId);
+        return query.getResultList().get(0);
     }
 }

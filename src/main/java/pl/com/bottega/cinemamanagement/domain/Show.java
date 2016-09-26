@@ -11,6 +11,12 @@ import java.util.Set;
  * Created by arkadiuszarak on 04/09/2016.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Show.showWithTicketPrices",
+                query = "SELECT DISTINCT sh FROM Show sh JOIN FETCH sh.movie m JOIN FETCH m.ticketPrices tp WHERE sh.id = :showId"),
+        @NamedQuery(name = "Show.findShowWithReservations",
+                query = "SELECT DISTINCT sh FROM Show sh JOIN FETCH sh.movie m JOIN FETCH m.ticketPrices tp LEFT JOIN FETCH sh.reservations r WHERE sh.id = :showId")
+})
 public class Show {
 
     @Id

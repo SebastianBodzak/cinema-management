@@ -23,7 +23,6 @@ public class JPAMoviesRepository implements MovieRepository {
 
     @Override
     public Movie findById(Long id) {
-        Movie movie = entityManager.find(Movie.class, id);
-        return movie;
+        return entityManager.find(Movie.class, id);
     }
 }
