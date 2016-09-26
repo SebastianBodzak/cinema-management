@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemamanagement.domain.Show;
 import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 import pl.com.bottega.cinemamanagement.domain.TicketPrice;
+import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
