@@ -44,8 +44,8 @@ public class CinemaHallTest {
 
         boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 1), new Seat(1, 2), new Seat(1, 3),
                 new Seat(1, 4), new Seat(1, 5), new Seat(1, 6), new Seat(1, 7), new Seat(1, 8), new Seat(1, 9), new Seat(1, 10),
-                new Seat(1, 11), new Seat(1, 12), new Seat(1, 13), new Seat(1, 14), new Seat(1, 15)));  //TODO no i przepuszcza miejsca ktore jużsą zarezerwowane 1,12 1,13
-        assertTrue(result);  //TODO Jak test leci sam to przechodzi, jak leci cała klasa testów to wywala out of bound ex row/seat.
+                new Seat(1, 11), new Seat(1, 12), new Seat(1, 13), new Seat(1, 14), new Seat(1, 15)));  //TODO no i przepuszcza miejsca ktore jużsą zarezerwowane 1,12 1,13 jesli uzyje reservations a nie emptyRes.
+        assertTrue(result);  //TODO Jak test leci sam to przechodzi, jak leci cała klasa testów to wywala out of bound ex row/seat czasem wywala czasem nie.
     }
 
     @Test
@@ -70,7 +70,7 @@ public class CinemaHallTest {
     @Test
     public void shouldFailToMakeReservationBecauseItsAlreadyReserved() {
         cinemaHall = new CinemaHall(reservations);
-        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 12), new Seat(1, 13), new Seat(1, 8))); //TODO czemu z 1,8 jest ok, a z 1,14 już nie?
+        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 12), new Seat(1, 13), new Seat(1, 8))); //TODO czemu z np. 1,8 jest ok, a z 1,14 już nie?
         assertFalse(result);
     }
 
