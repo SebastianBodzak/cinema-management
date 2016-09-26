@@ -1,7 +1,7 @@
 package pl.com.bottega.cinemamanagement.api.requests;
 
-import pl.com.bottega.cinemamanagement.api.dtos.CustomerDto;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
+import pl.com.bottega.cinemamanagement.api.dtos.CustomerDto;
 import pl.com.bottega.cinemamanagement.api.dtos.SeatDto;
 import pl.com.bottega.cinemamanagement.api.dtos.TicketOrderDto;
 
@@ -38,6 +38,8 @@ public class CreateReservationRequest {
                 throw new InvalidRequestException("No seats");
             if (customer == null)
                 throw new InvalidRequestException("No customer");
+            seats.stream().forEach(SeatDto::validate);
+            tickets.stream().forEach(TicketOrderDto::validate);
         }
 
         public Long getShowId() {

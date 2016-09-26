@@ -3,7 +3,6 @@ package pl.com.bottega.cinemamanagement.api.requests;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 import pl.com.bottega.cinemamanagement.api.dtos.TicketOrderDto;
 
-import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -24,17 +23,16 @@ public class CalculatePriceRequest {
 
 
     private void validateTickets() {
-
         tickets.forEach(ticket -> ticket.validate());
 
-        for (TicketOrderDto ticket : tickets) {
-
-            if (Collections.frequency(tickets, ticket) > 1)
+        for (TicketOrderDto ticket : tickets)
+            if (validateIfTicketsHasDuplicates(ticket))
                 throw new InvalidRequestException("Duplicate ticket type");
-        }
-
     }
 
+    private boolean validateIfTicketsHasDuplicates(TicketOrderDto ticket) {
+        return tickets.stream().filter(e -> e.getKind().equals(ticket.getKind())).count() > 1;
+    }
 
     public Long getShowId() {
         return showId;

@@ -54,11 +54,11 @@ public class CinemaHall {
 
     private boolean noAvailableSeatsInSameRow(int seatsCount) {
         for (int rowCounter = 0; rowCounter < rows; rowCounter++)
-            for (int seatsCounter = 0; seatsCount < seats; seatsCounter++) {
+            for (int seatsCounter = 0; seatsCounter < seats; seatsCounter++) {
                 if (seatsCounter + seatsCount < seats) {
                     int freeSeatsCounter = 0;
                     for (int counter = seatsCounter; counter < seatsCounter + seatsCount; counter++) {
-                        if (!occupiedSeats[rowCounter][seatsCounter])
+                        if (!occupiedSeats[rowCounter][counter])
                             freeSeatsCounter++;
                         else
                             break;

@@ -11,7 +11,9 @@ import pl.com.bottega.cinemamanagement.domain.*;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -29,30 +31,33 @@ public class CinemaHallTest {
     @Mock
     private Show show;
 
+    @Mock
+    private Customer customer;
+
     @Before
     public void setUp() {
         Reservation reservation = createReservation(new Seat(1, 12), new Seat(1, 13));
         Reservation reservation2 = createReservation(new Seat(2, 11), new Seat(2, 12));
         reservations.add(reservation);
         reservations.add(reservation2);
-
+        cinemaHall = new CinemaHall(reservations);
     }
 
     @Test
-    public void shouldReserveFullRow(){   //TODO tu nie powinno przejśc raczej, bo test poniżej wywala to czemu tu nagle działa?
+    public void shouldReserveFullRow(){
         cinemaHall = new CinemaHall(emptyReservations);
 
         boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 1), new Seat(1, 2), new Seat(1, 3),
                 new Seat(1, 4), new Seat(1, 5), new Seat(1, 6), new Seat(1, 7), new Seat(1, 8), new Seat(1, 9), new Seat(1, 10),
-                new Seat(1, 11), new Seat(1, 12), new Seat(1, 13), new Seat(1, 14), new Seat(1, 15)));  //TODO no i przepuszcza miejsca ktore jużsą zarezerwowane 1,12 1,13 jesli uzyje reservations a nie emptyRes.
-        assertTrue(result);  //TODO Jak test leci sam to przechodzi, jak leci cała klasa testów to wywala out of bound ex row/seat czasem wywala czasem nie.
+                new Seat(1, 11), new Seat(1, 12), new Seat(1, 13), new Seat(1, 14), new Seat(1, 15)));
+
+        assertTrue(result);
     }
 
     @Test
     public void shouldReserveLastRowAndSeat(){
-        cinemaHall = new CinemaHall(reservations);
+        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(10, 15)));
 
-        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(10, 15))); //TODO ROW=10 - out of bound?? seat=15 - out of bound exception??
         assertTrue(result);
     }
 
@@ -60,8 +65,6 @@ public class CinemaHallTest {
 
     @Test
     public void shouldCheckIfSeatsCanBeReserved() {
-        cinemaHall = new CinemaHall(reservations);
-
         boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 1), new Seat(1, 2), new Seat(1, 3)));
 
         assertTrue(result);
@@ -69,31 +72,61 @@ public class CinemaHallTest {
 
     @Test
     public void shouldFailToMakeReservationBecauseItsAlreadyReserved() {
-        cinemaHall = new CinemaHall(reservations);
-        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 12), new Seat(1, 13), new Seat(1, 8))); //TODO czemu z np. 1,8 jest ok, a z 1,14 już nie?
+        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 12), new Seat(1, 13), new Seat(1, 14)));
+
         assertFalse(result);
     }
 
     @Test
     public void shouldFailToReserveDueToDifferentRows() {
-        cinemaHall = new CinemaHall(reservations);
         boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 4), new Seat(6, 5)));
-        assertFalse(result);
 
+        assertFalse(result);
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void shouldFailToReserveBecauseOfNonExistingSeats() {
-        cinemaHall = new CinemaHall(reservations);
         cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 16), new Seat(11, 9)));
-
     }
 
     @Test
     public void shouldFailToReserveDueSeatsNotNextToEachOther() {
-        cinemaHall = new CinemaHall(reservations);
         boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 10), new Seat(1, 11), new Seat(1, 14)));
+
         assertFalse(result);
+    }
+
+    @Test
+    public void shouldBookedSeatsInDifferentRowsBecauseOfLackOfSeatsInSameRow() {
+        cinemaHall = new CinemaHall(fillAllCinemaHallWithoutSeats(new Seat(1, 1), new Seat(1, 2), new Seat(2, 1), new Seat(2, 2)));
+
+        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 1), new Seat(2, 1), new Seat(2, 2)));
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void shouldBookedSeatsInSameRowWithIncorrectOrderBecauseOfLackOfSeatsInSameRow() {
+        cinemaHall = new CinemaHall(fillAllCinemaHallWithoutSeats(new Seat(1, 1), new Seat(1, 2), new Seat(1, 4), new Seat(1, 5)));
+
+        boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 1), new Seat(1, 2), new Seat(1, 4)));
+
+        assertTrue(result);
+    }
+
+    private Set<Reservation> fillAllCinemaHallWithoutSeats(Seat ...seats) {
+        Set<Seat> seatsSet = new LinkedHashSet<>();
+        for (int rowCounter = 1; rowCounter <= 10; rowCounter++)
+            for (int seatsCounter = 1; seatsCounter <= 15; seatsCounter++)
+                seatsSet.add(new Seat(rowCounter, seatsCounter));
+
+        Set<Seat> freeSeats = new LinkedHashSet<>();
+        for (Seat seat : seats)
+            freeSeats.add(seat);
+
+        Set<Seat> seatsSetWithFreeSeats = seatsSet.stream().filter(s -> !freeSeats.contains(s)).collect(Collectors.toSet());
+
+        return Sets.newHashSet(new Reservation(show, Sets.newHashSet(), seatsSetWithFreeSeats, customer, new BigDecimal(1000L)));
     }
 
 

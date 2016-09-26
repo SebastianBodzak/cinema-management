@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemamanagement.domain;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -42,7 +44,19 @@ public class Seat {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seat seat = (Seat) o;
+        return Objects.equal(row, seat.row) &&
+                Objects.equal(number, seat.number);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(row, number);
+    }
 }
 
 
