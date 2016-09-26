@@ -9,7 +9,16 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemamanagement.api.*;
+import pl.com.bottega.cinemamanagement.api.dtos.CinemaDto;
+import pl.com.bottega.cinemamanagement.api.dtos.ShowDto;
+import pl.com.bottega.cinemamanagement.api.requests.CreateCinemaRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateMovieRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateShowRequest;
+import pl.com.bottega.cinemamanagement.api.requests.UpdatePriceRequest;
 import pl.com.bottega.cinemamanagement.domain.*;
+import pl.com.bottega.cinemamanagement.domain.repositories.CinemaRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.MovieRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

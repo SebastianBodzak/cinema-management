@@ -1,5 +1,6 @@
 package pl.com.bottega.cinemamanagement.api;
 
+import pl.com.bottega.cinemamanagement.api.dtos.CalendarDto;
 import pl.com.bottega.cinemamanagement.domain.Calendar;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.Movie;

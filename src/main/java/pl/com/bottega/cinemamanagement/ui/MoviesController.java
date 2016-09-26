@@ -2,8 +2,8 @@ package pl.com.bottega.cinemamanagement.ui;
 
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.AdminPanel;
-import pl.com.bottega.cinemamanagement.api.CreateMovieRequest;
-import pl.com.bottega.cinemamanagement.api.UpdatePriceRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateMovieRequest;
+import pl.com.bottega.cinemamanagement.api.requests.UpdatePriceRequest;
 
 /**
  * Created by arkadiuszarak on 04/09/2016.

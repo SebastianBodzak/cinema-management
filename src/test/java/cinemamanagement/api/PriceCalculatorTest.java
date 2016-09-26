@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemamanagement.api.CalculatePriceRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 import pl.com.bottega.cinemamanagement.api.PriceCalculator;
-import pl.com.bottega.cinemamanagement.api.TicketOrderDto;
+import pl.com.bottega.cinemamanagement.api.dtos.TicketOrderDto;
 import pl.com.bottega.cinemamanagement.domain.Movie;
 import pl.com.bottega.cinemamanagement.domain.Show;
-import pl.com.bottega.cinemamanagement.domain.ShowsRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 import pl.com.bottega.cinemamanagement.domain.TicketPrice;
 
 import java.math.BigDecimal;

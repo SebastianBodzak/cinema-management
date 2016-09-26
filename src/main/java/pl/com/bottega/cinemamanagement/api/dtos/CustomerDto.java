@@ -1,5 +1,6 @@
-package pl.com.bottega.cinemamanagement.api;
+package pl.com.bottega.cinemamanagement.api.dtos;
 
+import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 import pl.com.bottega.cinemamanagement.api.utils.EmailValidator;
 import pl.com.bottega.cinemamanagement.api.utils.PhoneValidator;
 

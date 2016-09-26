@@ -1,7 +1,6 @@
 package cinemamanagement.infrastructure;
 
 import com.google.common.collect.Lists;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +10,13 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemamanagement.api.CinemaDto;
-import pl.com.bottega.cinemamanagement.api.ListMoviesInCinemaResponse;
+import pl.com.bottega.cinemamanagement.api.responses.ListMoviesInCinemaResponse;
 import pl.com.bottega.cinemamanagement.api.MovieCatalog;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

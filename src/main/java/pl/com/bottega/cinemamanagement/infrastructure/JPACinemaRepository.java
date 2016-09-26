@@ -2,7 +2,7 @@ package pl.com.bottega.cinemamanagement.infrastructure;
 
 import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
-import pl.com.bottega.cinemamanagement.domain.CinemaRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.CinemaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

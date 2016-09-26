@@ -1,4 +1,4 @@
-package cinemamanagement.api;
+package cinemamanagement.api.requests;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -7,12 +7,10 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemamanagement.api.CreateMovieRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateMovieRequest;
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
-import pl.com.bottega.cinemamanagement.domain.MovieRepository;
+import pl.com.bottega.cinemamanagement.domain.repositories.MovieRepository;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -2,7 +2,11 @@ package pl.com.bottega.cinemamanagement.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.com.bottega.cinemamanagement.api.dtos.TicketOrderDto;
+import pl.com.bottega.cinemamanagement.api.requests.CalculatePriceRequest;
+import pl.com.bottega.cinemamanagement.api.responses.CalculatePriceResponse;
 import pl.com.bottega.cinemamanagement.domain.*;
+import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 
 import java.util.Set;
 import java.util.stream.Collectors;

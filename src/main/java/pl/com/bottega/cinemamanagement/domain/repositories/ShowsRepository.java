@@ -1,4 +1,7 @@
-package pl.com.bottega.cinemamanagement.domain;
+package pl.com.bottega.cinemamanagement.domain.repositories;
+
+import pl.com.bottega.cinemamanagement.domain.Show;
+import pl.com.bottega.cinemamanagement.domain.TicketPrice;
 
 import java.util.Set;
 
