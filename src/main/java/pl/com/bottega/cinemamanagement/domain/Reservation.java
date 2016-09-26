@@ -27,6 +27,7 @@ public class Reservation {
     private ReservationStatus status;
 
     private BigDecimal totalPrice;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Show show;
 
