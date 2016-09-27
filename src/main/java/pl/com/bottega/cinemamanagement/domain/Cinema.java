@@ -32,11 +32,17 @@ public class Cinema {
         return city;
     }
 
-
     public String getName() {
         return name;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Set<Show> getShows() {
+        return shows;
+    }
 
     @Override
     public String toString() {

@@ -63,7 +63,7 @@ public class PriceCalculatorTest {
         ticketOrderDto.setKind("invalid type");
         calculatePriceRequest.setShowId(showId);
         calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrderDto, ticketOrderDto2));
-        when(showsRepository.showWithTicketPrices(showId)).thenReturn(show);
+        when(showsRepository.findShowWithTicketPrices(showId)).thenReturn(show);
 
         priceCalculator.calculatePrices(calculatePriceRequest);
 

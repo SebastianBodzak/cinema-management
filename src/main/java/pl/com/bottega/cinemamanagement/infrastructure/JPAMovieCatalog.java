@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Component
 public class JPAMovieCatalog implements MovieCatalog {
+
     @PersistenceContext
     private EntityManager entityManager;
 

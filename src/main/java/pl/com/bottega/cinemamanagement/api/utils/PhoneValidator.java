@@ -1,20 +1,21 @@
 package pl.com.bottega.cinemamanagement.api.utils;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by bartosz.paszkowski on 25.09.2016.
  */
 public class PhoneValidator {
-    private Pattern pattern;
-    private Matcher matcher;
 
-    private static final String PHONE_PATTERN =
-            "\\d{3}-\\d{3}-\\d{3}";
+    private static final String PHONE_PATTERN_1 = "\\d{3}-\\d{3}-\\d{3}";
+    private static final String PHONE_PATTERN_2 = "\\d{3}\\d{3}\\d{3}";
+
+    private Pattern pattern;
+    private Pattern pattern2;
 
     public PhoneValidator() {
-        pattern = Pattern.compile(PHONE_PATTERN);
+        pattern = Pattern.compile(PHONE_PATTERN_1);
+        pattern2 = Pattern.compile(PHONE_PATTERN_2);
     }
 
     /**
@@ -24,9 +25,7 @@ public class PhoneValidator {
      * @return true valid hex, false invalid hex
      */
     public boolean validate(final String hex) {
-
-        matcher = pattern.matcher(hex);
-        return matcher.matches();
+        return pattern.matcher(hex).matches() || pattern2.matcher(hex).matches();
 
     }
 }

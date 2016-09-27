@@ -12,10 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.domain.Cinema;
 import pl.com.bottega.cinemamanagement.domain.repositories.CinemaRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by Dell on 2016-09-14.
@@ -30,12 +28,11 @@ public class JPACinemaRepositoryTest {
     @Autowired
     private CinemaRepository jpaCinemaRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final static Long cinemaId = 10L;
 
     @Test
     @Transactional
-    public void shouldAddCinema() {
+    public void shoulSaveCinema() {
         Cinema cinema = new Cinema("Felicity", "Lublin");
 
         jpaCinemaRepository.save(cinema);
@@ -43,5 +40,25 @@ public class JPACinemaRepositoryTest {
         Cinema loadedCinema = jpaCinemaRepository.load("Felicity", "Lublin");
         assertEquals("Felicity", loadedCinema.getName());
         assertEquals("Lublin", loadedCinema.getCity());
+    }
+
+    @Sql("/fixtures/cinemas.sql")
+    @Test
+    @Transactional
+    public void shouldLoadCinema() {
+        Cinema loadedCinema = jpaCinemaRepository.load("Felicity", "Lublin");
+
+        assertEquals("Felicity", loadedCinema.getName());
+        assertEquals("Lublin", loadedCinema.getCity());
+        assertEquals(cinemaId, loadedCinema.getId());
+    }
+
+    @Sql("/fixtures/cinemas.sql")
+    @Test
+    @Transactional
+    public void shouldNotLoadCinema() {
+        Cinema loadedCinema = jpaCinemaRepository.load("Felicity", "Timbuktu");
+
+        assertNull(loadedCinema);
     }
 }

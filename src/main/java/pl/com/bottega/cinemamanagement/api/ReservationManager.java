@@ -21,8 +21,6 @@ import java.util.Set;
 @Service
 public class ReservationManager {
 
-    //private Show show;
-
     private ReservationRepository reservationRepository;
     private ShowsRepository showsRepository;
     private PriceCalculator priceCalculator;
@@ -35,43 +33,27 @@ public class ReservationManager {
 
     @Transactional
     public CreateReservationResponse createReservation(CreateReservationRequest request) {
-        request.getReservation().validate();
-        Show show = showsRepository.findShowWithReservations(request.getReservation().getShowId());
-        Set<Reservation> reservations = show.getReservations();
-        CinemaHall cinemaHall = new CinemaHall(reservations);
-        Set<Seat> seats = repackSeatDtoToSeat(request.getReservation().getSeats());
-        if (!cinemaHall.checkIfSeatsCanBeReserved(seats))
+        request.validate();
+        Show show = showsRepository.findShowWithReservations(request.getShowId());
+        if (show == null)
+            throw new InvalidRequestException("Wrong show id");
+        Set<Seat> seats = repackSeatDtoToSeat(request.getSeats());
+        if (!new CinemaHall(show.getReservations()).checkIfSeatsCanBeReserved(seats))
             throw new InvalidRequestException("Seats can not be booked");
         Calculation calculation = calculatePrices(request);
-
-        Customer customer = new Customer(request.getReservation().getCustomer().getFirstName(), request.getReservation().getCustomer().getLastName(),
-                request.getReservation().getCustomer().getEmail(), request.getReservation().getCustomer().getPhone());
+        Customer customer = new Customer(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPhone());
         Reservation reservation = new Reservation(show, calculation.getTickets(), seats, customer, calculation.getTotalPrice());
-//        if (show.getReservations() == null || show.getReservations().isEmpty())
-//            reservationRepository.save(reservation);
-//        else
-            reservationRepository.save(reservation);
-        // validacja
-        // pobierz show z rezerwacjami
-        // tworzysz cinemaHall
-        // validacja 2
-        // siedzenia wolne czy zajęte
-        // zrób rezerwację - zwracanie numeru
-        // return reservation response(numer reserwacji)
-        //
-
+        reservationRepository.save(reservation);
         return new CreateReservationResponse(reservation.getReservationNumber());
     }
 
-
     private Calculation calculatePrices(CreateReservationRequest request) {
         CalculatePriceRequest calculationPR = new CalculatePriceRequest();
-        calculationPR.setShowId(request.getReservation().getShowId());
-        calculationPR.setTickets(request.getReservation().getTickets());
+        calculationPR.setShowId(request.getShowId());
+        calculationPR.setTickets(request.getTickets());
         CalculatePriceResponse response = priceCalculator.calculatePrices(calculationPR);
         return response.getCalculation();
     }
-
 
     private Set<Seat> repackSeatDtoToSeat(Set<SeatDto> seatsDto) {
         Set<Seat> seats = new HashSet<>();
@@ -80,6 +62,4 @@ public class ReservationManager {
         }
         return seats;
     }
-
-
 }

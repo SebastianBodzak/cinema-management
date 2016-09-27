@@ -6,8 +6,7 @@ import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Created by Dell on 2016-09-08.
@@ -29,15 +28,14 @@ public class JPAShowsRepository implements ShowsRepository {
     }
 
     @Override
-    public Show showWithTicketPrices(Long showId) {
-        TypedQuery<Show> query = entityManager.createNamedQuery("Show.showWithTicketPrices", Show.class);
-        query.setParameter("showId", showId);
-        return query.getResultList().get(0);
+    public Show findShowWithTicketPrices(Long showId) {
+        List<Show> result = entityManager.createNamedQuery("Show.showWithTicketPrices", Show.class).setParameter("showId", showId).getResultList();
+        return Utils.returnSingleResult(result);
     }
 
     @Override
     public Show findShowWithReservations(Long showId) {
-        TypedQuery<Show> query = entityManager.createNamedQuery("Show.findShowWithReservations", Show.class).setParameter("showId", showId);
-        return query.getResultList().get(0);
+        List<Show> result = entityManager.createNamedQuery("Show.findShowWithReservations", Show.class).setParameter("showId", showId).getResultList();
+        return Utils.returnSingleResult(result);
     }
 }

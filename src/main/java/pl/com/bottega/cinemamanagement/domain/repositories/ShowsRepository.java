@@ -12,7 +12,7 @@ public interface ShowsRepository {
     Show findById(Long id);
 
 
-    Show showWithTicketPrices(Long showId);
+    Show findShowWithTicketPrices(Long showId);
 
     Show findShowWithReservations(Long showId);
 }

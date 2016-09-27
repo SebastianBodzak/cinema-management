@@ -30,18 +30,4 @@ public class TicketOrderDto {
     public void setCount(Integer count) {
         this.count = count;
     }
-
-  /*  @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TicketOrderDto that = (TicketOrderDto) o;
-        return Objects.equal(kind, that.kind);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(kind);
-    }
-*/
 }

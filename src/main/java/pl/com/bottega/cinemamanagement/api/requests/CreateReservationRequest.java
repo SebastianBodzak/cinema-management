@@ -14,20 +14,12 @@ public class CreateReservationRequest {
 
     private ReservationDto reservation;
 
-    public ReservationDto getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(ReservationDto reservation) {
-        this.reservation = reservation;
-    }
-
     public class ReservationDto {
+
         private Long showId;
         private Set<TicketOrderDto> tickets;
         private Set<SeatDto> seats;
         private CustomerDto customer;
-
 
         public void validate() {
             if (showId == null)
@@ -42,7 +34,6 @@ public class CreateReservationRequest {
             tickets.stream().forEach(TicketOrderDto::validate);
             customer.validate();
         }
-
         public Long getShowId() {
             return showId;
         }
@@ -74,5 +65,46 @@ public class CreateReservationRequest {
         public void setCustomer(CustomerDto customer) {
             this.customer = customer;
         }
+
     }
+    public ReservationDto getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(ReservationDto reservation) {
+        this.reservation = reservation;
+    }
+
+    public String getFirstName() {
+        return reservation.customer.getFirstName();
+    }
+
+    public String getLastName() {
+        return reservation.customer.getLastName();
+    }
+
+    public String getEmail() {
+        return reservation.customer.getEmail();
+    }
+
+    public String getPhone() {
+        return reservation.customer.getPhone();
+    }
+
+    public void validate() {
+        reservation.validate();
+    }
+
+    public Set<SeatDto> getSeats() {
+        return reservation.seats;
+    }
+
+    public Long getShowId() {
+        return reservation.showId;
+    }
+
+    public Set<TicketOrderDto> getTickets() {
+        return reservation.tickets;
+    }
+
 }

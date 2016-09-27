@@ -13,6 +13,7 @@ import pl.com.bottega.cinemamanagement.domain.Show;
 import pl.com.bottega.cinemamanagement.infrastructure.JPAShowsRepository;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -34,7 +35,7 @@ public class JPAShowsRepositoryTest {
     @Test
     @Transactional
     public void shouldlistMoviesInCinema() {
-        Show show = showsRepository.showWithTicketPrices(showId);
+        Show show = showsRepository.findShowWithTicketPrices(showId);
 
         assertTrue(show.getTicketPrices().size() == 2);
     }
@@ -48,5 +49,23 @@ public class JPAShowsRepositoryTest {
         assertTrue(show.getReservations().size() == 2);
         assertTrue(show.getTicketPrices().size() == 2);
         assertEquals("any title", show.getMovie().getTitle());
+    }
+
+    @Sql("/fixtures/shows.sql")
+    @Test
+    @Transactional
+    public void shouldNotFindShowsWithTicketPrices() {
+        Show show = showsRepository.findShowWithTicketPrices(10000000L);
+
+        assertNull(show);
+    }
+
+    @Sql("/fixtures/shows.sql")
+    @Test
+    @Transactional
+    public void shouldNotFindShowsWithReservationsAndPrices() {
+        Show show = showsRepository.findShowWithReservations(10000000L);
+
+        assertNull(show);
     }
 }

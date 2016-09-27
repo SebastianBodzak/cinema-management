@@ -26,9 +26,7 @@ public class JPACinemaRepository implements CinemaRepository {
     public Cinema load(String name, String city) {
         List<Cinema> cinemas = entityManager.createQuery("FROM Cinema c WHERE c.name =:name AND c.city =:city ", Cinema.class).setParameter("city", city)
                 .setParameter("name", name).getResultList();
-        if (cinemas.isEmpty())
-            return null;
-        return cinemas.get(0);
+        return Utils.returnSingleResult(cinemas);
     }
 
     @Override

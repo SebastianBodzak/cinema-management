@@ -19,6 +19,5 @@ public class JPAReservationRepository implements ReservationRepository {
     @Override
     public void save(Reservation reservation) {
         entityManager.persist(reservation);
-
     }
 }

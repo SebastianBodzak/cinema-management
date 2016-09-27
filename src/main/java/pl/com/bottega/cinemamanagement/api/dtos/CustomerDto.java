@@ -27,7 +27,6 @@ public class CustomerDto {
             throw new InvalidRequestException("Wrong email");
         if (!phoneValidator.validate(phone))
             throw new InvalidRequestException("Wrong phone number. Write in format XXX-XXX-XXX");
-
     }
 
     public String getFirstName() {

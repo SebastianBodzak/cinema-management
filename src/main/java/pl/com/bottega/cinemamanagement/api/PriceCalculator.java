@@ -26,7 +26,7 @@ public class PriceCalculator {
     @Transactional
     public CalculatePriceResponse calculatePrices(CalculatePriceRequest request) {
         validateShowId(request.getShowId());
-        Show show = showsRepository.showWithTicketPrices(request.getShowId());
+        Show show = showsRepository.findShowWithTicketPrices(request.getShowId());
         Set<TicketPrice> prices = show.getTicketPrices();
         validate(request, prices);
         Set<TicketOrder> ticketOrders = createSetOfTicketOrders(request.getTickets());
