@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemamanagement.domain.repositories;
 
+import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
+import pl.com.bottega.cinemamanagement.api.ReservationSearchResult;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
 
 /**
@@ -8,4 +10,5 @@ import pl.com.bottega.cinemamanagement.domain.Reservation;
 public interface ReservationRepository {
     void save(Reservation reservation);
 
+    ReservationSearchResult find(ReservationCriteria criteria);
 }

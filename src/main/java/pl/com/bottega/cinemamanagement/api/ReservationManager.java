@@ -62,4 +62,8 @@ public class ReservationManager {
         }
         return seats;
     }
+
+    public ReservationSearchResult find(ReservationCriteria criteria) {
+        return reservationRepository.find(criteria);
+    }
 }
