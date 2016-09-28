@@ -12,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Show.showWithTicketPrices",
+        @NamedQuery(name = "Show.findShowWithTicketPrices",
                 query = "SELECT DISTINCT sh FROM Show sh JOIN FETCH sh.movie m JOIN FETCH m.ticketPrices tp WHERE sh.id = :showId"),
         @NamedQuery(name = "Show.findShowWithReservations",
                 query = "SELECT DISTINCT sh FROM Show sh JOIN FETCH sh.movie m JOIN FETCH m.ticketPrices tp LEFT JOIN FETCH sh.reservations r WHERE sh.id = :showId")

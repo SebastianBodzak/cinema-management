@@ -29,7 +29,7 @@ public class JPAShowsRepository implements ShowsRepository {
 
     @Override
     public Show findShowWithTicketPrices(Long showId) {
-        List<Show> result = entityManager.createNamedQuery("Show.showWithTicketPrices", Show.class).setParameter("showId", showId).getResultList();
+        List<Show> result = entityManager.createNamedQuery("Show.findShowWithTicketPrices", Show.class).setParameter("showId", showId).getResultList();
         return Utils.returnSingleResult(result);
     }
 

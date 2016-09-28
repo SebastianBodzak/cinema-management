@@ -13,8 +13,6 @@ public class CustomerDto {
     private String lastName;
     private String email;
     private String phone;
-    private EmailValidator emailValidator = new EmailValidator();
-    private PhoneValidator phoneValidator = new PhoneValidator();
 
     public void validate() {
         if (firstName == null || firstName.trim().isEmpty())
@@ -23,10 +21,10 @@ public class CustomerDto {
             throw new InvalidRequestException("Last name can not be empty");
         if (email == null || email.trim().isEmpty())
             throw new InvalidRequestException("Email can not be empty");
-        if (!emailValidator.validate(email))
+        if (!new EmailValidator().validate(email))
             throw new InvalidRequestException("Wrong email");
-        if (!phoneValidator.validate(phone))
-            throw new InvalidRequestException("Wrong phone number. Write in format XXX-XXX-XXX");
+        if (!new PhoneValidator().validate(phone))
+            throw new InvalidRequestException("Wrong phone number. Write in format XXX-XXX-XXX or XXXXXXXXX");
     }
 
     public String getFirstName() {

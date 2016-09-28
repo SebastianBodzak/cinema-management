@@ -61,4 +61,15 @@ public class JPACinemaRepositoryTest {
 
         assertNull(loadedCinema);
     }
+
+    @Sql("/fixtures/cinemas.sql")
+    @Test
+    @Transactional
+    public void shouldFindCinemaById() {
+        Cinema cinema = jpaCinemaRepository.findById(cinemaId);
+
+        assertEquals("Felicity", cinema.getName());
+        assertEquals("Lublin", cinema.getCity());
+        assertEquals(cinemaId, cinema.getId());
+    }
 }

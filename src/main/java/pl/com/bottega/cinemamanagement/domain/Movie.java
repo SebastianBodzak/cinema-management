@@ -51,56 +51,28 @@ public class Movie {
         return actors;
     }
 
-    public void setActors(Set<String> actors) {
-        this.actors = actors;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Collection<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(Set<String> genres) {
-        this.genres = genres;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getLength() {
         return length;
     }
 
-    public void setLength(Integer length) {
-        this.length = length;
-    }
-
     public int getMinAge() {
         return minAge;
     }
 
-    public void setMinAge(Integer minAge) {
-        this.minAge = minAge;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public void updatePrices(Set<TicketPrice> ticketPricesSet) {

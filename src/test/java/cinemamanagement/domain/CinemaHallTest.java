@@ -1,6 +1,7 @@
 package cinemamanagement.domain;
 
 import com.google.common.collect.Sets;
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
@@ -24,6 +26,10 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class CinemaHallTest {
 
+    private final Seat seat1_12 = new Seat(1, 12);
+    private final Seat seat1_13 = new Seat(1, 13);
+    private final Seat seat2_11 = new Seat(2, 11);
+    private final Seat seat2_12 = new Seat(2, 12);
     private Set<Reservation> reservations = new HashSet<>();
     private Set<Reservation> emptyReservations = new HashSet<>();
     private CinemaHall cinemaHall;
@@ -36,8 +42,8 @@ public class CinemaHallTest {
 
     @Before
     public void setUp() {
-        Reservation reservation = createReservation(new Seat(1, 12), new Seat(1, 13));
-        Reservation reservation2 = createReservation(new Seat(2, 11), new Seat(2, 12));
+        Reservation reservation = createReservation(seat1_12, seat1_13);
+        Reservation reservation2 = createReservation(seat2_11, seat2_12);
         reservations.add(reservation);
         reservations.add(reservation2);
         cinemaHall = new CinemaHall(reservations);
@@ -112,6 +118,28 @@ public class CinemaHallTest {
         boolean result = cinemaHall.checkIfSeatsCanBeReserved(Sets.newHashSet(new Seat(1, 1), new Seat(1, 2), new Seat(1, 4)));
 
         assertTrue(result);
+    }
+
+    @Test
+    public void shouldReturnFreeSeats() {
+        Set<Seat> freeSeats = cinemaHall.getFreeSeats();
+
+        assertEquals(146, freeSeats.size());
+        assertTrue(!freeSeats.contains(seat1_12));
+        assertTrue(!freeSeats.contains(seat1_13));
+        assertTrue(!freeSeats.contains(seat2_11));
+        assertTrue(!freeSeats.contains(seat2_12));
+    }
+
+    @Test
+    public void shouldReturnOccupiedSeats() {
+        Set<Seat> occupiedSeats = cinemaHall.getOccupiedSeats();
+
+        assertEquals(4, occupiedSeats.size());
+        assertTrue(occupiedSeats.contains(seat1_12));
+        assertTrue(occupiedSeats.contains(seat1_13));
+        assertTrue(occupiedSeats.contains(seat2_11));
+        assertTrue(occupiedSeats.contains(seat2_12));
     }
 
     private Set<Reservation> fillAllCinemaHallWithoutSeats(Seat ...seats) {

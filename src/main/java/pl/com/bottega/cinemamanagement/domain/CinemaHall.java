@@ -94,8 +94,8 @@ public class CinemaHall {
 
     private Set<Seat> checkSeatsState(boolean occupied) {
         Set<Seat> seatsSet = new LinkedHashSet<>();
-        for (int i = 0; i <= rows; i++)
-            for (int j = 0; j <= seats; j++)
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < seats; j++)
                 if (occupiedSeats[i][j] == occupied)
                     seatsSet.add(new Seat(i + 1, j + 1));
         return seatsSet;

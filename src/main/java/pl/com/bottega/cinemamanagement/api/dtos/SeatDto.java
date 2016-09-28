@@ -6,9 +6,9 @@ import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
  * Created by bartosz.paszkowski on 25.09.2016.
  */
 public class SeatDto {
+
     private Integer row;
     private Integer seat;
-
 
     public void validate() {
         if (row == null)
