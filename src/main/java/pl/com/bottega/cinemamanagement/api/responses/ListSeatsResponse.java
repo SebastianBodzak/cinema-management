@@ -1,6 +1,6 @@
 package pl.com.bottega.cinemamanagement.api.responses;
 
-import pl.com.bottega.cinemamanagement.api.dtos.SeatDto;
+import pl.com.bottega.cinemamanagement.api.dtos.SeatsDto;
 
 import java.util.Set;
 
@@ -22,29 +22,4 @@ public class ListSeatsResponse {
         this.seats = seats;
     }
 
-    public class SeatsDto {
-        private Set<SeatDto> free;
-        private Set<SeatDto> occupied;
-
-        public SeatsDto(Set<SeatDto> free, Set<SeatDto> occupied) {
-            this.free = free;
-            this.occupied = occupied;
-        }
-
-        public Set<SeatDto> getFree() {
-            return free;
-        }
-
-        public void setFree(Set<SeatDto> free) {
-            this.free = free;
-        }
-
-        public Set<SeatDto> getOccupied() {
-            return occupied;
-        }
-
-        public void setOccupied(Set<SeatDto> occupied) {
-            this.occupied = occupied;
-        }
-    }
 }

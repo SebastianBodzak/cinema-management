@@ -10,6 +10,15 @@ public class SeatDto {
     private Integer row;
     private Integer seat;
 
+    public SeatDto(Integer row, Integer seat) {
+        this.row = row;
+        this.seat = seat;
+    }
+
+    public SeatDto() {
+
+    }
+
     public void validate() {
         if (row == null)
             throw new InvalidRequestException("Missing seat row");

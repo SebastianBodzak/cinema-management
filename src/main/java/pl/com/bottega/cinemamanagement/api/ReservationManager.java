@@ -3,6 +3,7 @@ package pl.com.bottega.cinemamanagement.api;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.api.dtos.SeatDto;
+import pl.com.bottega.cinemamanagement.api.dtos.SeatsDto;
 import pl.com.bottega.cinemamanagement.api.requests.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CalculatePriceResponse;
@@ -68,12 +69,26 @@ public class ReservationManager {
         return reservationRepository.find(criteria);
     }
 
+    @Transactional
     public ListSeatsResponse listFreeAndOccupiedSeats(Long showId){
         Show show = showsRepository.findShowWithReservations(showId);
         CinemaHall cinemaHall = new CinemaHall(show.getReservations());
         Set<Seat> free = cinemaHall.getFreeSeats();
         Set<Seat> occupied = cinemaHall.getOccupiedSeats();
 
-        return new ListSeatsResponse();
+        Set<SeatDto> freeDto = packSeatToDto(free);
+        Set<SeatDto> occupiedDto = packSeatToDto(occupied);
+
+        SeatsDto seatsDto = new SeatsDto(freeDto,occupiedDto);
+
+        return new ListSeatsResponse(seatsDto);
+    }
+
+    private Set<SeatDto> packSeatToDto(Set<Seat> seat){
+        Set<SeatDto> seatDto = new HashSet<>();
+        for (Seat s : seat){
+            seatDto.add(new SeatDto(s.getRow(), s.getNumber()));
+        }
+        return seatDto;
     }
 }
