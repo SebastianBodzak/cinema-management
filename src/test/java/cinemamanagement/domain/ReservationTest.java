@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by ulvar on 25.09.2016.
@@ -35,5 +36,6 @@ public class ReservationTest {
         assertEquals(seats, reservation.getSeats());
         assertEquals(customer, reservation.getCustomer());
         assertEquals(ReservationStatus.PENDING, reservation.getStatus());
+       // assertNotNull(reservation.getNumber());
     }
 }

@@ -6,6 +6,7 @@ import pl.com.bottega.cinemamanagement.api.ReservationSearchResult;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CreateReservationResponse;
 import pl.com.bottega.cinemamanagement.api.ReservationManager;
+import pl.com.bottega.cinemamanagement.api.responses.ListSeatsResponse;
 
 /**
  * Created by bartosz.paszkowski on 25.09.2016.
@@ -29,4 +30,10 @@ public class ReservationsController {
     public ReservationSearchResult findReservations(ReservationCriteria criteria){
         return reservationManager.find(criteria);
     }
+
+    @GetMapping("/shows/{showId}/seats")
+    public ListSeatsResponse listSeats(@PathVariable Long showId){
+        return reservationManager.listFreeAndOccupiedSeats(showId);
+    }
+
 }

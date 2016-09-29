@@ -15,4 +15,5 @@ public interface ShowsRepository {
     Show findShowWithTicketPrices(Long showId);
 
     Show findShowWithReservations(Long showId);
+
 }

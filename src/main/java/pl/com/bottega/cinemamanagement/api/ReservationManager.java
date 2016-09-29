@@ -7,6 +7,7 @@ import pl.com.bottega.cinemamanagement.api.requests.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CalculatePriceResponse;
 import pl.com.bottega.cinemamanagement.api.responses.CreateReservationResponse;
+import pl.com.bottega.cinemamanagement.api.responses.ListSeatsResponse;
 import pl.com.bottega.cinemamanagement.domain.*;
 import pl.com.bottega.cinemamanagement.domain.repositories.ReservationRepository;
 import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
@@ -65,5 +66,14 @@ public class ReservationManager {
 
     public ReservationSearchResult find(ReservationCriteria criteria) {
         return reservationRepository.find(criteria);
+    }
+
+    public ListSeatsResponse listFreeAndOccupiedSeats(Long showId){
+        Show show = showsRepository.findShowWithReservations(showId);
+        CinemaHall cinemaHall = new CinemaHall(show.getReservations());
+        Set<Seat> free = cinemaHall.getFreeSeats();
+        Set<Seat> occupied = cinemaHall.getOccupiedSeats();
+
+        return new ListSeatsResponse();
     }
 }

@@ -34,6 +34,7 @@ public class CinemasController {
 
     @GetMapping
     public ListAllCinemasResponse listAll() {
+
         return cinemaCatalog.listAll();
     }
 
