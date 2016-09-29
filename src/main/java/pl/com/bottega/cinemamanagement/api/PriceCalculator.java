@@ -25,19 +25,15 @@ public class PriceCalculator {
 
     @Transactional
     public CalculatePriceResponse calculatePrices(CalculatePriceRequest request) {
-        validateShowId(request.getShowId());
         Show show = showsRepository.findShowWithTicketPrices(request.getShowId());
+        if (show == null)
+            throw new InvalidRequestException("Invalid showId");
         Set<TicketPrice> prices = show.getTicketPrices();
         validate(request, prices);
         Set<TicketOrder> ticketOrders = createSetOfTicketOrders(request.getTickets());
         Calculation calculation = new Calculation(ticketOrders, prices);
 
         return new CalculatePriceResponse(calculation);
-    }
-
-    private void validateShowId(Long showId) {
-        if (showsRepository.findById(showId) == null)
-            throw new InvalidRequestException("Invalid showId");
     }
 
     private void validate(CalculatePriceRequest request, Set<TicketPrice> prices) {
