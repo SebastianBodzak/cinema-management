@@ -3,7 +3,6 @@ package pl.com.bottega.cinemamanagement.api;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.api.dtos.SeatDto;
-import pl.com.bottega.cinemamanagement.api.dtos.SeatsDto;
 import pl.com.bottega.cinemamanagement.api.requests.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CalculatePriceResponse;
@@ -79,9 +78,14 @@ public class ReservationManager {
         Set<SeatDto> freeDto = packSeatToDto(free);
         Set<SeatDto> occupiedDto = packSeatToDto(occupied);
 
-        SeatsDto seatsDto = new SeatsDto(freeDto,occupiedDto);
+        ListSeatsResponse.SeatsDto seatsDto = new ListSeatsResponse.SeatsDto(freeDto,occupiedDto);
 
-        return new ListSeatsResponse(seatsDto);
+//        return new ListSeatsResponse(seatsDto);
+        ListSeatsResponse result = new ListSeatsResponse(seatsDto);
+        System.out.println("free " + result.getSeats().getFree().size());
+        System.out.println("occupied " + result.getSeats().getOccupied().size());
+
+        return result;
     }
 
     private Set<SeatDto> packSeatToDto(Set<Seat> seat){

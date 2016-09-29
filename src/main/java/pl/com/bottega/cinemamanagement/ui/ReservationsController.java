@@ -31,9 +31,4 @@ public class ReservationsController {
         return reservationManager.find(criteria);
     }
 
-    @GetMapping("/shows/{showId}/seats")
-    public ListSeatsResponse listSeats(@PathVariable Long showId){
-        return reservationManager.listFreeAndOccupiedSeats(showId);
-    }
-
 }

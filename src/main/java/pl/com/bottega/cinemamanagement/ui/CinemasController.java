@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.*;
 import pl.com.bottega.cinemamanagement.api.requests.CreateCinemaRequest;
+import pl.com.bottega.cinemamanagement.api.requests.CreateShowRequest;
 import pl.com.bottega.cinemamanagement.api.responses.ListAllCinemasResponse;
 import pl.com.bottega.cinemamanagement.api.responses.ListMoviesInCinemaResponse;
 
@@ -43,6 +44,12 @@ public class CinemasController {
     @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate date) {
 
         return movieCatalog.listMoviesInCinema(cinemaId, date);
+    }
+
+    @PutMapping("/{cinemaId}/shows")
+    public void create(@PathVariable Long cinemaId, @RequestBody CreateShowRequest request) {
+        request.setCinemaId(cinemaId);
+        adminPanel.createShows(request);
     }
 
 }

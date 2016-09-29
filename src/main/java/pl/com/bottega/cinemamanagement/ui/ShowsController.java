@@ -2,24 +2,25 @@ package pl.com.bottega.cinemamanagement.ui;
 
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.AdminPanel;
+import pl.com.bottega.cinemamanagement.api.ReservationManager;
 import pl.com.bottega.cinemamanagement.api.requests.CreateShowRequest;
+import pl.com.bottega.cinemamanagement.api.responses.ListSeatsResponse;
 
 /**
  * Created by Dell on 2016-09-08.
  */
 @RestController
-@RequestMapping("/cinemas")
+@RequestMapping("/shows")
 public class ShowsController {
 
-    private AdminPanel adminPanel;
+    private ReservationManager reservationManager;
 
-    public ShowsController(AdminPanel adminPanel) {
-        this.adminPanel = adminPanel;
+    public ShowsController(ReservationManager reservationManager) {
+        this.reservationManager = reservationManager;
     }
 
-    @PutMapping("/{cinemaId}/shows")
-    public void create(@PathVariable Long cinemaId, @RequestBody CreateShowRequest request) {
-        request.setCinemaId(cinemaId);
-        adminPanel.createShows(request);
+    @GetMapping("/{showId}/seats")
+    public ListSeatsResponse listSeats(@PathVariable Long showId){
+        return reservationManager.listFreeAndOccupiedSeats(showId);
     }
 }
