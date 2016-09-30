@@ -36,7 +36,7 @@ public class TicketOrder {
         return quantity;
     }
 
-    public BigDecimal getUntilPrice() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 

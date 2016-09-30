@@ -2,12 +2,21 @@ package pl.com.bottega.cinemamanagement.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
 /**
  * Created by ulvar on 25.09.2016.
  */
 @Entity
+@NamedQueries({
+
+        @NamedQuery(name = "Reservation.findReservation",
+                query = "SELECT DISTINCT r FROM Reservation r JOIN FETCH r.customer c JOIN FETCH r.ticketsOrder to " +
+                        "JOIN FETCH r.seats s JOIN FETCH r.show sh JOIN FETCH sh.movie m " +
+                        "WHERE c.lastName =:lastName AND r.status =:status AND sh.date >=:date")
+})
 public class Reservation {
 
     @Id
@@ -65,5 +74,17 @@ public class Reservation {
 
     public ReservationStatus getStatus() {
         return status;
+    }
+
+    public Show getShow() {
+        return show;
+    }
+
+    public LocalDate getShowDate(){
+        return show.getDate();
+    }
+
+    public LocalTime getShowTime(){
+        return show.getTime();
     }
 }

@@ -30,7 +30,7 @@ public class ListMoviesInCinemaResponse {
         private String title;
         private String description;
         private Collection<String> actors;
-        private Collection<String> generes;
+        private Collection<String> genres;
         private Integer minAge;
         private Integer length;
         private List<ShowDto> shows;
@@ -40,7 +40,7 @@ public class ListMoviesInCinemaResponse {
             this.title = movie.getTitle();
             this.description = movie.getDescription();
             this.actors = movie.getActors();
-            this.generes = movie.getGenres();
+            this.genres = movie.getGenres();
             this.minAge = movie.getMinAge();
             this.length = movie.getLength();
             this.shows = new ArrayList<>();
@@ -57,8 +57,8 @@ public class ListMoviesInCinemaResponse {
             return description;
         }
 
-        public Collection<String> getGeneres() {
-            return generes;
+        public Collection<String> getGenres() {
+            return genres;
         }
 
         public Integer getLength() {

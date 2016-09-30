@@ -3,6 +3,7 @@ package pl.com.bottega.cinemamanagement.ui;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
 import pl.com.bottega.cinemamanagement.api.ReservationSearchResult;
+import pl.com.bottega.cinemamanagement.api.dtos.CustomerReservationsDto;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CreateReservationResponse;
 import pl.com.bottega.cinemamanagement.api.ReservationManager;
@@ -27,8 +28,8 @@ public class ReservationsController {
     }
 
     @GetMapping
-    public ReservationSearchResult findReservations(ReservationCriteria criteria){
-        return reservationManager.find(criteria);
+    public CustomerReservationsDto findReservations(ReservationCriteria criteria){
+        return reservationManager.findReservation(criteria);
     }
 
 }

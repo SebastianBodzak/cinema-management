@@ -2,6 +2,7 @@ package pl.com.bottega.cinemamanagement.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.com.bottega.cinemamanagement.api.dtos.CustomerReservationsDto;
 import pl.com.bottega.cinemamanagement.api.dtos.SeatDto;
 import pl.com.bottega.cinemamanagement.api.requests.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
@@ -13,6 +14,7 @@ import pl.com.bottega.cinemamanagement.domain.repositories.ReservationRepository
 import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -48,24 +50,12 @@ public class ReservationManager {
         return new CreateReservationResponse(reservation.getReservationNumber());
     }
 
-    private Calculation calculatePrices(CreateReservationRequest request) {
-        CalculatePriceRequest calculationPR = new CalculatePriceRequest();
-        calculationPR.setShowId(request.getShowId());
-        calculationPR.setTickets(request.getTickets());
-        CalculatePriceResponse response = priceCalculator.calculatePrices(calculationPR);
-        return response.getCalculation();
-    }
-
-    private Set<Seat> repackSeatDtoToSeat(Set<SeatDto> seatsDto) {
-        Set<Seat> seats = new HashSet<>();
-        for (SeatDto seatDto : seatsDto) {
-            seats.add(new Seat(seatDto.getRow(), seatDto.getSeat()));
-        }
-        return seats;
-    }
-
-    public ReservationSearchResult find(ReservationCriteria criteria) {
-        return reservationRepository.find(criteria);
+    @Transactional
+    public CustomerReservationsDto findReservation(ReservationCriteria criteria) {
+        List<Reservation> reservation = reservationRepository.findActualReservations(criteria);
+        if (reservation == null || reservation.isEmpty())
+            throw new InvalidRequestException("There are no such reservations.");
+        return new CustomerReservationsDto(reservation);
     }
 
     @Transactional
@@ -94,5 +84,21 @@ public class ReservationManager {
             seatDto.add(new SeatDto(s.getRow(), s.getNumber()));
         }
         return seatDto;
+    }
+
+    private Calculation calculatePrices(CreateReservationRequest request) {
+        CalculatePriceRequest calculationPR = new CalculatePriceRequest();
+        calculationPR.setShowId(request.getShowId());
+        calculationPR.setTickets(request.getTickets());
+        CalculatePriceResponse response = priceCalculator.calculatePrices(calculationPR);
+        return response.getCalculation();
+    }
+
+    private Set<Seat> repackSeatDtoToSeat(Set<SeatDto> seatsDto) {
+        Set<Seat> seats = new HashSet<>();
+        for (SeatDto seatDto : seatsDto) {
+            seats.add(new Seat(seatDto.getRow(), seatDto.getSeat()));
+        }
+        return seats;
     }
 }

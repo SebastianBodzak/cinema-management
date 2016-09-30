@@ -1,9 +1,7 @@
 package pl.com.bottega.cinemamanagement.infrastructure;
 
-import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
 import pl.com.bottega.cinemamanagement.api.ReservationFindDto;
-import pl.com.bottega.cinemamanagement.api.ReservationSearchResult;
 import pl.com.bottega.cinemamanagement.domain.Customer_;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
 import pl.com.bottega.cinemamanagement.domain.Reservation_;
@@ -11,7 +9,6 @@ import pl.com.bottega.cinemamanagement.domain.Show_;
 import pl.com.bottega.cinemamanagement.domain.repositories.ReservationRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,6 +17,7 @@ import javax.persistence.criteria.Root;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,16 +27,16 @@ import static com.google.common.base.Preconditions.checkNotNull;
 //@Repository
 public class JPAReservationRepositoryCriteriaBuilder implements ReservationRepository {
 
-    @PersistenceContext
+    //@PersistenceContext
     private EntityManager entityManager;
 
-    @Override
+    //@Override
     public void save(Reservation reservation) {
         entityManager.persist(reservation);
     }
 
-    @Override
-    public ReservationSearchResult find(ReservationCriteria criteria) {
+    //@Override
+    public List<Reservation> findActualReservations(ReservationCriteria criteria) {
         checkNotNull(criteria);
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ReservationFindDto> query = builder.createQuery(ReservationFindDto.class);
@@ -48,8 +46,8 @@ public class JPAReservationRepositoryCriteriaBuilder implements ReservationRepos
         applyCriteria(criteria, builder, query, root);
 
         Query jpaQuery = entityManager.createQuery(query);
-        ReservationSearchResult result= new ReservationSearchResult(jpaQuery.getResultList());
-        return result;
+        //ReservationSearchResult result= new ReservationSearchResult(jpaQuery.getResultList());
+        return null;
     }
 
     private void selectReservationFindDto(CriteriaBuilder builder, CriteriaQuery<ReservationFindDto> query, Root<Reservation> root) {

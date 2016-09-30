@@ -26,4 +26,24 @@ public class Customer {
         this.email = email;
         this.phone = phone;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

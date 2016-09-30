@@ -1,23 +1,19 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import java.util.List;
+import pl.com.bottega.cinemamanagement.api.dtos.CustomerReservationsDto;
 
 /**
  * Created by Bartosz on 2016-09-27.
  */
 public class ReservationSearchResult {
 
-    private List<ReservationFindDto> resultList;
+    private CustomerReservationsDto result;
 
-    public ReservationSearchResult(List<ReservationFindDto> resultList) {
-        this.resultList = resultList;
+    public ReservationSearchResult(CustomerReservationsDto result) {
+        this.result = result;
     }
 
-    public Iterable<ReservationFindDto> getResultList() {
-        return resultList;
-    }
-
-    public void setResultList(List<ReservationFindDto> resultList) {
-        this.resultList = resultList;
+    public CustomerReservationsDto getResult() {
+        return result;
     }
 }

@@ -1,8 +1,9 @@
 package pl.com.bottega.cinemamanagement.domain.repositories;
 
 import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
-import pl.com.bottega.cinemamanagement.api.ReservationSearchResult;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
+
+import java.util.List;
 
 /**
  * Created by ulvar on 25.09.2016.
@@ -10,5 +11,5 @@ import pl.com.bottega.cinemamanagement.domain.Reservation;
 public interface ReservationRepository {
     void save(Reservation reservation);
 
-    ReservationSearchResult find(ReservationCriteria criteria);
+    List<Reservation> findActualReservations(ReservationCriteria criteria);
 }
