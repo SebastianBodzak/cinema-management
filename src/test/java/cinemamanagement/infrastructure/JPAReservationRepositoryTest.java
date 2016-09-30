@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/application.xml")
 @WebAppConfiguration
-@Sql("/fixtures/reservations.sql")
+//@Sql("/fixtures/reservations.sql")
 public class JPAReservationRepositoryTest {
 
     @Autowired
@@ -31,7 +31,7 @@ public class JPAReservationRepositoryTest {
     private String lastName = "Doe";
 
     @Test
-    @Sql("/fixtures/reservations.sql")
+//    @Sql("/fixtures/reservations.sql")
     public void shouldFindActualReservations(){
 
 

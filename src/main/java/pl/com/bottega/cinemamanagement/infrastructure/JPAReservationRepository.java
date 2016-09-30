@@ -29,10 +29,9 @@ public class JPAReservationRepository implements ReservationRepository {
 
     @Override
     public List<Reservation> findActualReservations(ReservationCriteria criteria) {
-        List<Reservation> reservations = entityManager.createNamedQuery("Reservation.findReservation", Reservation.class).
-                setParameter("lastName", criteria.getLastName()).setParameter("status", criteria.getStatus()).setParameter("date", LocalDate.now())
-                .getResultList();
-        return reservations.stream().filter(reservation -> !reservationHasAvailableShow(reservation)).collect(Collectors.toList());
+        return entityManager.createNamedQuery("Reservation.findReservation", Reservation.class).
+                setParameter("lastName", criteria.getLastName()).setParameter("status", criteria.getStatus()).
+                setParameter("date", LocalDate.now()).setParameter("time", LocalTime.now().minusHours(1)).getResultList();
     }
 
     private boolean reservationHasAvailableShow(Reservation reservation) {
