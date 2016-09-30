@@ -9,6 +9,13 @@ public class ReservationCriteria {
     private String lastName;
     private ReservationStatus status;
 
+    public void verify() {
+        if (lastName == null || lastName.trim().isEmpty())
+            throw new InvalidRequestException("Last name is required");
+        if(status == null || status.toString().trim().isEmpty())
+            throw new InvalidRequestException("Status is required");
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -24,7 +31,6 @@ public class ReservationCriteria {
     public void setStatus(ReservationStatus status) {
         this.status = status;
     }
-
 
     public boolean isLastNameDefined() {
         return lastName != null;

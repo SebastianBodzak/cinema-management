@@ -16,6 +16,7 @@ import pl.com.bottega.cinemamanagement.domain.repositories.ShowsRepository;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by bartosz.paszkowski on 25.09.2016.
@@ -51,7 +52,8 @@ public class ReservationManager {
     }
 
     @Transactional
-    public CustomerReservationsDto findReservation(ReservationCriteria criteria) {
+    public CustomerReservationsDto findReservations(ReservationCriteria criteria) {
+        criteria.verify();
         List<Reservation> reservation = reservationRepository.findActualReservations(criteria);
         if (reservation == null || reservation.isEmpty())
             throw new InvalidRequestException("There are no such reservations.");
@@ -68,22 +70,11 @@ public class ReservationManager {
         Set<SeatDto> freeDto = packSeatToDto(free);
         Set<SeatDto> occupiedDto = packSeatToDto(occupied);
 
-        ListSeatsResponse.SeatsDto seatsDto = new ListSeatsResponse.SeatsDto(freeDto,occupiedDto);
-
-//        return new ListSeatsResponse(seatsDto);
-        ListSeatsResponse result = new ListSeatsResponse(seatsDto);
-        System.out.println("free " + result.getSeats().getFree().size());
-        System.out.println("occupied " + result.getSeats().getOccupied().size());
-
-        return result;
+        return new ListSeatsResponse(freeDto, occupiedDto);
     }
 
-    private Set<SeatDto> packSeatToDto(Set<Seat> seat){
-        Set<SeatDto> seatDto = new HashSet<>();
-        for (Seat s : seat){
-            seatDto.add(new SeatDto(s.getRow(), s.getNumber()));
-        }
-        return seatDto;
+    private Set<SeatDto> packSeatToDto(Set<Seat> seats){
+        return seats.stream().map(e -> new SeatDto(e.getRow(), e.getNumber())).collect(Collectors.toSet());
     }
 
     private Calculation calculatePrices(CreateReservationRequest request) {

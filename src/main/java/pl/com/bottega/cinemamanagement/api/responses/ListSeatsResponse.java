@@ -10,8 +10,8 @@ import java.util.Set;
 public class ListSeatsResponse {
     private SeatsDto seats;
 
-    public ListSeatsResponse(SeatsDto seats) {
-        this.seats = seats;
+    public ListSeatsResponse(Set<SeatDto> freeSeats, Set<SeatDto> occupiedSeats) {
+        this.seats = new SeatsDto(freeSeats, occupiedSeats);
     }
 
     public SeatsDto getSeats() {
@@ -22,15 +22,9 @@ public class ListSeatsResponse {
         this.seats = seats;
     }
 
-    /**
-     * Created by arkadiuszarak on 29/09/2016.
-     */
-    public static class SeatsDto {
+    public class SeatsDto {
         private Set<SeatDto> free;
         private Set<SeatDto> occupied;
-
-        public SeatsDto() {
-        }
 
         public SeatsDto(Set<SeatDto> free, Set<SeatDto> occupied) {
             this.free = free;

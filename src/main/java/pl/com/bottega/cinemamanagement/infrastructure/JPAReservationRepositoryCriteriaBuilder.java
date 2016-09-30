@@ -9,6 +9,7 @@ import pl.com.bottega.cinemamanagement.domain.Show_;
 import pl.com.bottega.cinemamanagement.domain.repositories.ReservationRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -27,15 +28,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 //@Repository
 public class JPAReservationRepositoryCriteriaBuilder implements ReservationRepository {
 
-    //@PersistenceContext
+    @PersistenceContext
     private EntityManager entityManager;
 
-    //@Override
+    @Override
     public void save(Reservation reservation) {
         entityManager.persist(reservation);
     }
 
-    //@Override
+    @Override
     public List<Reservation> findActualReservations(ReservationCriteria criteria) {
         checkNotNull(criteria);
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();

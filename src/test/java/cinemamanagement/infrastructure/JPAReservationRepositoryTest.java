@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/application.xml")
 @WebAppConfiguration
+@Sql("/fixtures/reservations.sql")
 public class JPAReservationRepositoryTest {
 
     @Autowired
@@ -29,7 +31,10 @@ public class JPAReservationRepositoryTest {
     private String lastName = "Doe";
 
     @Test
-    public void shouldTakeReservationFromDB(){
+    @Sql("/fixtures/reservations.sql")
+    public void shouldFindActualReservations(){
+
+
 //        ReservationCriteria criteria = new ReservationCriteria();
 //        criteria.setLastName(lastName);
 //        criteria.setStatus(ReservationStatus.PENDING);
