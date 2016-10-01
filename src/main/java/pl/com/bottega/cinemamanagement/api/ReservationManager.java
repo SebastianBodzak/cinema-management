@@ -61,7 +61,7 @@ public class ReservationManager {
     }
 
     @Transactional
-    public ListSeatsResponse listFreeAndOccupiedSeats(Long showId){
+    public ListSeatsResponse listFreeAndOccupiedSeats(Long showId) {
         Show show = showsRepository.findShowWithReservations(showId);
         CinemaHall cinemaHall = new CinemaHall(show.getReservations());
         Set<Seat> free = cinemaHall.getFreeSeats();
@@ -73,7 +73,7 @@ public class ReservationManager {
         return new ListSeatsResponse(freeDto, occupiedDto);
     }
 
-    private Set<SeatDto> packSeatToDto(Set<Seat> seats){
+    private Set<SeatDto> packSeatToDto(Set<Seat> seats) {
         return seats.stream().map(e -> new SeatDto(e.getRow(), e.getNumber())).collect(Collectors.toSet());
     }
 

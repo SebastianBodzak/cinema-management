@@ -19,7 +19,8 @@ public class Payment {
     @Embedded
     private TransactionData transactionData;
 
-    private Payment() {}
+    private Payment() {
+    }
 
     public Payment(PaymentType type, Long cashierID, boolean succesfull, TransactionData transactionData) {
         this.type = type;

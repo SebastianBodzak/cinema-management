@@ -1,13 +1,13 @@
 package pl.com.bottega.cinemamanagement.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
 import pl.com.bottega.cinemamanagement.api.PaymentManager;
 import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
+import pl.com.bottega.cinemamanagement.api.ReservationManager;
 import pl.com.bottega.cinemamanagement.api.dtos.CustomerReservationsDto;
+import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CreateReservationResponse;
-import pl.com.bottega.cinemamanagement.api.ReservationManager;
 
 import java.io.File;
 
@@ -32,17 +32,17 @@ public class ReservationsController {
     }
 
     @GetMapping
-    public CustomerReservationsDto findReservations(ReservationCriteria criteria){
+    public CustomerReservationsDto findReservations(ReservationCriteria criteria) {
         return reservationManager.findReservations(criteria);
     }
 
     @PutMapping("/{reservationNumber}/payments")
-    public void create(@PathVariable Long reservationNumber, @RequestBody CollectPaymentRequest collectPaymentRequest){
+    public void create(@PathVariable Long reservationNumber, @RequestBody CollectPaymentRequest collectPaymentRequest) {
         paymentManager.collectPayment(reservationNumber, collectPaymentRequest);
     }
 
     @GetMapping("/{reservationNumber}/tickets")
-    public File printTicket(@PathVariable Long reservationNumber){
+    public File printTicket(@PathVariable Long reservationNumber) {
         return null;
     }
 

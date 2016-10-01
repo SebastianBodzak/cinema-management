@@ -1,9 +1,10 @@
 package pl.com.bottega.cinemamanagement.ui;
 
-import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemamanagement.api.AdminPanel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.com.bottega.cinemamanagement.api.ReservationManager;
-import pl.com.bottega.cinemamanagement.api.requests.CreateShowRequest;
 import pl.com.bottega.cinemamanagement.api.responses.ListSeatsResponse;
 
 /**
@@ -20,7 +21,7 @@ public class ShowsController {
     }
 
     @GetMapping("/{showId}/seats")
-    public ListSeatsResponse listSeats(@PathVariable Long showId){
+    public ListSeatsResponse listSeats(@PathVariable Long showId) {
         return reservationManager.listFreeAndOccupiedSeats(showId);
     }
 }

@@ -32,6 +32,54 @@ public class ReservationsDto {
         this.totalPrice = reservation.getTotalPrice();
     }
 
+    private Set<TicketOrderDto> prepareSetOfTicketOrderDto(Set<TicketOrder> ticketsOrder) {
+        Set<TicketOrderDto> tickets = new HashSet<>();
+        for (TicketOrder ticketOrder : ticketsOrder) {
+            tickets.add(new TicketOrderDto(ticketOrder));
+        }
+        return tickets;
+    }
+
+    private Set<SeatDto> prepareSeatsDto(Set<Seat> seats) {
+        Set<SeatDto> seatDtos = new HashSet<>();
+        for (Seat seat : seats) {
+            seatDtos.add(new SeatDto(seat.getRow(), seat.getNumber()));
+        }
+        return seatDtos;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public ShowDto getShow() {
+        return show;
+    }
+
+    public MovieDto getMovie() {
+        return movie;
+    }
+
+    public Set<TicketOrderDto> getTickets() {
+        return tickets;
+    }
+
+    public Set<SeatDto> getSeats() {
+        return seats;
+    }
+
+    public CustomerDto getCustomer() {
+        return customer;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
     public class ShowDto {
 
         private Long id;
@@ -39,7 +87,7 @@ public class ReservationsDto {
 
         public ShowDto(Show show) {
             this.id = show.getId();
-            this.dateTime = LocalDateTime.of(show.getDate(),show.getTime());
+            this.dateTime = LocalDateTime.of(show.getDate(), show.getTime());
         }
 
         public Long getId() {
@@ -135,53 +183,5 @@ public class ReservationsDto {
         public String getPhone() {
             return phone;
         }
-    }
-
-    private Set<TicketOrderDto> prepareSetOfTicketOrderDto(Set<TicketOrder> ticketsOrder) {
-        Set<TicketOrderDto> tickets = new HashSet<>();
-        for (TicketOrder ticketOrder: ticketsOrder){
-            tickets.add(new TicketOrderDto(ticketOrder));
-        }
-        return tickets;
-    }
-
-    private Set<SeatDto> prepareSeatsDto(Set<Seat> seats) {
-        Set<SeatDto> seatDtos = new HashSet<>();
-        for (Seat seat : seats){
-            seatDtos.add(new SeatDto(seat.getRow(),seat.getNumber()));
-        }
-        return seatDtos;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public ShowDto getShow() {
-        return show;
-    }
-
-    public MovieDto getMovie() {
-        return movie;
-    }
-
-    public Set<TicketOrderDto> getTickets() {
-        return tickets;
-    }
-
-    public Set<SeatDto> getSeats() {
-        return seats;
-    }
-
-    public CustomerDto getCustomer() {
-        return customer;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
     }
 }

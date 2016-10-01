@@ -12,7 +12,7 @@ public class ReservationCriteria {
     public void verify() {
         if (lastName == null || lastName.trim().isEmpty())
             throw new InvalidRequestException("Last name is required");
-        if(status == null || status.toString().trim().isEmpty())
+        if (status == null || status.toString().trim().isEmpty())
             throw new InvalidRequestException("Status is required");
     }
 

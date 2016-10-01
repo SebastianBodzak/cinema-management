@@ -98,11 +98,11 @@ public class Reservation {
         return show;
     }
 
-    public LocalDate getShowDate(){
+    public LocalDate getShowDate() {
         return show.getDate();
     }
 
-    public LocalTime getShowTime(){
+    public LocalTime getShowTime() {
         return show.getTime();
     }
 
