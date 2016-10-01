@@ -25,5 +25,6 @@ public class CollectPaymentRequest {
         this.reservationNumber = reservationNumber;
     }
 
-    public void validate(){}
+    public void validate() {
+    }
 }

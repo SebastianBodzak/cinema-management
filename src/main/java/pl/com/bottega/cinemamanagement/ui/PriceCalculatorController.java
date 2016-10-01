@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.com.bottega.cinemamanagement.api.PriceCalculator;
 import pl.com.bottega.cinemamanagement.api.requests.CalculatePriceRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CalculatePriceResponse;
-import pl.com.bottega.cinemamanagement.api.PriceCalculator;
 
 /**
  * Created by Dell on 2016-09-19.

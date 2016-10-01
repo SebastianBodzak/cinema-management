@@ -2,7 +2,9 @@ package pl.com.bottega.cinemamanagement.ui;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemamanagement.api.*;
+import pl.com.bottega.cinemamanagement.api.AdminPanel;
+import pl.com.bottega.cinemamanagement.api.CinemaCatalog;
+import pl.com.bottega.cinemamanagement.api.MovieCatalog;
 import pl.com.bottega.cinemamanagement.api.requests.CreateCinemaRequest;
 import pl.com.bottega.cinemamanagement.api.requests.CreateShowRequest;
 import pl.com.bottega.cinemamanagement.api.responses.ListAllCinemasResponse;

@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemamanagement.domain;
 
-import com.google.common.base.Preconditions;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -96,11 +94,11 @@ public class Reservation {
         return show;
     }
 
-    public LocalDate getShowDate(){
+    public LocalDate getShowDate() {
         return show.getDate();
     }
 
-    public LocalTime getShowTime(){
+    public LocalTime getShowTime() {
         return show.getTime();
     }
 

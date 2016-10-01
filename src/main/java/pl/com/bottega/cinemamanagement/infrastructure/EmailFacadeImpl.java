@@ -1,7 +1,6 @@
 package pl.com.bottega.cinemamanagement.infrastructure;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import pl.com.bottega.cinemamanagement.api.EmailFacade;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
 

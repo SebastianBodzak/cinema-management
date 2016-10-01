@@ -40,12 +40,12 @@ public class TicketOrder {
         return unitPrice;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
     public void calculateTotalPrice() {

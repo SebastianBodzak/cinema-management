@@ -1,7 +1,6 @@
 package pl.com.bottega.cinemamanagement.api.dtos;
 
 import pl.com.bottega.cinemamanagement.domain.CreditCard;
-import pl.com.bottega.cinemamanagement.domain.Seat;
 
 /**
  * Created by arkadiuszarak on 01/10/2016.
@@ -41,5 +40,6 @@ public class PaymentDto {
         this.type = type;
     }
 
-    public void validate(){}
+    public void validate() {
+    }
 }

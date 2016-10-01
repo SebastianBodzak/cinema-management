@@ -15,7 +15,8 @@ public class PaymentManager {
     private EmailFacade emailFacade;
     private PaymentStrategy paymentStrategy;
 
-    private PaymentManager(){}
+    private PaymentManager() {
+    }
 
     public PaymentManager(EmailFacade emailFacade, PaymentStrategy paymentStrategy, ReservationRepository reservationRepository) {
         this.emailFacade = emailFacade;
@@ -24,7 +25,7 @@ public class PaymentManager {
     }
 
     @Transactional
-    public void collectPayment(Long reservationNumber, CollectPaymentRequest collectPaymentRequest){
+    public void collectPayment(Long reservationNumber, CollectPaymentRequest collectPaymentRequest) {
 
     }
 }

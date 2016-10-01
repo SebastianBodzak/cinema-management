@@ -1,7 +1,6 @@
 package pl.com.bottega.cinemamanagement.infrastructure;
 
 import org.springframework.stereotype.Repository;
-import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
 import pl.com.bottega.cinemamanagement.domain.repositories.ReservationRepository;
@@ -11,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Bartosz on 2016-09-27.
