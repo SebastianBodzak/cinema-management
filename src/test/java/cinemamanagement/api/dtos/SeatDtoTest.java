@@ -1,3 +1,4 @@
+/*
 package cinemamanagement.api.dtos;
 
 import junitparams.JUnitParamsRunner;
@@ -6,9 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import pl.com.bottega.cinemamanagement.api.dtos.SeatDto;
 
+*/
 /**
  * Created by Dell on 2016-09-28.
- */
+ *//*
+
 @RunWith(JUnitParamsRunner.class)
 public class SeatDtoTest {
 
@@ -51,3 +54,4 @@ public class SeatDtoTest {
     }
 
 }
+*/
