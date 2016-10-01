@@ -15,8 +15,6 @@ public class Seat {
     @Id
     @GeneratedValue
     private Long id;
-
-
     private Integer row;
     private Integer number;
 

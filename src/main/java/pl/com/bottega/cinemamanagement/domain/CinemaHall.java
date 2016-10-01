@@ -11,9 +11,10 @@ import static com.google.common.base.Preconditions.*;
  */
 public class CinemaHall {
 
-    private static final int rows = 10;
-    private static final int seats = 15;
-    private boolean[][] occupiedSeats = new boolean[rows][seats];
+    public static final int ROWS = 10;
+    public static final int SEATS = 15;
+
+    private boolean[][] occupiedSeats = new boolean[ROWS][SEATS];
 
     public CinemaHall(Set<Reservation> reservations) {
         checkNotNull(reservations);
@@ -53,9 +54,9 @@ public class CinemaHall {
     }
 
     private boolean noAvailableSeatsInSameRow(int seatsCount) {
-        for (int rowCounter = 0; rowCounter < rows; rowCounter++)
-            for (int seatsCounter = 0; seatsCounter < seats; seatsCounter++) {
-                if (seatsCounter + seatsCount < seats) {
+        for (int rowCounter = 0; rowCounter < ROWS; rowCounter++)
+            for (int seatsCounter = 0; seatsCounter < SEATS; seatsCounter++) {
+                if (seatsCounter + seatsCount < SEATS) {
                     int freeSeatsCounter = 0;
                     for (int counter = seatsCounter; counter < seatsCounter + seatsCount; counter++) {
                         if (!occupiedSeats[rowCounter][counter])
@@ -94,8 +95,8 @@ public class CinemaHall {
 
     private Set<Seat> checkSeatsState(boolean occupied) {
         Set<Seat> seatsSet = new LinkedHashSet<>();
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < seats; j++)
+        for (int i = 0; i < ROWS; i++)
+            for (int j = 0; j < SEATS; j++)
                 if (occupiedSeats[i][j] == occupied)
                     seatsSet.add(new Seat(i + 1, j + 1));
         return seatsSet;

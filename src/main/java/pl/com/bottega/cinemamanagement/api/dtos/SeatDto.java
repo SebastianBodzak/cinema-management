@@ -2,6 +2,7 @@ package pl.com.bottega.cinemamanagement.api.dtos;
 
 import pl.com.bottega.cinemamanagement.api.InvalidRequestException;
 
+import static pl.com.bottega.cinemamanagement.domain.CinemaHall.*;
 /**
  * Created by bartosz.paszkowski on 25.09.2016.
  */
@@ -22,11 +23,11 @@ public class SeatDto {
     public void validate() {
         if (row == null)
             throw new InvalidRequestException("Missing seat row");
-        if (row < 1 || row > 10)
+        if (row < ROWS || row > ROWS)
             throw new InvalidRequestException("Invalid row. Chose row number between 1-10");
         if (seat == null)
             throw new InvalidRequestException("Missing seat number");
-        if (seat < 1 || seat > 15)
+        if (seat < SEATS || seat > SEATS)
             throw new InvalidRequestException("Invalid seat. Chose seat number between 1-15");
     }
 
