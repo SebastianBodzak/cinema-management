@@ -1,5 +1,6 @@
 package pl.com.bottega.cinemamanagement.api;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
@@ -13,6 +14,8 @@ public class PaymentManager {
     private ReservationRepository reservationRepository;
     private EmailFacade emailFacade;
     private PaymentStrategy paymentStrategy;
+
+    private PaymentManager(){}
 
     public PaymentManager(EmailFacade emailFacade, PaymentStrategy paymentStrategy, ReservationRepository reservationRepository) {
         this.emailFacade = emailFacade;
