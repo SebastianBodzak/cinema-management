@@ -51,6 +51,11 @@ public class JPAReservationRepositoryCriteriaBuilder implements ReservationRepos
         return null;
     }
 
+    @Override
+    public Reservation findReservationByNumber(Long reservationNumber) {
+        return null;
+    }
+
     private void selectReservationFindDto(CriteriaBuilder builder, CriteriaQuery<ReservationFindDto> query, Root<Reservation> root) {
         query.select(builder.construct(ReservationFindDto.class,
                 root.get(Reservation_.reservationNumber),

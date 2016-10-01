@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemamanagement.domain;
 
-import com.google.common.base.Preconditions;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,7 +18,11 @@ import static pl.com.bottega.cinemamanagement.domain.ReservationStatus.*;
         @NamedQuery(name = "Reservation.findReservation",
                 query = "SELECT DISTINCT r FROM Reservation r JOIN FETCH r.customer c JOIN FETCH r.ticketsOrder to " +
                         "JOIN FETCH r.seats s JOIN FETCH r.show sh JOIN FETCH sh.movie m " +
-                        "WHERE c.lastName =:lastName AND r.status =:status AND (sh.date >:date OR (sh.date =:date AND sh.time >= :time))")
+                        "WHERE c.lastName =:lastName AND r.status =:status AND (sh.date >:date OR (sh.date =:date AND sh.time >= :time))"),
+        @NamedQuery(name = "Reservation.findReservationByNumber",
+                query = "SELECT DISTINCT r FROM Reservation r JOIN FETCH r.customer c JOIN FETCH r.ticketsOrder to " +
+                        "JOIN FETCH r.seats s JOIN FETCH r.show sh JOIN FETCH sh.movie m " +
+                        "WHERE r.reservationNumber =:reservationNumber")
 })
 public class Reservation {
 
