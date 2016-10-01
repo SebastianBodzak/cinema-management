@@ -1,10 +1,15 @@
 package pl.com.bottega.cinemamanagement.domain;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static pl.com.bottega.cinemamanagement.domain.ReservationStatus.*;
 
 /**
  * Created by ulvar on 25.09.2016.
@@ -40,6 +45,9 @@ public class Reservation {
     @ManyToOne(cascade = CascadeType.ALL)
     private Show show;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Payment> payments;
+
     public Reservation() {
     }
 
@@ -47,9 +55,17 @@ public class Reservation {
         this.ticketsOrder = ticketsOrder;
         this.seats = seats;
         this.customer = customer;
-        this.status = ReservationStatus.PENDING;
+        this.status = PENDING;
         this.totalPrice = totalPrice;
         this.show = show;
+    }
+
+    public void addPayment(Payment payment) {
+        checkNotNull(payment);
+        if (payment.isSuccesfull())
+            status = PAID;
+        else
+            status = PAYMENT_FAILED;
     }
 
     public BigDecimal getTotalPrice() {
