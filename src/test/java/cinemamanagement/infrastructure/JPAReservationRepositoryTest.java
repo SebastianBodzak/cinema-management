@@ -19,18 +19,18 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Bartosz on 2016-09-29.
  */
-@RunWith(SpringRunner.class)
-@ContextConfiguration("/application.xml")
-@WebAppConfiguration
+//@RunWith(SpringRunner.class)
+//@ContextConfiguration("/application.xml")
+//@WebAppConfiguration
 //@Sql("/fixtures/reservations.sql")
 public class JPAReservationRepositoryTest {
 
-    @Autowired
+//    @Autowired
     private JPAReservationRepository jpaReservationRepository;
 
     private String lastName = "Doe";
 
-    @Test
+//    @Test
 //    @Sql("/fixtures/reservations.sql")
     public void shouldFindActualReservations(){
 

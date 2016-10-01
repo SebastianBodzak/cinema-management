@@ -46,11 +46,11 @@ public class CinemaHall {
     }
 
     public Set<Seat> getFreeSeats() {
-        return checkSeatsState(false);
+        return seatsWithOccupiedState(false);
     }
 
     public Set<Seat> getOccupiedSeats() {
-        return checkSeatsState(true);
+        return seatsWithOccupiedState(true);
     }
 
     private boolean noAvailableSeatsInSameRow(int seatsCount) {
@@ -93,7 +93,7 @@ public class CinemaHall {
         return !seatsSet.stream().filter(e -> !e.getRow().equals(row)).findFirst().isPresent();
     }
 
-    private Set<Seat> checkSeatsState(boolean occupied) {
+    private Set<Seat> seatsWithOccupiedState(boolean occupied) {
         Set<Seat> seatsSet = new LinkedHashSet<>();
         for (int i = 0; i < ROWS; i++)
             for (int j = 0; j < SEATS; j++)

@@ -103,4 +103,8 @@ public class Reservation {
     public LocalTime getShowTime(){
         return show.getTime();
     }
+
+    public Set<Payment> getPayments() {
+        return payments;
+    }
 }

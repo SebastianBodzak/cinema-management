@@ -16,7 +16,10 @@ public class Payment {
     private Long cashierID;
     private LocalDateTime date;
     private boolean succesfull;
+    @Embedded
     private TransactionData transactionData;
+
+    private Payment() {}
 
     public Payment(PaymentType type, Long cashierID, boolean succesfull, TransactionData transactionData) {
         this.type = type;
