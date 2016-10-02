@@ -3,6 +3,7 @@ package pl.com.bottega.cinemamanagement.infrastructure;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.stereotype.Component;
 import pl.com.bottega.cinemamanagement.api.PdfFacade;
@@ -29,7 +30,7 @@ public class PdfFacadeImpl implements PdfFacade {
             PdfWriter.getInstance(document, new FileOutputStream(DIRECTORY + fileName));
             document.open();
             document.add(new Chunk(reservation.getShow().getMovie().getTitle()));
-            document.add(new Chunk(reservation.toString()));
+            document.add(new Paragraph(reservation.toString()));
             document.close();
 
         } catch (DocumentException e) {

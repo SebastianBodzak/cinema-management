@@ -33,8 +33,15 @@ public class PaymentManager {
 
         Payment payment = choosePaymentStrategy(request).pay(request.getPaymentDto(), reservation);
         reservation.addPayment(payment);
-        emailFacade.sendTickets(reservation);
+
+        ifPaymentByCreditCardSendTicketsViaMail(request, reservation);
+
         return new CollectPaymentResponse(reservation.getStatus());
+    }
+
+    private void ifPaymentByCreditCardSendTicketsViaMail(CollectPaymentRequest request, Reservation reservation) {
+        if (request.getPaymentDto().getCreditCard() != null)
+            emailFacade.sendTickets(reservation);
     }
 
     private PaymentStrategy choosePaymentStrategy(CollectPaymentRequest request) {
