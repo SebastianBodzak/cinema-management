@@ -4,6 +4,9 @@ package pl.com.bottega.cinemamanagement.api;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
+import pl.com.bottega.cinemamanagement.domain.Payment;
+import pl.com.bottega.cinemamanagement.domain.Reservation;
+import pl.com.bottega.cinemamanagement.domain.ReservationStatus;
 import pl.com.bottega.cinemamanagement.domain.repositories.ReservationRepository;
 
 /**
@@ -15,8 +18,7 @@ public class PaymentManager {
     private EmailFacade emailFacade;
     private PaymentStrategy paymentStrategy;
 
-    private PaymentManager() {
-    }
+    private PaymentManager(){}
 
     public PaymentManager(EmailFacade emailFacade, PaymentStrategy paymentStrategy, ReservationRepository reservationRepository) {
         this.emailFacade = emailFacade;
@@ -25,7 +27,14 @@ public class PaymentManager {
     }
 
     @Transactional
-    public void collectPayment(Long reservationNumber, CollectPaymentRequest collectPaymentRequest) {
+    public void collectPayment(Long reservationNumber, CollectPaymentRequest collectPaymentRequest){
+        Reservation reservation = reservationRepository.findReservationByNumber(reservationNumber);
+        if (reservation == null)
+            throw new InvalidRequestException("There is no such reservation");
+        if (!(reservation.getStatus() == ReservationStatus.PAID || reservation.getStatus() == ReservationStatus.PAYMENT_FAILED ))
+            throw new InvalidRequestException("Reservation was payed or canceled");
 
+        Payment payment = paymentStrategy.pay(collectPaymentRequest.getPaymentDto());
+        reservation.addPayment(payment);
     }
 }

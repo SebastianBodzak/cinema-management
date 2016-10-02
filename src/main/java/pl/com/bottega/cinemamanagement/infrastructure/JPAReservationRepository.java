@@ -32,6 +32,12 @@ public class JPAReservationRepository implements ReservationRepository {
                 setParameter("date", LocalDate.now()).setParameter("time", LocalTime.now().minusHours(1)).getResultList();
     }
 
+    @Override
+    public Reservation findReservationByNumber(Long reservationNumber) {
+        return entityManager.createNamedQuery("Reservation.findReservationByNumber", Reservation.class).
+                setParameter("reservationNumber",reservationNumber).getSingleResult();
+    }
+
     private boolean reservationHasAvailableShow(Reservation reservation) {
         return reservation.getShowDate() == LocalDate.now() && reservation.getShowTime().isBefore(LocalTime.now().minusHours(1));
     }

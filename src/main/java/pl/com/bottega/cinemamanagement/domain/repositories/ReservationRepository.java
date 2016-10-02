@@ -12,4 +12,6 @@ public interface ReservationRepository {
     void save(Reservation reservation);
 
     List<Reservation> findActualReservations(ReservationCriteria criteria);
+
+    Reservation findReservationByNumber(Long reservationNumber);
 }
