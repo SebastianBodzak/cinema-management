@@ -109,4 +109,18 @@ public class Reservation {
     public Set<Payment> getPayments() {
         return payments;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "reservationNumber=" + reservationNumber +
+                ", ticketsOrder=" + ticketsOrder +
+                ", seats=" + seats +
+                ", customer=" + customer +
+                ", status=" + status +
+                ", totalPrice=" + totalPrice +
+                ", show=" + show +
+                ", payments=" + payments +
+                '}';
+    }
 }

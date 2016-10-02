@@ -33,6 +33,7 @@ public class PaymentManager {
 
         Payment payment = choosePaymentStrategy(request).pay(request.getPaymentDto(), reservation);
         reservation.addPayment(payment);
+        emailFacade.sendTickets(reservation);
         return new CollectPaymentResponse(reservation.getStatus());
     }
 

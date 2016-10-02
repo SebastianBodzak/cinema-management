@@ -34,41 +34,14 @@ public class EmailFacadeImpl implements EmailFacade {
         MimeMessageHelper helper = null;
         try {
             helper = new MimeMessageHelper(message, true);
-            helper.setTo("grupa.beeee@gmail.com");
+            helper.setTo(reservation.getCustomer().getEmail());
             helper.setText("This is your reservation");
-            helper.setSubject("resrvation for ");
+            helper.setSubject("reservation for " + reservation.getShow().getMovie().getTitle());
             String fileName = pdfFacade.createPdf(reservation);
             helper.addAttachment("Reservation ", new File(DIRECTORY + fileName));
             sender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
-
-//
-//        SimpleMailMessage msg = new SimpleMailMessage();
-//        //msg.setTo(reservation.getCustomer().getEmail());
-//        msg.setFrom("grupa.beeee@gmail.com");
-//        msg.setTo("grupa.beeee@gmail.com");
-//        msg.setSubject("resrvation for ");
-//        msg.setText("This is your reservation");
-//
-
-//        try {
-//        this.javaMailSender.send(msg);
-//        } catch (Exception e) {
-//              e.printStackTrace();
-//            throw new IllegalStateException("sending mail failed: " + e.getMessage());
-//
-//        }
-
     }
-
-//    public void setMailSender(MailSender mailSender) {
-//        this.mailSender = mailSender;
-//    }
-
-//    public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-//        this.simpleMailMessage = simpleMailMessage;
-//    }
 }
