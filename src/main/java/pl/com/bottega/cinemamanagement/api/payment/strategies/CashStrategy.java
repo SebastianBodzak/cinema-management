@@ -2,8 +2,9 @@ package pl.com.bottega.cinemamanagement.api;
 
 import pl.com.bottega.cinemamanagement.api.dtos.PaymentDto;
 import pl.com.bottega.cinemamanagement.domain.Payment;
-import static pl.com.bottega.cinemamanagement.domain.PaymentType.CASH;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
+
+import static pl.com.bottega.cinemamanagement.domain.PaymentType.CASH;
 
 /**
  * Created by arkadiuszarak on 01/10/2016.

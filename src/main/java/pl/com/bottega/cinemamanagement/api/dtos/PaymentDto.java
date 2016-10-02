@@ -10,7 +10,8 @@ public class PaymentDto {
     private Long cashierId;
     private CreditCard creditCard;
 
-    private PaymentDto() {}
+    private PaymentDto() {
+    }
 
     public PaymentDto(Long cashierId, CreditCard creditCard, String type) {
         this.cashierId = cashierId;

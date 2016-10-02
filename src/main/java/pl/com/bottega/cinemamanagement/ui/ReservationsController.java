@@ -2,7 +2,6 @@ package pl.com.bottega.cinemamanagement.ui;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
 import pl.com.bottega.cinemamanagement.api.PaymentManager;
 import pl.com.bottega.cinemamanagement.api.ReservationCriteria;
 import pl.com.bottega.cinemamanagement.api.ReservationManager;
@@ -12,10 +11,12 @@ import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
 import pl.com.bottega.cinemamanagement.api.requests.CreateReservationRequest;
 import pl.com.bottega.cinemamanagement.api.responses.CollectPaymentResponse;
 import pl.com.bottega.cinemamanagement.api.responses.CreateReservationResponse;
-import pl.com.bottega.cinemamanagement.api.ReservationManager;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import static pl.com.bottega.cinemamanagement.infrastructure.PdfFacadeImpl.DIRECTORY;
 

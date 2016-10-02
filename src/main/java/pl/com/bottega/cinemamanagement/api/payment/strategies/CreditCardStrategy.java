@@ -2,11 +2,9 @@ package pl.com.bottega.cinemamanagement.api.payment.strategies;
 
 import com.stripe.Stripe;
 import com.stripe.exception.*;
-import com.stripe.exception.InvalidRequestException;
 import com.stripe.model.Charge;
-import pl.com.bottega.cinemamanagement.api.*;
+import pl.com.bottega.cinemamanagement.api.PaymentStrategy;
 import pl.com.bottega.cinemamanagement.api.dtos.PaymentDto;
-import pl.com.bottega.cinemamanagement.domain.CreditCard;
 import pl.com.bottega.cinemamanagement.domain.Payment;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
 import pl.com.bottega.cinemamanagement.domain.TransactionData;
@@ -16,7 +14,8 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static pl.com.bottega.cinemamanagement.domain.PaymentType.*;
+import static pl.com.bottega.cinemamanagement.domain.PaymentType.CREDIT_CARD;
+
 /**
  * Created by arkadiuszarak on 01/10/2016.
  */

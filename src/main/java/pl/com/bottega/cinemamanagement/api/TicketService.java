@@ -18,7 +18,7 @@ public class TicketService {
         this.pdfFacade = pdfFacade;
     }
 
-    public String printTicket(Long reservationNumber){
+    public String printTicket(Long reservationNumber) {
         Reservation reservation = reservationRepository.findReservationByNumber(reservationNumber);
         return pdfFacade.createPdf(reservation);
     }

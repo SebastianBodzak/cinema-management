@@ -1,6 +1,5 @@
 package pl.com.bottega.cinemamanagement.api;
 
-import com.stripe.exception.*;
 import pl.com.bottega.cinemamanagement.api.dtos.PaymentDto;
 import pl.com.bottega.cinemamanagement.domain.Payment;
 import pl.com.bottega.cinemamanagement.domain.Reservation;

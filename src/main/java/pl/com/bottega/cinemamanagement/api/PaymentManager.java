@@ -24,11 +24,11 @@ public class PaymentManager {
     }
 
     @Transactional
-    public CollectPaymentResponse collectPayment(Long reservationNumber, CollectPaymentRequest request){
+    public CollectPaymentResponse collectPayment(Long reservationNumber, CollectPaymentRequest request) {
         Reservation reservation = reservationRepository.findReservationByNumber(reservationNumber);
         if (reservation == null)
             throw new InvalidRequestException("There is no such reservation");
-        if (reservation.getStatus().equals(ReservationStatus.PAID) || reservation.getStatus().equals(ReservationStatus.PAYMENT_FAILED ))
+        if (reservation.getStatus().equals(ReservationStatus.PAID) || reservation.getStatus().equals(ReservationStatus.PAYMENT_FAILED))
             throw new InvalidRequestException("Reservation was payed or canceled");
 
         Payment payment = choosePaymentStrategy(request).pay(request.getPaymentDto(), reservation);
