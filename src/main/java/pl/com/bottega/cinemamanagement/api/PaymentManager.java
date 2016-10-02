@@ -3,6 +3,7 @@ package pl.com.bottega.cinemamanagement.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.com.bottega.cinemamanagement.api.payment.strategies.CreditCardStrategy;
 import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
 import pl.com.bottega.cinemamanagement.domain.Payment;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
@@ -16,25 +17,28 @@ import pl.com.bottega.cinemamanagement.domain.repositories.ReservationRepository
 public class PaymentManager {
     private ReservationRepository reservationRepository;
     private EmailFacade emailFacade;
-    private PaymentStrategy paymentStrategy;
 
-    private PaymentManager(){}
-
-    public PaymentManager(EmailFacade emailFacade, PaymentStrategy paymentStrategy, ReservationRepository reservationRepository) {
+    public PaymentManager(EmailFacade emailFacade, ReservationRepository reservationRepository) {
         this.emailFacade = emailFacade;
-        this.paymentStrategy = paymentStrategy;
         this.reservationRepository = reservationRepository;
     }
 
     @Transactional
-    public void collectPayment(Long reservationNumber, CollectPaymentRequest collectPaymentRequest){
+    public void collectPayment(Long reservationNumber, CollectPaymentRequest request){
         Reservation reservation = reservationRepository.findReservationByNumber(reservationNumber);
         if (reservation == null)
             throw new InvalidRequestException("There is no such reservation");
-        if (!(reservation.getStatus() == ReservationStatus.PAID || reservation.getStatus() == ReservationStatus.PAYMENT_FAILED ))
+        if (reservation.getStatus().equals(ReservationStatus.PAID) || reservation.getStatus().equals(ReservationStatus.PAYMENT_FAILED ))
             throw new InvalidRequestException("Reservation was payed or canceled");
 
-        Payment payment = paymentStrategy.pay(collectPaymentRequest.getPaymentDto(), reservation);
+        Payment payment = choosePaymentStrategy(request).pay(request.getPaymentDto(), reservation);
         reservation.addPayment(payment);
+    }
+
+    private PaymentStrategy choosePaymentStrategy(CollectPaymentRequest request) {
+        if (request.getPaymentDto().getCreditCard() != null)
+            return new CreditCardStrategy();
+        else
+            return new pl.com.bottega.cinemamanagement.api.CashStrategy();
     }
 }

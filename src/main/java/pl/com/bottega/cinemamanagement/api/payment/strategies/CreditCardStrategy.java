@@ -53,7 +53,7 @@ public class CreditCardStrategy implements PaymentStrategy {
         } catch (APIConnectionException e) {
             throw new pl.com.bottega.cinemamanagement.api.InvalidRequestException("APIConnectionException ");
         } catch (CardException e) {
-            throw new pl.com.bottega.cinemamanagement.api.InvalidRequestException("CardException");
+            throw new pl.com.bottega.cinemamanagement.api.InvalidRequestException("CardException" + e.getCode());
         } catch (APIException e) {
             throw new pl.com.bottega.cinemamanagement.api.InvalidRequestException("APIException");
         }
@@ -61,9 +61,5 @@ public class CreditCardStrategy implements PaymentStrategy {
 
     private BigInteger getTotalPriceInCents(BigDecimal bigDecimal) {
         return bigDecimal.multiply(new BigDecimal(100)).toBigInteger();
-    }
-
-    private boolean pay(CreditCard creditCard) {
-        return false;
     }
 }

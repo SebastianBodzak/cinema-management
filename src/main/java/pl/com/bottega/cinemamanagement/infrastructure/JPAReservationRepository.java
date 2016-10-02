@@ -34,8 +34,9 @@ public class JPAReservationRepository implements ReservationRepository {
 
     @Override
     public Reservation findReservationByNumber(Long reservationNumber) {
-        return entityManager.createNamedQuery("Reservation.findReservationByNumber", Reservation.class).
-                setParameter("reservationNumber",reservationNumber).getSingleResult();
+        List<Reservation> result = entityManager.createNamedQuery("Reservation.findReservationByNumber", Reservation.class).
+                setParameter("reservationNumber", reservationNumber).getResultList();
+        return Utils.returnSingleResult(result);
     }
 
     private boolean reservationHasAvailableShow(Reservation reservation) {

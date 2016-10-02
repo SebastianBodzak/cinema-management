@@ -19,6 +19,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
+ * Tests have external dependencies (with Stripe application)
  * Created by Dell on 2016-10-02.
  */
 public class CreditCardStrategyTest {
@@ -43,7 +44,7 @@ public class CreditCardStrategyTest {
         creditCardStrategy = new CreditCardStrategy();
     }
 
-    @Test
+//    @Test
     public void shouldMakeSuccessfulTransaction() {
         CreditCard creditCard = new CreditCard(validCreditCardNumber, expirationMonth, expirationYear, cvc);
         PaymentDto paymentDto = new PaymentDto(cashierId, creditCard, type);
@@ -56,17 +57,7 @@ public class CreditCardStrategyTest {
         assertNotNull(result.getTransactionData().getNumber());
     }
 
-    @Test
-    public void shouldThrowExceptionBecauseAmountIsToSmall() {
-
-    }
-
-    @Test
-    public void shouldThrowExceptionBecauseLackOTransactionArguments() {
-
-    }
-
-    @Test
+//    @Test
     public void shouldDeclineTransactionAndThrowExceptionBecauseOfInvalidCreditCardNumber() throws InvalidRequestException {
         exception.expect(InvalidRequestException.class);
         CreditCard creditCard = new CreditCard(declineCreditCardNumber, expirationMonth, expirationYear, cvc);

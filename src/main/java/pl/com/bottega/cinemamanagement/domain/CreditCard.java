@@ -10,6 +10,8 @@ public class CreditCard {
     private Integer expirationYear;
     private Integer cvc;
 
+    private CreditCard() {}
+
     public CreditCard(String number, Integer expirationMonth, Integer expirationYear, Integer cvc) {
         this.number = number;
         this.expirationMonth = expirationMonth;
