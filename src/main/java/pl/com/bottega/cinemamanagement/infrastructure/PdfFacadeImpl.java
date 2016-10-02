@@ -17,7 +17,8 @@ import java.io.FileOutputStream;
 @Component
 public class PdfFacadeImpl implements PdfFacade {
 
-    public static final String DIRECTORY = "C:\\ticketPdf\\";
+    //public static final String DIRECTORY = "C:\\ticketPdf\\";
+    public static final String DIRECTORY = System.getProperty("user.home") + "/pdf";
 
     @Override
     public String createPdf(Reservation reservation) {
