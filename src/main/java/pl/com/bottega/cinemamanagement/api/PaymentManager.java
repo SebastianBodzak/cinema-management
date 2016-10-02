@@ -34,7 +34,7 @@ public class PaymentManager {
         if (!(reservation.getStatus() == ReservationStatus.PAID || reservation.getStatus() == ReservationStatus.PAYMENT_FAILED ))
             throw new InvalidRequestException("Reservation was payed or canceled");
 
-        Payment payment = paymentStrategy.pay(collectPaymentRequest.getPaymentDto());
+        Payment payment = paymentStrategy.pay(collectPaymentRequest.getPaymentDto(), reservation);
         reservation.addPayment(payment);
     }
 }
