@@ -11,4 +11,16 @@ public class TransactionData {
     private String status;
     private String number;
 
+    public TransactionData(String status, String number) {
+        this.status = status;
+        this.number = number;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getNumber() {
+        return number;
+    }
 }
