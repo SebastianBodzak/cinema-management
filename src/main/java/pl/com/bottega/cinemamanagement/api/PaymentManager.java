@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemamanagement.api.payment.strategies.CreditCardStrategy;
 import pl.com.bottega.cinemamanagement.api.requests.CollectPaymentRequest;
+import pl.com.bottega.cinemamanagement.api.responses.CollectPaymentResponse;
 import pl.com.bottega.cinemamanagement.domain.Payment;
 import pl.com.bottega.cinemamanagement.domain.Reservation;
 import pl.com.bottega.cinemamanagement.domain.ReservationStatus;
@@ -24,7 +25,7 @@ public class PaymentManager {
     }
 
     @Transactional
-    public void collectPayment(Long reservationNumber, CollectPaymentRequest request){
+    public CollectPaymentResponse collectPayment(Long reservationNumber, CollectPaymentRequest request){
         Reservation reservation = reservationRepository.findReservationByNumber(reservationNumber);
         if (reservation == null)
             throw new InvalidRequestException("There is no such reservation");
@@ -33,6 +34,7 @@ public class PaymentManager {
 
         Payment payment = choosePaymentStrategy(request).pay(request.getPaymentDto(), reservation);
         reservation.addPayment(payment);
+        return new CollectPaymentResponse(reservation.getStatus());
     }
 
     private PaymentStrategy choosePaymentStrategy(CollectPaymentRequest request) {
